@@ -120,11 +120,12 @@ export const AnalysisModal = ({
         </p>
       </div>
 
-      <div className="space-y-4">
-        <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors">
-          <Upload className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />
-          <label className="cursor-pointer">
-            <span className="text-sm font-medium">Cliquez pour uploader une image</span>
+      <div className="grid grid-cols-3 gap-4">
+        {/* Option d'upload */}
+        <div className="aspect-square border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
+          <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
+          <label className="cursor-pointer text-center">
+            <span className="text-xs font-medium">Nouvelle image</span>
             <input
               type="file"
               accept="image/*"
@@ -134,15 +135,29 @@ export const AnalysisModal = ({
           </label>
         </div>
 
-        <div className="text-center">
-          <span className="text-sm text-muted-foreground">ou</span>
-        </div>
-
-        <div className="text-center">
-          <Button variant="outline" className="w-full">
-            Sélectionner une image existante
-          </Button>
-        </div>
+        {/* Images existantes - exemples */}
+        {[
+          "/src/assets/portrait-sample-1.jpg",
+          "/src/assets/portrait-sample-2.jpg",
+          "/src/assets/bio-sample-1.jpg",
+          "/src/assets/bio-sample-2.jpg"
+        ].map((imagePath, index) => (
+          <div
+            key={index}
+            className={`aspect-square border-2 rounded-lg overflow-hidden cursor-pointer transition-all hover:border-primary/50 ${
+              selectedImage === imagePath
+                ? 'border-primary bg-primary/5'
+                : 'border-border'
+            }`}
+            onClick={() => setSelectedImage(imagePath)}
+          >
+            <img
+              src={imagePath}
+              alt={`Image ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ))}
       </div>
 
       <div className="flex justify-between">
