@@ -90,28 +90,46 @@ const Dashboard = () => {
         </div>
 
         {/* Filtres */}
-        <div className="flex flex-wrap gap-4 mb-6">
-          <Select value={statusFilter} onValueChange={setStatusFilter}>
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Statut" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="tous">Tous</SelectItem>
-              <SelectItem value="en-cours">En cours</SelectItem>
-              <SelectItem value="terminé">Terminé</SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="flex flex-wrap gap-6 mb-6">
+          {/* Filtre Statut */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-muted-foreground">Statut</label>
+            <div className="flex gap-2">
+              {['tous', 'en-cours', 'terminé'].map((status) => (
+                <button
+                  key={status}
+                  onClick={() => setStatusFilter(status)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    statusFilter === status
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground'
+                  }`}
+                >
+                  {status === 'tous' ? 'Tous' : status === 'en-cours' ? 'En cours' : 'Terminé'}
+                </button>
+              ))}
+            </div>
+          </div>
 
-          <Select value={typeFilter} onValueChange={setTypeFilter}>
-            <SelectTrigger className="w-40">
-              <SelectValue placeholder="Type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="tous">Tous</SelectItem>
-              <SelectItem value="photo">Photo</SelectItem>
-              <SelectItem value="bio">Bio</SelectItem>
-            </SelectContent>
-          </Select>
+          {/* Filtre Type */}
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-muted-foreground">Type</label>
+            <div className="flex gap-2">
+              {['tous', 'photo', 'bio'].map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setTypeFilter(type)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    typeFilter === type
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground'
+                  }`}
+                >
+                  {type === 'tous' ? 'Tous' : type === 'photo' ? 'Photo' : 'Bio'}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Grille d'analyses */}
