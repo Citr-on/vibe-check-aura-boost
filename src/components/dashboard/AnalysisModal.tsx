@@ -433,40 +433,58 @@ export const AnalysisModal = ({
 
         <div>
           <label className="text-sm font-medium mb-3 block">Origine ethnique</label>
-          <Select value={ethnicity} onValueChange={setEthnicity}>
-            <SelectTrigger>
-              <SelectValue placeholder="Sélectionnez une origine" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Toutes</SelectItem>
-              <SelectItem value="caucasian">Caucasien</SelectItem>
-              <SelectItem value="asian">Asiatique</SelectItem>
-              <SelectItem value="african">Africain</SelectItem>
-              <SelectItem value="hispanic">Hispanique</SelectItem>
-              <SelectItem value="middle-eastern">Moyen-oriental</SelectItem>
-              <SelectItem value="mixed">Métissé</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { value: 'all', label: 'Toutes' },
+              { value: 'caucasian', label: 'Caucasien' },
+              { value: 'asian', label: 'Asiatique' },
+              { value: 'african', label: 'Africain' },
+              { value: 'hispanic', label: 'Hispanique' },
+              { value: 'middle-eastern', label: 'Moyen-oriental' },
+              { value: 'mixed', label: 'Métissé' }
+            ].map((option) => (
+              <button
+                key={option.value}
+                onClick={() => setEthnicity(option.value)}
+                className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                  ethnicity === option.value
+                    ? 'border-primary bg-primary text-white'
+                    : 'border-border hover:border-primary/50 hover:bg-primary/5'
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div>
           <label className="text-sm font-medium mb-3 block">Religion</label>
-          <Select value={religion} onValueChange={setReligion}>
-            <SelectTrigger>
-              <SelectValue placeholder="Sélectionnez une religion" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Toutes</SelectItem>
-              <SelectItem value="catholic">Catholique</SelectItem>
-              <SelectItem value="protestant">Protestant</SelectItem>
-              <SelectItem value="muslim">Musulman</SelectItem>
-              <SelectItem value="jewish">Juif</SelectItem>
-              <SelectItem value="hindu">Hindou</SelectItem>
-              <SelectItem value="buddhist">Bouddhiste</SelectItem>
-              <SelectItem value="agnostic">Agnostique</SelectItem>
-              <SelectItem value="atheist">Athée</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { value: 'all', label: 'Toutes' },
+              { value: 'catholic', label: 'Catholique' },
+              { value: 'protestant', label: 'Protestant' },
+              { value: 'muslim', label: 'Musulman' },
+              { value: 'jewish', label: 'Juif' },
+              { value: 'hindu', label: 'Hindou' },
+              { value: 'buddhist', label: 'Bouddhiste' },
+              { value: 'agnostic', label: 'Agnostique' },
+              { value: 'atheist', label: 'Athée' }
+            ].map((option) => (
+              <button
+                key={option.value}
+                onClick={() => setReligion(option.value)}
+                className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                  religion === option.value
+                    ? 'border-primary bg-primary text-white'
+                    : 'border-border hover:border-primary/50 hover:bg-primary/5'
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div>
