@@ -81,14 +81,14 @@ export const AnalysisModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-2xl font-heading">
             Choisissez votre type d'analyse
           </DialogTitle>
         </DialogHeader>
 
-        <div className="grid gap-4 mt-6">
+        <div className="grid gap-4 mt-6 overflow-y-auto flex-1 pr-2">
           {analysisOptions.map((option) => {
             const affordable = canAfford(option);
             
