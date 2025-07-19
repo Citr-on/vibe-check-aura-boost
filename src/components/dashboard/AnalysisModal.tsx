@@ -110,7 +110,7 @@ export const AnalysisModal = ({
   const premiumOptions = analysisOptions.filter(option => option.isPremium);
 
   const renderUploadStep = () => (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="text-center">
         <h3 className="text-lg font-heading font-semibold mb-2">
           Sélectionnez une image à analyser
