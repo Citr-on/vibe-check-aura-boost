@@ -273,11 +273,11 @@ export const AnalysisModal = ({
                 {option.features.map((feature, index) => (
                     <div
                       key={index}
-                      className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1 group-hover:bg-white/20 group-hover:text-white transition-colors"
+                      className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1 group-hover:bg-white group-hover:text-black transition-colors"
                     >
-                      {feature.includes('prioritaire') && <Zap className="w-3 h-3 group-hover:text-white transition-colors" />}
-                      {feature.includes('avis') && <Users className="w-3 h-3 group-hover:text-white transition-colors" />}
-                      {feature.includes('standard') && <Clock className="w-3 h-3 group-hover:text-white transition-colors" />}
+                      {feature.includes('prioritaire') && <Zap className="w-3 h-3 group-hover:text-black transition-colors" />}
+                      {feature.includes('avis') && <Users className="w-3 h-3 group-hover:text-black transition-colors" />}
+                      {feature.includes('standard') && <Clock className="w-3 h-3 group-hover:text-black transition-colors" />}
                       <span>{feature}</span>
                   </div>
                 ))}
