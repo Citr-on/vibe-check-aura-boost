@@ -271,14 +271,14 @@ export const AnalysisModal = ({
 
               <div className="flex flex-wrap gap-2">
                 {option.features.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1"
-                  >
-                    {feature.includes('prioritaire') && <Zap className="w-3 h-3" />}
-                    {feature.includes('avis') && <Users className="w-3 h-3" />}
-                    {feature.includes('standard') && <Clock className="w-3 h-3" />}
-                    <span>{feature}</span>
+                    <div
+                      key={index}
+                      className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1 group-hover:bg-white/20 group-hover:text-white transition-colors"
+                    >
+                      {feature.includes('prioritaire') && <Zap className="w-3 h-3 group-hover:text-white transition-colors" />}
+                      {feature.includes('avis') && <Users className="w-3 h-3 group-hover:text-white transition-colors" />}
+                      {feature.includes('standard') && <Clock className="w-3 h-3 group-hover:text-white transition-colors" />}
+                      <span>{feature}</span>
                   </div>
                 ))}
               </div>
