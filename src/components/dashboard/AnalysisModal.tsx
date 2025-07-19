@@ -110,7 +110,7 @@ export const AnalysisModal = ({
   const premiumOptions = analysisOptions.filter(option => option.isPremium);
 
   const renderUploadStep = () => (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="text-center">
         <h3 className="text-lg font-heading font-semibold mb-2">
           Sélectionnez une image à analyser
@@ -176,7 +176,7 @@ export const AnalysisModal = ({
   );
 
   const renderSelectionStep = () => (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="text-center">
         <h3 className="text-lg font-heading font-semibold mb-2">
           Choisissez votre type d'analyse
@@ -246,10 +246,10 @@ export const AnalysisModal = ({
           return (
             <div
               key={option.id}
-              className={`p-4 border rounded-xl transition-all cursor-pointer hover:border-primary/50 hover:bg-primary/5 ${
+              className={`p-3 border rounded-xl transition-all cursor-pointer group ${
                 selectedOption === option.id
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border'
+                  ? 'border-primary bg-primary text-white'
+                  : 'border-border hover:border-primary hover:bg-primary hover:text-white'
               } ${!affordable ? 'opacity-60' : ''}`}
               onClick={() => affordable && handleOptionSelect(option.id)}
             >
@@ -258,13 +258,13 @@ export const AnalysisModal = ({
                   <h3 className="font-heading font-semibold mb-1">
                     {option.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm group-hover:text-white/80 transition-colors">
                     {option.description}
                   </p>
                 </div>
                 
-                <div className="flex items-center space-x-2 text-sm font-medium">
-                  <Gem className="w-4 h-4 text-primary" />
+                <div className="flex items-center space-x-2 text-sm font-medium group-hover:text-white transition-colors">
+                  <Gem className="w-4 h-4 group-hover:text-white transition-colors" />
                   <span>{option.cost.amount} Crédits</span>
                 </div>
               </div>
