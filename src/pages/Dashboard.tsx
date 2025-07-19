@@ -40,6 +40,17 @@ const mockAnalyses: Analysis[] = [
     score: 6.8,
     votesReceived: 20,
     totalVotes: 20
+  },
+  {
+    id: '4',
+    type: 'profil-complet',
+    title: 'Analyse complète de profil',
+    status: 'en-cours',
+    isPremium: true,
+    createdAt: '2024-01-22T16:30:00Z',
+    progress: 45,
+    votesReceived: 18,
+    totalVotes: 40
   }
 ];
 
@@ -102,7 +113,7 @@ const Dashboard = () => {
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     statusFilter === status
                       ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground'
+                      : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground border border-border'
                   }`}
                 >
                   {status === 'tous' ? 'Tous' : status === 'en-cours' ? 'En cours' : 'Terminé'}
@@ -115,17 +126,17 @@ const Dashboard = () => {
           <div className="space-y-2">
             <label className="text-sm font-medium text-muted-foreground">Type</label>
             <div className="flex gap-2">
-              {['tous', 'photo', 'bio'].map((type) => (
+              {['tous', 'photo', 'bio', 'profil-complet'].map((type) => (
                 <button
                   key={type}
                   onClick={() => setTypeFilter(type)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     typeFilter === type
                       ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground'
+                      : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground border border-border'
                   }`}
                 >
-                  {type === 'tous' ? 'Tous' : type === 'photo' ? 'Photo' : 'Bio'}
+                  {type === 'tous' ? 'Tous' : type === 'photo' ? 'Photo' : type === 'bio' ? 'Bio' : 'Profil complet'}
                 </button>
               ))}
             </div>
