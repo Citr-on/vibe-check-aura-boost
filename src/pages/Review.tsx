@@ -10,26 +10,96 @@ const Review = () => {
   const [credits] = useState(150);
   const [aura] = useState(3.5);
   
+  const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
   const [feelingScore, setFeelingScore] = useState([5]);
   const [vibeScore, setVibeScore] = useState([5]);
   const [intrigueScore, setIntrigueScore] = useState([5]);
   const [positiveComment, setPositiveComment] = useState("");
   const [improvementComment, setImprovementComment] = useState("");
 
+  // Profils à reviewer
+  const profiles = [
+    {
+      id: 1,
+      name: "Emma",
+      age: 25,
+      gender: "Femme",
+      searchType: "Relation sérieuse",
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=500&fit=crop&crop=face"
+    },
+    {
+      id: 2,
+      name: "Lucas",
+      age: 28,
+      gender: "Homme",
+      searchType: "Relation décontractée",
+      image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=400&h=500&fit=crop&crop=face"
+    },
+    {
+      id: 3,
+      name: "Sophie",
+      age: 32,
+      gender: "Femme",
+      searchType: "Amitié",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=500&fit=crop&crop=face"
+    },
+    {
+      id: 4,
+      name: "Thomas",
+      age: 26,
+      gender: "Homme",
+      searchType: "Relation sérieuse",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face"
+    },
+    {
+      id: 5,
+      name: "Clara",
+      age: 24,
+      gender: "Femme",
+      searchType: "Rencontres",
+      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=500&fit=crop&crop=face"
+    }
+  ];
+
+  const currentProfile = profiles[currentProfileIndex];
+
   const handleSubmit = () => {
     console.log({
+      profile: currentProfile.name,
       feelingScore: feelingScore[0],
       vibeScore: vibeScore[0],
       intrigueScore: intrigueScore[0],
       positiveComment,
       improvementComment
     });
-    // Ici on ajouterait la logique pour soumettre l'avis
+    // Passer au profil suivant
+    nextProfile();
   };
 
   const handleSkip = () => {
-    console.log("Skipped review");
-    // Ici on chargerait le prochain profil à reviewer
+    console.log("Skipped review for", currentProfile.name);
+    nextProfile();
+  };
+
+  const nextProfile = () => {
+    if (currentProfileIndex < profiles.length - 1) {
+      setCurrentProfileIndex(currentProfileIndex + 1);
+      // Reset les champs pour le nouveau profil
+      setFeelingScore([5]);
+      setVibeScore([5]);
+      setIntrigueScore([5]);
+      setPositiveComment("");
+      setImprovementComment("");
+    } else {
+      // Fin des profils, retourner au premier ou afficher un message
+      setCurrentProfileIndex(0);
+      setFeelingScore([5]);
+      setVibeScore([5]);
+      setIntrigueScore([5]);
+      setPositiveComment("");
+      setImprovementComment("");
+      console.log("Tous les profils ont été reviewés !");
+    }
   };
 
   const positiveChips = [
@@ -75,17 +145,17 @@ const Review = () => {
               <CardTitle className="text-center">Photo à analyser</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="aspect-[3/4] bg-muted rounded-xl flex items-center justify-center mb-4">
-                <div className="text-center text-muted-foreground">
-                  <div className="w-16 h-16 bg-muted-foreground/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                    <Heart className="w-8 h-8" />
-                  </div>
-                  <p>Photo de profil</p>
-                </div>
+              <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden mb-4">
+                <img 
+                  src={currentProfile.image} 
+                  alt={`Photo de ${currentProfile.name}`}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="text-center text-sm text-muted-foreground">
-                <p>Homme, 28 ans</p>
-                <p>Recherche: Relation sérieuse</p>
+                <p>{currentProfile.gender}, {currentProfile.age} ans</p>
+                <p>Recherche: {currentProfile.searchType}</p>
+                <p className="text-xs mt-1">Profil {currentProfileIndex + 1} sur {profiles.length}</p>
               </div>
             </CardContent>
           </Card>
@@ -209,7 +279,6 @@ const Review = () => {
                 <Button 
                   onClick={handleSubmit}
                   className="flex-1 bg-primary hover:bg-primary/90 rounded-xl"
-                  disabled={!positiveComment.trim() || !improvementComment.trim()}
                 >
                   <Sparkles className="w-4 h-4 mr-2" />
                   Soumettre & Gagner de l'Aura
