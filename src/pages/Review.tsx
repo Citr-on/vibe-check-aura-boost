@@ -32,18 +32,36 @@ const Review = () => {
     // Ici on chargerait le prochain profil à reviewer
   };
 
+  const positiveChips = [
+    { label: "Style", text: "J'aime son style vestimentaire" },
+    { label: "Sourire", text: "Beau sourire !" },
+    { label: "Date", text: "J'accepterais carrément un date avec lui/elle !" },
+    { label: "Super photo", text: "Super photo !" },
+    { label: "Charme", text: "Beaucoup de charme" },
+    { label: "Naturel", text: "Photo très naturelle" }
+  ];
+
+  const improvementChips = [
+    { label: "Cadre", text: "Je changerais le cadrage de la photo" },
+    { label: "Gêné", text: "La personne a l'air mal à l'aise sur cette photo" },
+    { label: "Arrière-plan", text: "L'arrière-plan distrait l'attention" },
+    { label: "Lunettes", text: "Je préférerais sans lunettes de soleil" },
+    { label: "Éclairage", text: "L'éclairage pourrait être amélioré" },
+    { label: "Angle", text: "Un angle différent serait plus flatteur" }
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Header credits={credits} aura={aura} />
       
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         {/* En-tête */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-heading font-bold text-foreground mb-4">
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-heading font-bold text-foreground mb-2">
             Donner un avis
           </h1>
-          <div className="flex items-center justify-center space-x-2 text-muted-foreground mb-2">
-            <Sparkles className="w-5 h-5 text-accent" />
+          <div className="flex items-center justify-center space-x-2 text-muted-foreground text-sm">
+            <Sparkles className="w-4 h-4 text-accent" />
             <span>Votre avis est précieux. Aidez un membre et gagnez</span>
             <span className="font-semibold text-accent">0.1 Aura ✨</span>
             <span>pour chaque review de qualité.</span>
@@ -146,8 +164,19 @@ const Review = () => {
                     onChange={(e) => setPositiveComment(e.target.value)}
                     placeholder="Partagez ce qui vous plaît dans cette photo/bio..."
                     className="resize-none rounded-xl"
-                    rows={3}
+                    rows={2}
                   />
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {positiveChips.map((chip) => (
+                      <button
+                        key={chip.label}
+                        onClick={() => setPositiveComment(chip.text)}
+                        className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                      >
+                        {chip.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <div>
@@ -159,8 +188,19 @@ const Review = () => {
                     onChange={(e) => setImprovementComment(e.target.value)}
                     placeholder="Donnez un conseil constructif et bienveillant..."
                     className="resize-none rounded-xl"
-                    rows={3}
+                    rows={2}
                   />
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {improvementChips.map((chip) => (
+                      <button
+                        key={chip.label}
+                        onClick={() => setImprovementComment(chip.text)}
+                        className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                      >
+                        {chip.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
