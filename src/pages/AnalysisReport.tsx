@@ -82,7 +82,7 @@ const AnalysisReport = () => {
               <CardTitle>Photo analysée</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="aspect-[3/4] bg-muted rounded-xl flex items-center justify-center">
+              <div className="aspect-[4/3] bg-muted rounded-xl flex items-center justify-center">
                 <div className="text-center text-muted-foreground">
                   <Heart className="w-12 h-12 mx-auto mb-2" />
                   <p>Photo de profil</p>
