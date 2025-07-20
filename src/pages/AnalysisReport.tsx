@@ -229,7 +229,7 @@ const AnalysisReport = () => {
 
             {/* Points forts et faibles combinés */}
             {!isStandardAnalysis && (
-              <div className="space-y-6">
+              <div className="space-y-6 h-full flex flex-col justify-between">
                 <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-green-600">
