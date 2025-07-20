@@ -130,8 +130,8 @@ const Review = () => {
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Élément à analyser */}
           <Card className="rounded-2xl shadow-card">
-            <CardHeader>
-              <CardTitle className="text-center">Photo à analyser</CardTitle>
+            <CardHeader className="sr-only">
+              <CardTitle>Photo à analyser</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden mb-4">
@@ -180,12 +180,12 @@ const Review = () => {
             <CardContent className="space-y-6">
               {/* Jauges de notation */}
               <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 font-medium">
+                <div className="flex items-center">
+                  <div className="flex items-center space-x-2 font-medium w-24">
                     <Heart className="w-4 h-4 text-red-500" />
                     <span>Feeling</span>
                   </div>
-                  <div className="flex items-center space-x-3 flex-1 ml-4">
+                  <div className="flex items-center space-x-3 flex-1">
                     <Slider
                       value={feelingScore}
                       onValueChange={setFeelingScore}
@@ -203,12 +203,12 @@ const Review = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 font-medium">
+                <div className="flex items-center">
+                  <div className="flex items-center space-x-2 font-medium w-24">
                     <Zap className="w-4 h-4 text-accent" />
                     <span>Vibe</span>
                   </div>
-                  <div className="flex items-center space-x-3 flex-1 ml-4">
+                  <div className="flex items-center space-x-3 flex-1">
                     <Slider
                       value={vibeScore}
                       onValueChange={setVibeScore}
@@ -226,12 +226,12 @@ const Review = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 font-medium">
+                <div className="flex items-center">
+                  <div className="flex items-center space-x-2 font-medium w-24">
                     <MessageSquare className="w-4 h-4 text-primary" />
                     <span>Intrigue</span>
                   </div>
-                  <div className="flex items-center space-x-3 flex-1 ml-4">
+                  <div className="flex items-center space-x-3 flex-1">
                     <Slider
                       value={intrigueScore}
                       onValueChange={setIntrigueScore}
@@ -254,7 +254,7 @@ const Review = () => {
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Ce que j'aime le plus...
+                    Ce que j'aime le plus... <span className="text-muted-foreground font-normal">facultatif</span>
                   </label>
                   <Textarea
                     value={positiveComment}
@@ -278,7 +278,7 @@ const Review = () => {
 
                 <div>
                   <label className="block text-sm font-medium mb-2">
-                    Un conseil pour améliorer...
+                    Un conseil pour améliorer... <span className="text-muted-foreground font-normal">facultatif</span>
                   </label>
                   <Textarea
                     value={improvementComment}
@@ -320,9 +320,6 @@ const Review = () => {
                 </Button>
               </div>
 
-              <div className="text-xs text-muted-foreground text-center">
-                Vos avis doivent être constructifs et respectueux pour être récompensés
-              </div>
             </CardContent>
           </Card>
         </div>
