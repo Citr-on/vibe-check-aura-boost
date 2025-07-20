@@ -6,15 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
   ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell
+  RadarChart,
+  Radar,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis
 } from "recharts";
 import { Heart, Zap, MessageSquare, Lock, Gem, TrendingUp, TrendingDown } from "lucide-react";
 
@@ -27,9 +24,9 @@ const AnalysisReport = () => {
   const isStandardAnalysis = id === '2'; // L'analyse en cours dans notre mock
 
   const scoreData = [
-    { name: 'Feeling', score: 8.2, color: '#ef4444' },
-    { name: 'Vibe', score: 7.8, color: '#F7B538' },
-    { name: 'Intrigue', score: 6.9, color: '#48D1CC' }
+    { name: 'Feeling', score: 2.8, fullMark: 3 },
+    { name: 'Vibe', score: 2.6, fullMark: 3 },
+    { name: 'Intrigue', score: 2.1, fullMark: 3 }
   ];
 
   const demographicData = [
@@ -77,56 +74,117 @@ const AnalysisReport = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        {/* Photo analysée et Synthèse IA */}
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
           {/* Photo analysée */}
-          <div className="lg:col-span-1">
-            <Card className="rounded-2xl shadow-card sticky top-8">
-              <CardHeader>
-                <CardTitle>Photo analysée</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="aspect-[3/4] bg-muted rounded-xl flex items-center justify-center mb-4">
-                  <div className="text-center text-muted-foreground">
-                    <Heart className="w-12 h-12 mx-auto mb-2" />
-                    <p>Photo de profil</p>
-                  </div>
+          <Card className="rounded-2xl shadow-card">
+            <CardHeader>
+              <CardTitle>Photo analysée</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="aspect-[3/4] bg-muted rounded-xl flex items-center justify-center">
+                <div className="text-center text-muted-foreground">
+                  <Heart className="w-12 h-12 mx-auto mb-2" />
+                  <p>Photo de profil</p>
                 </div>
-                
-                {/* Score global */}
-                <div className="text-center mb-4">
-                  <div className="text-4xl font-bold text-primary mb-2">
-                    {isStandardAnalysis ? '7.6' : '8.2'}/10
-                  </div>
-                  <div className="text-sm text-muted-foreground">Score Aura global</div>
-                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span>Avis reçus</span>
-                    <span>{isStandardAnalysis ? '13/20' : '50/50'}</span>
-                  </div>
-                  <Progress value={isStandardAnalysis ? 65 : 100} className="h-2" />
+          {/* Synthèse IA */}
+          <Card className="rounded-2xl shadow-card">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <span>Synthèse par IA</span>
+                {isStandardAnalysis && <Lock className="w-5 h-5 text-muted-foreground" />}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {/* Score global */}
+              <div className="text-center mb-6">
+                <div className="text-4xl font-bold text-primary mb-2">
+                  {isStandardAnalysis ? '7.6' : '8.2'}/10
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+                <div className="text-sm text-muted-foreground">Score Aura global</div>
+              </div>
 
-          {/* Contenu principal */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Scores détaillés */}
+              {isStandardAnalysis ? (
+                <div className="relative">
+                  <div className="blur-sm text-muted-foreground">
+                    <p className="mb-4">
+                      Votre photo de profil dégage une impression globalement positive avec un score de 7.6/10. 
+                      Les utilisateurs apprécient particulièrement votre sourire naturel et votre expression confiante...
+                    </p>
+                    <p>
+                      Pour optimiser votre profil, nous recommandons d'ajuster l'angle de prise de vue et de choisir un arrière-plan plus neutre...
+                    </p>
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="bg-card border rounded-xl p-6 text-center max-w-sm">
+                      <Lock className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />
+                      <h3 className="font-semibold mb-2">Synthèse verrouillée</h3>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Révélez la synthèse de notre IA et nos conseils personnalisés.
+                      </p>
+                      <Button className="w-full">
+                        <Gem className="w-4 h-4 mr-2" />
+                        Débloquer avec 25 Crédits
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <p>
+                    Votre photo de profil dégage une impression globalement très positive avec un score de 8.2/10. 
+                    Les utilisateurs apprécient particulièrement votre sourire naturel et votre expression confiante, 
+                    qui transmettent une image accessible et authentique.
+                  </p>
+                  <p>
+                    L'éclairage et la qualité de la photo sont excellents, ce qui contribue à créer une première 
+                    impression favorable. Votre style vestimentaire est apprécié et correspond aux attentes de votre tranche d'âge.
+                  </p>
+                  <p>
+                    Pour optimiser encore votre profil, nous recommandons d'ajuster légèrement l'angle de prise de vue 
+                    pour éviter la contre-plongée et de choisir un arrière-plan plus neutre qui mettra davantage en valeur votre visage.
+                  </p>
+                  <Button className="w-full mt-4 bg-gradient-hero hover:opacity-90 text-white rounded-xl">
+                    Améliorer ta photo avec notre IA
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="space-y-8">
+          {/* Graphique Radar et Points forts/amélioration */}
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Graphique Radar */}
             <Card className="rounded-2xl shadow-card">
               <CardHeader>
-                <CardTitle>Scores détaillés</CardTitle>
+                <CardTitle>Analyse Radar</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={scoreData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
-                      <YAxis domain={[0, 10]} />
-                      <Bar dataKey="score" fill="#48D1CC" radius={[4, 4, 0, 0]} />
-                    </BarChart>
+                    <RadarChart data={scoreData}>
+                      <PolarGrid />
+                      <PolarAngleAxis dataKey="name" />
+                      <PolarRadiusAxis 
+                        angle={90} 
+                        domain={[0, 3]} 
+                        tick={false}
+                      />
+                      <Radar
+                        name="Score"
+                        dataKey="score"
+                        stroke="#48D1CC"
+                        fill="#48D1CC"
+                        fillOpacity={0.3}
+                        strokeWidth={2}
+                      />
+                    </RadarChart>
                   </ResponsiveContainer>
                 </div>
 
@@ -138,7 +196,12 @@ const AnalysisReport = () => {
                         {item.name === 'Vibe' && <Zap className="w-5 h-5 text-accent" />}
                         {item.name === 'Intrigue' && <MessageSquare className="w-5 h-5 text-primary" />}
                       </div>
-                      <div className="font-semibold text-lg">{item.score}/10</div>
+                      <div className="font-semibold text-lg">
+                        {item.score === 0 && "Non"}
+                        {item.score === 1 && "Un peu"}
+                        {item.score === 2 && "Oui"}
+                        {item.score === 3 && "Totalement"}
+                      </div>
                       <div className="text-xs text-muted-foreground">{item.name}</div>
                     </div>
                   ))}
@@ -146,118 +209,9 @@ const AnalysisReport = () => {
               </CardContent>
             </Card>
 
-            {/* Répartition démographique */}
-            <Card className="rounded-2xl shadow-card">
-              <CardHeader>
-                <CardTitle>Répartition des avis par âge</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="h-48">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                      <Pie
-                        data={demographicData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={40}
-                        outerRadius={80}
-                        dataKey="value"
-                      >
-                        {demographicData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                      </Pie>
-                    </PieChart>
-                  </ResponsiveContainer>
-                </div>
-                
-                <div className="flex justify-center space-x-6 mt-4">
-                  {demographicData.map((item, index) => (
-                    <div key={index} className="flex items-center space-x-2">
-                      <div 
-                        className="w-3 h-3 rounded-full" 
-                        style={{ backgroundColor: item.color }}
-                      />
-                      <span className="text-sm">{item.name}: {item.value}%</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Mots-clés */}
-            <Card className="rounded-2xl shadow-card">
-              <CardHeader>
-                <CardTitle>Mots-clés récurrents</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {keywordData.map((keyword, index) => (
-                    <Badge key={index} variant="outline" className="rounded-full">
-                      {keyword}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Synthèse IA */}
-            <Card className="rounded-2xl shadow-card">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <span>Synthèse par IA</span>
-                  {isStandardAnalysis && <Lock className="w-5 h-5 text-muted-foreground" />}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isStandardAnalysis ? (
-                  <div className="relative">
-                    <div className="blur-sm text-muted-foreground">
-                      <p className="mb-4">
-                        Votre photo de profil dégage une impression globalement positive avec un score de 7.6/10. 
-                        Les utilisateurs apprécient particulièrement votre sourire naturel et votre expression confiante...
-                      </p>
-                      <p>
-                        Pour optimiser votre profil, nous recommandons d'ajuster l'angle de prise de vue et de choisir un arrière-plan plus neutre...
-                      </p>
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="bg-card border rounded-xl p-6 text-center max-w-sm">
-                        <Lock className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />
-                        <h3 className="font-semibold mb-2">Synthèse verrouillée</h3>
-                        <p className="text-sm text-muted-foreground mb-4">
-                          Révélez la synthèse de notre IA et nos conseils personnalisés.
-                        </p>
-                        <Button className="w-full">
-                          <Gem className="w-4 h-4 mr-2" />
-                          Débloquer avec 25 Crédits
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-4">
-                    <p>
-                      Votre photo de profil dégage une impression globalement très positive avec un score de 8.2/10. 
-                      Les utilisateurs apprécient particulièrement votre sourire naturel et votre expression confiante, 
-                      qui transmettent une image accessible et authentique.
-                    </p>
-                    <p>
-                      L'éclairage et la qualité de la photo sont excellents, ce qui contribue à créer une première 
-                      impression favorable. Votre style vestimentaire est apprécié et correspond aux attentes de votre tranche d'âge.
-                    </p>
-                    <p>
-                      Pour optimiser encore votre profil, nous recommandons d'ajuster légèrement l'angle de prise de vue 
-                      pour éviter la contre-plongée et de choisir un arrière-plan plus neutre qui mettra davantage en valeur votre visage.
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Points forts et faibles */}
+            {/* Points forts et faibles combinés */}
             {!isStandardAnalysis && (
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-6">
                 <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-green-600">
@@ -301,6 +255,24 @@ const AnalysisReport = () => {
                 </Card>
               </div>
             )}
+          </div>
+
+            {/* Mots-clés */}
+            <Card className="rounded-2xl shadow-card">
+              <CardHeader>
+                <CardTitle>Mots-clés récurrents</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {keywordData.map((keyword, index) => (
+                    <Badge key={index} variant="outline" className="rounded-full">
+                      {keyword}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
 
             {/* CTA Services Experts */}
             {!isStandardAnalysis && (
@@ -319,7 +291,6 @@ const AnalysisReport = () => {
               </Card>
             )}
           </div>
-        </div>
       </main>
     </div>
   );

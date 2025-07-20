@@ -4,16 +4,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
-import { Sparkles, Heart, Zap, MessageSquare, ArrowRight } from "lucide-react";
+import { Sparkles, Heart, Zap, MessageSquare, ArrowRight, Info } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const Review = () => {
   const [credits] = useState(150);
   const [aura] = useState(3.5);
   
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
-  const [feelingScore, setFeelingScore] = useState([5]);
-  const [vibeScore, setVibeScore] = useState([5]);
-  const [intrigueScore, setIntrigueScore] = useState([5]);
+  const [feelingScore, setFeelingScore] = useState([1]);
+  const [vibeScore, setVibeScore] = useState([1]);
+  const [intrigueScore, setIntrigueScore] = useState([1]);
   const [positiveComment, setPositiveComment] = useState("");
   const [improvementComment, setImprovementComment] = useState("");
 
@@ -85,17 +86,17 @@ const Review = () => {
     if (currentProfileIndex < profiles.length - 1) {
       setCurrentProfileIndex(currentProfileIndex + 1);
       // Reset les champs pour le nouveau profil
-      setFeelingScore([5]);
-      setVibeScore([5]);
-      setIntrigueScore([5]);
+      setFeelingScore([1]);
+      setVibeScore([1]);
+      setIntrigueScore([1]);
       setPositiveComment("");
       setImprovementComment("");
     } else {
       // Fin des profils, retourner au premier ou afficher un message
       setCurrentProfileIndex(0);
-      setFeelingScore([5]);
-      setVibeScore([5]);
-      setIntrigueScore([5]);
+      setFeelingScore([1]);
+      setVibeScore([1]);
+      setIntrigueScore([1]);
       setPositiveComment("");
       setImprovementComment("");
       console.log("Tous les profils ont été reviewés !");
@@ -125,18 +126,6 @@ const Review = () => {
       <Header credits={credits} aura={aura} />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        {/* En-tête */}
-        <div className="text-center mb-6">
-          <h1 className="text-2xl font-heading font-bold text-foreground mb-2">
-            Donner un avis
-          </h1>
-          <div className="flex items-center justify-center space-x-2 text-muted-foreground text-sm">
-            <Sparkles className="w-4 h-4 text-accent" />
-            <span>Votre avis est précieux. Aidez un membre et gagnez</span>
-            <span className="font-semibold text-accent">0.1 Aura ✨</span>
-            <span>pour chaque review de qualité.</span>
-          </div>
-        </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Élément à analyser */}
@@ -152,74 +141,112 @@ const Review = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="text-center text-sm text-muted-foreground">
-                <p>{currentProfile.gender}, {currentProfile.age} ans</p>
-                <p>Recherche: {currentProfile.searchType}</p>
-                <p className="text-xs mt-1">Profil {currentProfileIndex + 1} sur {profiles.length}</p>
-              </div>
             </CardContent>
           </Card>
 
           {/* Panneau de notation */}
           <Card className="rounded-2xl shadow-card">
             <CardHeader>
-              <CardTitle>Votre évaluation</CardTitle>
+              <CardTitle className="flex items-center justify-between">
+                <span>Votre évaluation</span>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button className="text-muted-foreground hover:text-foreground transition-colors">
+                      <Info className="w-4 h-4" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 pointer-events-auto">
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-sm">Guide de l'évaluation</h4>
+                      <p className="text-xs text-muted-foreground">
+                        Donnez un avis constructif et gagnez <span className="text-accent font-medium">0.1 Aura ✨</span> pour chaque évaluation validée.
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Seuls les retours utiles et respectueux sont récompensés. Les insultes, trolls ou avis "à la chaîne" ne seront pas pris en compte.
+                      </p>
+                      <div className="space-y-2">
+                        <h5 className="font-medium text-xs">Les Critères :</h5>
+                        <div className="space-y-1 text-xs text-muted-foreground">
+                          <p><span className="font-medium">Feeling :</span> Votre première impression. La personne est-elle attirante, bien mise en valeur ?</p>
+                          <p><span className="font-medium">Vibe :</span> La personnalité qui se dégage. Le profil semble-t-il authentique, fun, sincère ?</p>
+                          <p><span className="font-medium">Intrigue :</span> L'envie d'aller plus loin. Le profil donne-t-il envie d'engager la conversation ?</p>
+                        </div>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Jauges de notation */}
               <div className="space-y-4">
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="flex items-center space-x-2 font-medium">
-                      <Heart className="w-4 h-4 text-red-500" />
-                      <span>Feeling</span>
-                    </label>
-                    <span className="text-sm text-muted-foreground">{feelingScore[0]}/10</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 font-medium">
+                    <Heart className="w-4 h-4 text-red-500" />
+                    <span>Feeling</span>
                   </div>
-                  <Slider
-                    value={feelingScore}
-                    onValueChange={setFeelingScore}
-                    max={10}
-                    min={1}
-                    step={1}
-                    className="w-full"
-                  />
+                  <div className="flex items-center space-x-3 flex-1 ml-4">
+                    <Slider
+                      value={feelingScore}
+                      onValueChange={setFeelingScore}
+                      max={3}
+                      min={0}
+                      step={1}
+                      className="flex-1"
+                    />
+                    <span className="text-sm text-muted-foreground min-w-16">
+                      {feelingScore[0] === 0 && "Non"}
+                      {feelingScore[0] === 1 && "Un peu"}
+                      {feelingScore[0] === 2 && "Oui"}
+                      {feelingScore[0] === 3 && "Totalement"}
+                    </span>
+                  </div>
                 </div>
 
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="flex items-center space-x-2 font-medium">
-                      <Zap className="w-4 h-4 text-accent" />
-                      <span>Vibe</span>
-                    </label>
-                    <span className="text-sm text-muted-foreground">{vibeScore[0]}/10</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 font-medium">
+                    <Zap className="w-4 h-4 text-accent" />
+                    <span>Vibe</span>
                   </div>
-                  <Slider
-                    value={vibeScore}
-                    onValueChange={setVibeScore}
-                    max={10}
-                    min={1}
-                    step={1}
-                    className="w-full"
-                  />
+                  <div className="flex items-center space-x-3 flex-1 ml-4">
+                    <Slider
+                      value={vibeScore}
+                      onValueChange={setVibeScore}
+                      max={3}
+                      min={0}
+                      step={1}
+                      className="flex-1"
+                    />
+                    <span className="text-sm text-muted-foreground min-w-16">
+                      {vibeScore[0] === 0 && "Non"}
+                      {vibeScore[0] === 1 && "Un peu"}
+                      {vibeScore[0] === 2 && "Oui"}
+                      {vibeScore[0] === 3 && "Totalement"}
+                    </span>
+                  </div>
                 </div>
 
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="flex items-center space-x-2 font-medium">
-                      <MessageSquare className="w-4 h-4 text-primary" />
-                      <span>Intrigue</span>
-                    </label>
-                    <span className="text-sm text-muted-foreground">{intrigueScore[0]}/10</span>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2 font-medium">
+                    <MessageSquare className="w-4 h-4 text-primary" />
+                    <span>Intrigue</span>
                   </div>
-                  <Slider
-                    value={intrigueScore}
-                    onValueChange={setIntrigueScore}
-                    max={10}
-                    min={1}
-                    step={1}
-                    className="w-full"
-                  />
+                  <div className="flex items-center space-x-3 flex-1 ml-4">
+                    <Slider
+                      value={intrigueScore}
+                      onValueChange={setIntrigueScore}
+                      max={3}
+                      min={0}
+                      step={1}
+                      className="flex-1"
+                    />
+                    <span className="text-sm text-muted-foreground min-w-16">
+                      {intrigueScore[0] === 0 && "Non"}
+                      {intrigueScore[0] === 1 && "Un peu"}
+                      {intrigueScore[0] === 2 && "Oui"}
+                      {intrigueScore[0] === 3 && "Totalement"}
+                    </span>
+                  </div>
                 </div>
               </div>
 
