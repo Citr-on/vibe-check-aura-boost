@@ -189,22 +189,33 @@ const AnalysisReport = () => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 mt-6">
-                  {scoreData.map((item, index) => (
-                    <div key={index} className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        {item.name === 'Feeling' && <Heart className="w-5 h-5 text-red-500" />}
-                        {item.name === 'Vibe' && <Zap className="w-5 h-5 text-accent" />}
-                        {item.name === 'Intrigue' && <MessageSquare className="w-5 h-5 text-primary" />}
+                  {scoreData.map((item, index) => {
+                    const scoreOut10 = (item.score / 3) * 10;
+                    const getPerformanceIndicator = (score) => {
+                      if (score >= 8) return { text: "Top 20%", color: "text-green-600" };
+                      if (score >= 6) return { text: "Au-dessus de la moyenne", color: "text-blue-600" };
+                      if (score >= 4) return { text: "Dans la moyenne", color: "text-yellow-600" };
+                      return { text: "En dessous de la moyenne", color: "text-orange-600" };
+                    };
+                    const performance = getPerformanceIndicator(scoreOut10);
+                    
+                    return (
+                      <div key={index} className="text-center">
+                        <div className="flex items-center justify-center mb-2">
+                          {item.name === 'Feeling' && <Heart className="w-5 h-5 text-red-500" />}
+                          {item.name === 'Vibe' && <Zap className="w-5 h-5 text-accent" />}
+                          {item.name === 'Intrigue' && <MessageSquare className="w-5 h-5 text-primary" />}
+                        </div>
+                        <div className="font-semibold text-lg mb-1">
+                          {scoreOut10.toFixed(1)}/10
+                        </div>
+                        <div className={`text-xs font-medium mb-1 ${performance.color}`}>
+                          {performance.text}
+                        </div>
+                        <div className="text-xs text-muted-foreground">{item.name}</div>
                       </div>
-                      <div className="font-semibold text-lg">
-                        {item.score === 0 && "Non"}
-                        {item.score === 1 && "Un peu"}
-                        {item.score === 2 && "Oui"}
-                        {item.score === 3 && "Totalement"}
-                      </div>
-                      <div className="text-xs text-muted-foreground">{item.name}</div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
