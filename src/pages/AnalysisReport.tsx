@@ -166,45 +166,76 @@ const AnalysisReport = () => {
                 <CardTitle>Analyse Radar</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="h-64">
+                <div className="h-80">
                   <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart data={scoreData}>
-                      <PolarGrid />
-                      <PolarAngleAxis dataKey="name" />
+                    <RadarChart data={scoreData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                      <PolarGrid 
+                        stroke="#e0e7ff" 
+                        strokeWidth={1}
+                        gridType="circle"
+                      />
+                      <PolarAngleAxis 
+                        dataKey="name" 
+                        tick={{ fontSize: 12, fontWeight: 500 }}
+                        className="fill-foreground"
+                      />
                       <PolarRadiusAxis 
                         angle={90} 
                         domain={[0, 3]} 
-                        tick={false}
+                        tick={{ fontSize: 10 }}
+                        tickFormatter={(value) => {
+                          const labels = ["", "Non", "Un peu", "Oui", "Totalement"];
+                          return labels[value] || "";
+                        }}
+                        className="fill-muted-foreground"
                       />
                       <Radar
                         name="Score"
                         dataKey="score"
                         stroke="#48D1CC"
                         fill="#48D1CC"
-                        fillOpacity={0.3}
+                        fillOpacity={0.2}
                         strokeWidth={2}
+                        dot={{ fill: "#48D1CC", strokeWidth: 2, r: 4 }}
                       />
                     </RadarChart>
                   </ResponsiveContainer>
                 </div>
 
+                {/* Indicateurs de performance et scores */}
                 <div className="grid grid-cols-3 gap-4 mt-6">
-                  {scoreData.map((item, index) => (
-                    <div key={index} className="text-center">
-                      <div className="flex items-center justify-center mb-2">
-                        {item.name === 'Feeling' && <Heart className="w-5 h-5 text-red-500" />}
-                        {item.name === 'Vibe' && <Zap className="w-5 h-5 text-accent" />}
-                        {item.name === 'Intrigue' && <MessageSquare className="w-5 h-5 text-primary" />}
+                  {scoreData.map((item, index) => {
+                    const getPerformanceIndicator = (score: number) => {
+                      const percentage = (score / 3) * 10;
+                      if (percentage >= 8) return { label: "Top 20%", color: "text-green-600" };
+                      if (percentage >= 6) return { label: "Au dessus de la moyenne", color: "text-blue-600" };
+                      if (percentage >= 4) return { label: "Dans la moyenne", color: "text-orange-600" };
+                      return { label: "En dessous de la moyenne", color: "text-red-600" };
+                    };
+
+                    const performance = getPerformanceIndicator(item.score);
+                    const scoreText = ["Non", "Un peu", "Oui", "Totalement"][Math.round(item.score)];
+
+                    return (
+                      <div key={index} className="text-center">
+                        <div className="flex items-center justify-center mb-2">
+                          {item.name === 'Feeling' && <Heart className="w-5 h-5 text-red-500" />}
+                          {item.name === 'Vibe' && <Zap className="w-5 h-5 text-accent" />}
+                          {item.name === 'Intrigue' && <MessageSquare className="w-5 h-5 text-primary" />}
+                        </div>
+                        <div className="font-semibold text-lg mb-1">
+                          {scoreText}
+                        </div>
+                        <div className="text-xs text-muted-foreground mb-1">{item.name}</div>
+                        <div className={`text-xs font-medium ${performance.color}`}>
+                          {performance.label}
+                        </div>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          {(item.score / 3 * 10).toFixed(1)}/10
+                        </div>
                       </div>
-                      <div className="font-semibold text-lg">
-                        {item.score === 0 && "Non"}
-                        {item.score === 1 && "Un peu"}
-                        {item.score === 2 && "Oui"}
-                        {item.score === 3 && "Totalement"}
-                      </div>
-                      <div className="text-xs text-muted-foreground">{item.name}</div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
