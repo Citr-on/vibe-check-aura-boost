@@ -169,12 +169,19 @@ const AnalysisReport = () => {
                 <div className="h-64">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart data={scoreData}>
-                      <PolarGrid />
+                      <PolarGrid gridType="circle" />
                       <PolarAngleAxis dataKey="name" />
                       <PolarRadiusAxis 
                         angle={90} 
                         domain={[0, 3]} 
-                        tick={false}
+                        tick={{ fontSize: 10 }}
+                        tickFormatter={(value) => {
+                          if (value === 0) return "Non";
+                          if (value === 1) return "Un peu";
+                          if (value === 2) return "Oui";
+                          if (value === 3) return "Totalement";
+                          return "";
+                        }}
                       />
                       <Radar
                         name="Score"
