@@ -79,7 +79,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
   };
   
   return (
-    <Card className="hover:shadow-card transition-all duration-300 rounded-2xl overflow-hidden">
+    <Card className="hover:shadow-card transition-all duration-300 rounded-2xl overflow-hidden w-1/2">
       {/* Image d'aperçu ou grille d'images pour profil complet */}
       <div className="relative h-48 overflow-hidden">
         {analysis.type === 'profil-complet' ? (
