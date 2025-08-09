@@ -1,0 +1,286 @@
+import { useState } from "react";
+import { Header } from "@/components/layout/Header";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Zap, Check, Rocket, Image as ImageIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import bioSample1 from "@/assets/bio-sample-1.jpg";
+import bioSample2 from "@/assets/bio-sample-2.jpg";
+import portraitSample1 from "@/assets/portrait-sample-1.jpg";
+import portraitSample2 from "@/assets/portrait-sample-2.jpg";
+
+const PhotoRetouchStudio = () => {
+  const [credits] = useState(150);
+  const [aura] = useState(3.5);
+  const [selectedPhoto, setSelectedPhoto] = useState(0);
+  const [selectedStyle, setSelectedStyle] = useState("authentique");
+  const [briefing, setBriefing] = useState("Photo avec un sourire naturel, mais l'éclairage pourrait être amélioré pour un rendu plus professionnel. Le cadrage est bon mais manque de contraste.");
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [hasResult, setHasResult] = useState(false);
+  const [sliderValue, setSliderValue] = useState(50);
+
+  const photos = [
+    { id: 0, src: bioSample1, alt: "Photo 1" },
+    { id: 1, src: bioSample2, alt: "Photo 2" },
+    { id: 2, src: portraitSample1, alt: "Photo 3" },
+    { id: 3, src: portraitSample2, alt: "Photo 4" },
+  ];
+
+  const styles = [
+    { 
+      id: "authentique", 
+      label: "Authentique", 
+      description: "Préserve votre look naturel tout en optimisant la qualité technique" 
+    },
+    { 
+      id: "studio-pro", 
+      label: "Studio Pro", 
+      description: "Éclairage professionnel et retouches subtiles pour un rendu premium" 
+    },
+    { 
+      id: "cinematique", 
+      label: "Cinématique", 
+      description: "Ambiance dramatique avec des contrastes marqués et une palette de couleurs riche" 
+    },
+  ];
+
+  const handleTransform = async () => {
+    setIsProcessing(true);
+    // Simulate AI processing
+    await new Promise(resolve => setTimeout(resolve, 3000));
+    setIsProcessing(false);
+    setHasResult(true);
+  };
+
+  const getStyleDescription = () => {
+    return styles.find(style => style.id === selectedStyle)?.description || "";
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Header credits={credits} aura={aura} />
+      
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header with back button */}
+        <div className="flex items-center mb-8">
+          <Link to="/studio-ia" className="mr-4">
+            <Button variant="ghost" size="sm">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Retour au Studio
+            </Button>
+          </Link>
+          <div>
+            <h1 className="text-3xl font-heading font-bold text-foreground">
+              Retouche Photo IA
+            </h1>
+            <p className="text-muted-foreground">
+              Transformez vos photos en portraits professionnels
+            </p>
+          </div>
+        </div>
+
+        {/* Two Column Layout */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Left Column - Controls */}
+          <div className="space-y-6">
+            {/* Photo Gallery */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <ImageIcon className="w-5 h-5 mr-2" />
+                  Sélectionnez votre photo
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  {photos.map((photo) => (
+                    <button
+                      key={photo.id}
+                      onClick={() => setSelectedPhoto(photo.id)}
+                      className={`relative rounded-lg overflow-hidden border-2 transition-all ${
+                        selectedPhoto === photo.id
+                          ? "border-primary shadow-lg"
+                          : "border-border hover:border-primary/50"
+                      }`}
+                    >
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        className="w-full h-32 object-cover"
+                      />
+                      {selectedPhoto === photo.id && (
+                        <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
+                          <Check className="w-4 h-4" />
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Selected Photo Preview */}
+                <div className="rounded-lg overflow-hidden border">
+                  <img
+                    src={photos[selectedPhoto].src}
+                    alt="Photo sélectionnée"
+                    className="w-full h-64 object-cover"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* AI Briefing */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Briefing IA</CardTitle>
+                <p className="text-sm text-muted-foreground">
+                  Instructions basées sur les feedbacks de la communauté
+                </p>
+              </CardHeader>
+              <CardContent>
+                <Textarea
+                  value={briefing}
+                  onChange={(e) => setBriefing(e.target.value)}
+                  placeholder="Décrivez les améliorations souhaitées..."
+                  className="min-h-24"
+                />
+              </CardContent>
+            </Card>
+
+            {/* Style Selection */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Style de retouche</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {styles.map((style) => (
+                    <Button
+                      key={style.id}
+                      variant={selectedStyle === style.id ? "default" : "outline"}
+                      onClick={() => setSelectedStyle(style.id)}
+                      className="rounded-full"
+                    >
+                      {style.label}
+                    </Button>
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {getStyleDescription()}
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Transform Button */}
+            <Button
+              onClick={handleTransform}
+              disabled={isProcessing}
+              className="w-full"
+              size="lg"
+            >
+              {isProcessing ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
+                  Transformation en cours...
+                </>
+              ) : (
+                <>
+                  <Zap className="w-5 h-5 mr-2" />
+                  Transformer ma photo (Coût : 3 Crédits 💎)
+                </>
+              )}
+            </Button>
+          </div>
+
+          {/* Right Column - Results */}
+          <div className="space-y-6">
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle>Résultat</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {!hasResult ? (
+                  <div className="flex items-center justify-center h-96 text-center">
+                    <div>
+                      <div className="text-6xl mb-4">🎨</div>
+                      <p className="text-muted-foreground">
+                        Le résultat de votre transformation apparaîtra ici.
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    {/* Before/After Comparison */}
+                    <div className="relative overflow-hidden rounded-lg border">
+                      <div className="flex">
+                        <div 
+                          className="transition-all duration-300 overflow-hidden"
+                          style={{ width: `${sliderValue}%` }}
+                        >
+                          <img
+                            src={photos[selectedPhoto].src}
+                            alt="Avant"
+                            className="w-full h-64 object-cover"
+                          />
+                        </div>
+                        <div 
+                          className="transition-all duration-300 overflow-hidden"
+                          style={{ width: `${100 - sliderValue}%` }}
+                        >
+                          <img
+                            src={portraitSample1}
+                            alt="Après"
+                            className="w-full h-64 object-cover"
+                          />
+                        </div>
+                      </div>
+                      
+                      {/* Slider */}
+                      <div className="absolute inset-0 flex items-center">
+                        <input
+                          type="range"
+                          min="0"
+                          max="100"
+                          value={sliderValue}
+                          onChange={(e) => setSliderValue(Number(e.target.value))}
+                          className="w-full h-full opacity-0 cursor-ew-resize"
+                        />
+                        <div 
+                          className="absolute w-1 h-full bg-white shadow-lg pointer-events-none"
+                          style={{ left: `${sliderValue}%`, transform: 'translateX(-50%)' }}
+                        />
+                      </div>
+                      
+                      {/* Labels */}
+                      <Badge className="absolute top-2 left-2 bg-background/80 text-foreground">
+                        Avant
+                      </Badge>
+                      <Badge className="absolute top-2 right-2 bg-background/80 text-foreground">
+                        Après
+                      </Badge>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex gap-3">
+                      <Button variant="outline" className="flex-1">
+                        <Check className="w-4 h-4 mr-2" />
+                        Enregistrer dans ma galerie
+                      </Button>
+                      <Button className="flex-1">
+                        <Rocket className="w-4 h-4 mr-2" />
+                        Faire évaluer cette photo
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+export default PhotoRetouchStudio;
