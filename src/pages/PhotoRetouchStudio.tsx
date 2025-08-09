@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Zap, Check, Rocket, Image as ImageIcon } from "lucide-react";
 import { Link } from "react-router-dom";
+import { StudioAnalysisModal } from "@/components/dashboard/StudioAnalysisModal";
 import bioSample1 from "@/assets/bio-sample-1.jpg";
 import bioSample2 from "@/assets/bio-sample-2.jpg";
 import portraitSample1 from "@/assets/portrait-sample-1.jpg";
@@ -20,6 +21,8 @@ const PhotoRetouchStudio = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [hasResult, setHasResult] = useState(false);
   const [sliderValue, setSliderValue] = useState(50);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [aiGenerationCost] = useState(3); // Coût de la génération IA
 
   const photos = [
     { id: 0, src: bioSample1, alt: "Photo 1" },
@@ -52,6 +55,15 @@ const PhotoRetouchStudio = () => {
     await new Promise(resolve => setTimeout(resolve, 3000));
     setIsProcessing(false);
     setHasResult(true);
+  };
+
+  const handleEvaluatePhoto = () => {
+    setIsReviewModalOpen(true);
+  };
+
+  const handleAnalysisSelect = (optionId: string) => {
+    console.log(`Analyse sélectionnée : ${optionId}`);
+    setIsReviewModalOpen(false);
   };
 
   const getStyleDescription = () => {
@@ -267,7 +279,7 @@ const PhotoRetouchStudio = () => {
                         <Check className="w-4 h-4 mr-2" />
                         Enregistrer dans ma galerie
                       </Button>
-                      <Button className="flex-1">
+                      <Button className="flex-1" onClick={handleEvaluatePhoto}>
                         <Rocket className="w-4 h-4 mr-2" />
                         Faire évaluer cette photo
                       </Button>
@@ -279,6 +291,16 @@ const PhotoRetouchStudio = () => {
           </div>
         </div>
       </main>
+
+      {/* Analysis Modal with Studio IA Pricing */}
+      <StudioAnalysisModal
+        open={isReviewModalOpen}
+        onOpenChange={setIsReviewModalOpen}
+        credits={credits}
+        aura={aura}
+        aiGenerationCost={aiGenerationCost}
+        onAnalysisSelect={handleAnalysisSelect}
+      />
     </div>
   );
 };
