@@ -28,9 +28,9 @@ export const Header = ({ credits, aura }: HeaderProps) => {
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link 
-              to="/" 
+              to="/dashboard" 
               className={`font-body transition-colors hover:text-primary ${
-                isActive('/') ? 'text-primary font-medium' : 'text-muted-foreground'
+                isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground'
               }`}
             >
               Mes Analyses
