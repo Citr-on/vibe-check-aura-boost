@@ -112,49 +112,6 @@ const Dashboard = () => {
           </Button>
         </div>
 
-        {/* Filtres détaillés */}
-        <div className="flex flex-wrap gap-6 mb-6">
-          {/* Filtre Statut */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-muted-foreground">Statut</label>
-            <div className="flex gap-2">
-              {['tous', 'en-cours', 'terminé'].map((status) => (
-                <button
-                  key={status}
-                  onClick={() => setStatusFilter(status)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                    statusFilter === status
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground border border-border'
-                  }`}
-                >
-                  {status === 'tous' ? 'Tous' : status === 'en-cours' ? 'En cours' : 'Terminé'}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Filtre Type */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-muted-foreground">Type</label>
-            <div className="flex gap-2">
-              {['tous', 'photo', 'bio', 'profil-complet'].map((type) => (
-                <button
-                  key={type}
-                  onClick={() => setTypeFilter(type)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                    typeFilter === type
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary hover:bg-secondary/80 text-secondary-foreground border border-border'
-                  }`}
-                >
-                  {type === 'tous' ? 'Tous' : type === 'photo' ? 'Photo' : type === 'bio' ? 'Bio' : 'Profil complet'}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Grille d'analyses */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAnalyses.map((analysis) => (
