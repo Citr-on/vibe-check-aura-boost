@@ -110,27 +110,6 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
           />
         )}
         <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute top-3 left-3 flex items-center space-x-2">
-          <Badge 
-            variant={analysis.isPremium ? "default" : "secondary"}
-            className="rounded-full bg-white/90 text-foreground"
-          >
-            {analysis.isPremium ? (
-              <>
-                <Gem className="w-3 h-3 mr-1" />
-                Premium
-              </>
-            ) : (
-              <>
-                <Sparkles className="w-3 h-3 mr-1" />
-                Standard
-              </>
-            )}
-          </Badge>
-          <Badge variant="outline" className="capitalize rounded-full bg-white/90 text-foreground border-white/20">
-            {analysis.type === 'profil-complet' ? 'Profil complet' : analysis.type}
-          </Badge>
-        </div>
         <div className="absolute top-3 right-3 flex items-center space-x-1 text-xs text-white bg-black/50 px-2 py-1 rounded-full">
           {isCompleted ? (
             <CheckCircle className="w-4 h-4 text-green-400" />
