@@ -4,7 +4,7 @@ import { AnalysisModal } from "@/components/dashboard/AnalysisModal";
 import { AnalysisCard, type Analysis } from "@/components/dashboard/AnalysisCard";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus } from "lucide-react";
+import { Plus, Filter } from "lucide-react";
 
 // Données d'exemple
 const mockAnalyses: Analysis[] = [
@@ -89,7 +89,10 @@ const Dashboard = () => {
               Suivez vos analyses en cours et consultez vos rapports
             </p>
           </div>
+        </div>
 
+        {/* Actions et filtres */}
+        <div className="flex flex-wrap gap-6 mb-6 justify-between items-start">
           <Button 
             onClick={() => setIsModalOpen(true)}
             size="lg"
@@ -98,9 +101,18 @@ const Dashboard = () => {
             <Plus className="w-5 h-5 mr-2" />
             Lancer une nouvelle analyse
           </Button>
+
+          <Button 
+            variant="outline"
+            size="lg"
+            className="rounded-xl"
+          >
+            <Filter className="w-5 h-5 mr-2" />
+            Filtres
+          </Button>
         </div>
 
-        {/* Filtres */}
+        {/* Filtres détaillés */}
         <div className="flex flex-wrap gap-6 mb-6">
           {/* Filtre Statut */}
           <div className="space-y-2">
