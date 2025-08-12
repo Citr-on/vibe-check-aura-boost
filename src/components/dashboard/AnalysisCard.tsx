@@ -30,6 +30,16 @@ interface AnalysisCardProps {
 export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
   const isCompleted = analysis.status === 'terminé';
   
+  // Obtenir le label du type d'analyse
+  const getTypeLabel = () => {
+    switch (analysis.type) {
+      case 'photo': return 'Photo';
+      case 'bio': return 'Bio';
+      case 'profil-complet': return 'Profil complet';
+      default: return 'Analyse';
+    }
+  };
+  
   // Sélectionner l'image appropriée selon le type d'analyse
   const getAnalysisImage = () => {
     if (analysis.type === 'photo') {
@@ -110,6 +120,11 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
           />
         )}
         <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute top-3 left-3">
+          <Badge variant="secondary" className="text-xs bg-white/20 text-white border-white/20">
+            {getTypeLabel()}
+          </Badge>
+        </div>
         <div className="absolute top-3 right-3 flex items-center space-x-1 text-xs text-white bg-black/50 px-2 py-1 rounded-full">
           {isCompleted ? (
             <CheckCircle className="w-4 h-4 text-green-400" />
@@ -120,14 +135,10 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
         </div>
       </div>
       
-      <CardHeader className="pb-3">
-        <h3 className="font-heading font-semibold text-lg">{analysis.title}</h3>
-      </CardHeader>
-
-      <CardContent className="pt-0">
+      <CardContent className="flex flex-col justify-between h-32 p-4">
         {isCompleted ? (
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
+          <>
+            <div className="flex items-center justify-between mb-4">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">
                   {analysis.score}/10
@@ -148,10 +159,10 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
                 Voir le rapport
               </Button>
             </Link>
-          </div>
+          </>
         ) : (
-          <div className="space-y-3">
-            <div className="flex items-center gap-3">
+          <>
+            <div className="flex items-center gap-3 mb-4">
               <CircularProgress value={analysis.progress || 0} />
               <div className="flex-1">
                 <div className="text-sm font-medium">
@@ -162,7 +173,12 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
                 </div>
               </div>
             </div>
-          </div>
+            
+            <Button className="w-full" variant="outline" disabled>
+              <Clock className="w-4 h-4 mr-2" />
+              En cours d'analyse
+            </Button>
+          </>
         )}
       </CardContent>
     </Card>
