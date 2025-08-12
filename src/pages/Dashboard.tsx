@@ -113,7 +113,7 @@ const Dashboard = () => {
         </div>
 
         {/* Grille d'analyses */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
           {filteredAnalyses.map((analysis) => (
             <AnalysisCard key={analysis.id} analysis={analysis} />
           ))}
