@@ -133,8 +133,8 @@ const Review = () => {
             <CardHeader className="sr-only">
               <CardTitle>Photo à analyser</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden mb-4">
+            <CardContent className="p-2">
+              <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden mb-4 flex items-center justify-center">
                 <img 
                   src={currentProfile.image} 
                   alt={`Photo de ${currentProfile.name}`}
