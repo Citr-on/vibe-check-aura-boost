@@ -36,6 +36,14 @@ export const Header = ({ credits, aura }: HeaderProps) => {
               Mes Analyses
             </Link>
             <Link 
+              to="/studio-ia" 
+              className={`font-body transition-colors hover:text-primary ${
+                isActive('/studio-ia') ? 'text-primary font-medium' : 'text-muted-foreground'
+              }`}
+            >
+              Studio IA
+            </Link>
+            <Link 
               to="/review" 
               className={`font-body transition-colors hover:text-primary ${
                 isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'
