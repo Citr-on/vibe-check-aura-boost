@@ -135,10 +135,10 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
         </div>
       </div>
       
-      <CardContent className="flex flex-col justify-between h-32 p-4">
-        {isCompleted ? (
-          <>
-            <div className="flex items-center justify-between mb-4">
+      <CardContent className="flex flex-col h-32 p-4">
+        <div className="flex-1 mb-4">
+          {isCompleted ? (
+            <div className="flex items-center justify-between">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">
                   {analysis.score}/10
@@ -152,17 +152,8 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
                 <div className="text-xs text-muted-foreground">Avis reçus</div>
               </div>
             </div>
-            
-            <Link to={`/analysis/${analysis.id}`}>
-              <Button className="w-full" variant="outline">
-                <Eye className="w-4 h-4 mr-2" />
-                Voir le rapport
-              </Button>
-            </Link>
-          </>
-        ) : (
-          <>
-            <div className="flex items-center gap-3 mb-4">
+          ) : (
+            <div className="flex items-center gap-3">
               <CircularProgress value={analysis.progress || 0} />
               <div className="flex-1">
                 <div className="text-sm font-medium">
@@ -173,12 +164,21 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
                 </div>
               </div>
             </div>
-            
-            <Button className="w-full" variant="outline" disabled>
-              <Clock className="w-4 h-4 mr-2" />
-              En cours d'analyse
+          )}
+        </div>
+        
+        {isCompleted ? (
+          <Link to={`/analysis/${analysis.id}`}>
+            <Button className="w-full rounded-xl" variant="outline">
+              <Eye className="w-4 h-4 mr-2" />
+              Voir le rapport
             </Button>
-          </>
+          </Link>
+        ) : (
+          <Button className="w-full rounded-xl" variant="outline" disabled>
+            <Clock className="w-4 h-4 mr-2" />
+            En cours d'analyse
+          </Button>
         )}
       </CardContent>
     </Card>
