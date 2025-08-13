@@ -4,12 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { RatingGauge } from "@/components/ui/rating-gauge";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Badge } from "@/components/ui/badge";
+import { CarouselProfile } from "@/components/ui/carousel-profile";
 import { Sparkles, Heart, Zap, MessageSquare, ArrowRight, Info } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const Review = () => {
   const [credits] = useState(150);
   const [aura] = useState(3.5);
+  
+  // État pour le type de contenu sélectionné
+  const [contentType, setContentType] = useState<"photos" | "profils" | "tout">("tout");
   
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
   const [feelingScore, setFeelingScore] = useState(1);
@@ -26,7 +32,14 @@ const Review = () => {
       age: 25,
       gender: "Femme",
       searchType: "Relation sérieuse",
-      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=500&fit=crop&crop=face"
+      type: "profile" as const,
+      images: [
+        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=500&fit=crop&crop=face",
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=500&fit=crop&crop=face",
+        "https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=400&h=500&fit=crop&crop=face"
+      ],
+      tags: ["Voyage", "Cuisine", "Yoga", "Lecture"],
+      bio: "Passionnée de voyages et de découvertes culinaires. J'aime les moments simples et authentiques. Toujours prête pour une nouvelle aventure !"
     },
     {
       id: 2,
@@ -34,7 +47,8 @@ const Review = () => {
       age: 28,
       gender: "Homme",
       searchType: "Relation décontractée",
-      image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=400&h=500&fit=crop&crop=face"
+      type: "photo" as const,
+      images: ["https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=400&h=500&fit=crop&crop=face"]
     },
     {
       id: 3,
@@ -42,7 +56,13 @@ const Review = () => {
       age: 32,
       gender: "Femme",
       searchType: "Amitié",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=500&fit=crop&crop=face"
+      type: "profile" as const,
+      images: [
+        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=500&fit=crop&crop=face",
+        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop&crop=face"
+      ],
+      tags: ["Sport", "Musique", "Café", "Cinéma"],
+      bio: "Sportive dans l'âme, mélomane et grande amatrice de cafés cosy. Cherche des personnes avec qui partager de bons moments."
     },
     {
       id: 4,
@@ -50,7 +70,8 @@ const Review = () => {
       age: 26,
       gender: "Homme",
       searchType: "Relation sérieuse",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face"
+      type: "photo" as const,
+      images: ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face"]
     },
     {
       id: 5,
@@ -58,11 +79,26 @@ const Review = () => {
       age: 24,
       gender: "Femme",
       searchType: "Rencontres",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=500&fit=crop&crop=face"
+      type: "profile" as const,
+      images: [
+        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=500&fit=crop&crop=face",
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=500&fit=crop&crop=face",
+        "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=500&fit=crop&crop=face",
+        "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=500&fit=crop&crop=face"
+      ],
+      tags: ["Art", "Photographie", "Nature", "Méditation"],
+      bio: "Artiste photographe qui trouve l'inspiration dans la nature. J'aime capturer les petits détails de la vie quotidienne."
     }
   ];
 
-  const currentProfile = profiles[currentProfileIndex];
+  // Filtrage des profils selon le type sélectionné
+  const filteredProfiles = profiles.filter(profile => {
+    if (contentType === "photos") return profile.type === "photo";
+    if (contentType === "profils") return profile.type === "profile";
+    return true; // "tout"
+  });
+
+  const currentProfile = filteredProfiles[currentProfileIndex] || profiles[0];
 
   const handleSubmit = () => {
     console.log({
@@ -83,7 +119,7 @@ const Review = () => {
   };
 
   const nextProfile = () => {
-    if (currentProfileIndex < profiles.length - 1) {
+    if (currentProfileIndex < filteredProfiles.length - 1) {
       setCurrentProfileIndex(currentProfileIndex + 1);
       // Reset les champs pour le nouveau profil
       setFeelingScore(1);
@@ -103,45 +139,135 @@ const Review = () => {
     }
   };
 
-  const positiveChips = [
-    { label: "Style", text: "J'aime son style vestimentaire" },
-    { label: "Sourire", text: "Beau sourire !" },
-    { label: "Date", text: "J'accepterais carrément un date avec lui/elle !" },
-    { label: "Super photo", text: "Super photo !" },
-    { label: "Charme", text: "Beaucoup de charme" },
-    { label: "Naturel", text: "Photo très naturelle" }
-  ];
+  // Tags contextuels selon le type de contenu
+  const getPositiveChips = () => {
+    if (currentProfile?.type === "profile") {
+      return [
+        { label: "Photos variées", text: "Belle variété de photos" },
+        { label: "Bonne description", text: "La description donne envie d'en savoir plus" },
+        { label: "Profil cohérent", text: "Profil très cohérent et bien construit" },
+        { label: "Authentique", text: "Le profil semble authentique" },
+        { label: "Donne confiance", text: "Ce profil m'inspire confiance" },
+        { label: "Plein d'humour", text: "J'aime l'humour dans ce profil" }
+      ];
+    }
+    return [
+      { label: "Style", text: "J'aime son style vestimentaire" },
+      { label: "Sourire", text: "Beau sourire !" },
+      { label: "Date", text: "J'accepterais carrément un date avec lui/elle !" },
+      { label: "Super photo", text: "Super photo !" },
+      { label: "Charme", text: "Beaucoup de charme" },
+      { label: "Naturel", text: "Photo très naturelle" }
+    ];
+  };
 
-  const improvementChips = [
-    { label: "Cadre", text: "Je changerais le cadrage de la photo" },
-    { label: "Gêné", text: "La personne a l'air mal à l'aise sur cette photo" },
-    { label: "Arrière-plan", text: "L'arrière-plan distrait l'attention" },
-    { label: "Lunettes", text: "Je préférerais sans lunettes de soleil" },
-    { label: "Éclairage", text: "L'éclairage pourrait être amélioré" },
-    { label: "Angle", text: "Un angle différent serait plus flatteur" }
-  ];
+  const getImprovementChips = () => {
+    if (currentProfile?.type === "profile") {
+      return [
+        { label: "Manque de photos", text: "Quelques photos supplémentaires seraient un plus" },
+        { label: "Bio à développer", text: "La biographie pourrait être plus détaillée" },
+        { label: "Trop classique", text: "Le profil manque d'originalité" },
+        { label: "Photos similaires", text: "Diversifier les types de photos" },
+        { label: "Manque de clarté", text: "Les intentions pourraient être plus claires" }
+      ];
+    }
+    return [
+      { label: "Cadre", text: "Je changerais le cadrage de la photo" },
+      { label: "Gêné", text: "La personne a l'air mal à l'aise sur cette photo" },
+      { label: "Arrière-plan", text: "L'arrière-plan distrait l'attention" },
+      { label: "Lunettes", text: "Je préférerais sans lunettes de soleil" },
+      { label: "Éclairage", text: "L'éclairage pourrait être amélioré" },
+      { label: "Angle", text: "Un angle différent serait plus flatteur" }
+    ];
+  };
+
+  const positiveChips = getPositiveChips();
+  const improvementChips = getImprovementChips();
 
   return (
     <div className="min-h-screen bg-background">
       <Header credits={credits} aura={aura} />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        {/* Sélecteur de type de contenu */}
+        <div className="flex justify-center mb-8">
+          <ToggleGroup 
+            type="single" 
+            value={contentType} 
+            onValueChange={(value) => {
+              if (value) {
+                setContentType(value as "photos" | "profils" | "tout");
+                setCurrentProfileIndex(0);
+              }
+            }}
+            className="bg-muted rounded-full p-1"
+          >
+            <ToggleGroupItem 
+              value="photos" 
+              className="rounded-full px-6 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=off]:text-muted-foreground"
+            >
+              Photos
+            </ToggleGroupItem>
+            <ToggleGroupItem 
+              value="profils" 
+              className="rounded-full px-6 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=off]:text-muted-foreground"
+            >
+              Profils
+            </ToggleGroupItem>
+            <ToggleGroupItem 
+              value="tout" 
+              className="rounded-full px-6 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=off]:text-muted-foreground"
+            >
+              Tout
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-8 lg:items-stretch">
           {/* Élément à analyser */}
           <div className="lg:w-1/2">
             <Card className="rounded-2xl shadow-card h-full">
               <CardHeader className="sr-only">
-                <CardTitle>Photo à analyser</CardTitle>
+                <CardTitle>{currentProfile?.type === "profile" ? "Profil à analyser" : "Photo à analyser"}</CardTitle>
               </CardHeader>
               <CardContent className="p-2 h-full flex flex-col">
-                <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden flex items-center justify-center">
-                  <img 
-                    src={currentProfile.image} 
-                    alt={`Photo de ${currentProfile.name}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                {currentProfile?.type === "profile" ? (
+                  <div className="h-full flex flex-col">
+                    {/* Carrousel de photos - 70% de la hauteur */}
+                    <div className="flex-[0.7]">
+                      <CarouselProfile images={currentProfile.images} />
+                    </div>
+                    
+                    {/* Informations utilisateur - 30% de la hauteur */}
+                    <div className="flex-[0.3] mt-4 space-y-3">
+                      {/* Tags */}
+                      {currentProfile.tags && (
+                        <div className="flex flex-wrap gap-1">
+                          {currentProfile.tags.map((tag, index) => (
+                            <Badge key={index} variant="secondary" className="text-xs">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+                      
+                      {/* Biographie */}
+                      {currentProfile.bio && (
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {currentProfile.bio}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden flex items-center justify-center">
+                    <img 
+                      src={currentProfile?.images?.[0]} 
+                      alt={`Photo de ${currentProfile?.name}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -223,7 +349,11 @@ const Review = () => {
                   <Textarea
                     value={positiveComment}
                     onChange={(e) => setPositiveComment(e.target.value)}
-                    placeholder="Partagez ce qui vous plaît dans cette photo/bio..."
+                    placeholder={
+                      currentProfile?.type === "profile" 
+                        ? "Ce qui me plaît le plus sur ce profil..." 
+                        : "Partagez ce qui vous plaît dans cette photo/bio..."
+                    }
                     className="resize-none rounded-xl"
                     rows={2}
                   />
@@ -247,7 +377,11 @@ const Review = () => {
                   <Textarea
                     value={improvementComment}
                     onChange={(e) => setImprovementComment(e.target.value)}
-                    placeholder="Donnez un conseil constructif et bienveillant..."
+                    placeholder={
+                      currentProfile?.type === "profile" 
+                        ? "Un conseil pour améliorer ce profil..." 
+                        : "Donnez un conseil constructif et bienveillant..."
+                    }
                     className="resize-none rounded-xl"
                     rows={2}
                   />
