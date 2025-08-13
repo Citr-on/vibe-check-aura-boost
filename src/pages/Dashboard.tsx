@@ -5,7 +5,7 @@ import { AnalysisCard, type Analysis } from "@/components/dashboard/AnalysisCard
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Filter, ChevronUp, ChevronDown } from "lucide-react";
+import { Plus, Filter, ChevronUp, ChevronDown, Calendar, Star, Layers } from "lucide-react";
 
 // Données d'exemple
 const mockAnalyses: Analysis[] = [
@@ -165,7 +165,10 @@ const Dashboard = () => {
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuItem onClick={() => handleSort('createdAt')}>
                 <div className="flex items-center justify-between w-full">
-                  <span>Date de création</span>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="w-4 h-4" />
+                    <span>Date de création</span>
+                  </div>
                   {sortBy === 'createdAt' && (
                     sortOrder === 'asc' ? 
                       <ChevronUp className="w-4 h-4" /> : 
@@ -175,7 +178,10 @@ const Dashboard = () => {
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => handleSort('score')}>
                 <div className="flex items-center justify-between w-full">
-                  <span>Score Aura</span>
+                  <div className="flex items-center gap-2">
+                    <Star className="w-4 h-4" />
+                    <span>Score Aura</span>
+                  </div>
                   {sortBy === 'score' && (
                     sortOrder === 'asc' ? 
                       <ChevronUp className="w-4 h-4" /> : 
@@ -185,7 +191,10 @@ const Dashboard = () => {
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => handleSort('type')}>
                 <div className="flex items-center justify-between w-full">
-                  <span>Type d'analyse</span>
+                  <div className="flex items-center gap-2">
+                    <Layers className="w-4 h-4" />
+                    <span>Type d'analyse</span>
+                  </div>
                   {sortBy === 'type' && (
                     sortOrder === 'asc' ? 
                       <ChevronUp className="w-4 h-4" /> : 
