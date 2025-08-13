@@ -4,7 +4,8 @@ import { AnalysisModal } from "@/components/dashboard/AnalysisModal";
 import { AnalysisCard, type Analysis } from "@/components/dashboard/AnalysisCard";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Filter } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Plus, Filter, ChevronUp, ChevronDown } from "lucide-react";
 
 // Données d'exemple
 const mockAnalyses: Analysis[] = [
@@ -54,20 +55,63 @@ const mockAnalyses: Analysis[] = [
   }
 ];
 
+type SortBy = 'createdAt' | 'score' | 'type' | null;
+type SortOrder = 'asc' | 'desc';
+
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [statusFilter, setStatusFilter] = useState('tous');
   const [typeFilter, setTypeFilter] = useState('tous');
+  const [sortBy, setSortBy] = useState<SortBy>(null);
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   
   // États pour les monnaies
   const [credits] = useState(150);
   const [aura] = useState(3.5);
 
-  const filteredAnalyses = mockAnalyses.filter(analysis => {
-    if (statusFilter !== 'tous' && analysis.status !== statusFilter) return false;
-    if (typeFilter !== 'tous' && analysis.type !== typeFilter) return false;
-    return true;
-  });
+  const handleSort = (newSortBy: SortBy) => {
+    if (sortBy === newSortBy) {
+      // Toggle order if same sort criteria
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      // New sort criteria, default to desc
+      setSortBy(newSortBy);
+      setSortOrder('desc');
+    }
+  };
+
+  const getSortLabel = (type: SortBy) => {
+    switch (type) {
+      case 'createdAt': return 'Date de création';
+      case 'score': return 'Score Aura';
+      case 'type': return 'Type d\'analyse';
+      default: return '';
+    }
+  };
+
+  const filteredAndSortedAnalyses = mockAnalyses
+    .filter(analysis => {
+      if (statusFilter !== 'tous' && analysis.status !== statusFilter) return false;
+      if (typeFilter !== 'tous' && analysis.type !== typeFilter) return false;
+      return true;
+    })
+    .sort((a, b) => {
+      if (!sortBy) return 0;
+      
+      let comparison = 0;
+      
+      if (sortBy === 'createdAt') {
+        comparison = new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      } else if (sortBy === 'score') {
+        const aScore = a.score || 0;
+        const bScore = b.score || 0;
+        comparison = aScore - bScore;
+      } else if (sortBy === 'type') {
+        comparison = a.type.localeCompare(b.type);
+      }
+      
+      return sortOrder === 'asc' ? comparison : -comparison;
+    });
 
   const handleAnalysisSelect = (optionId: string) => {
     console.log('Analysis selected:', optionId);
@@ -102,24 +146,70 @@ const Dashboard = () => {
             Lancer une nouvelle analyse
           </Button>
 
-          <Button 
-            variant="outline"
-            size="lg"
-            className="rounded-xl"
-          >
-            <Filter className="w-5 h-5 mr-2" />
-            Filtres
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                variant="outline"
+                size="lg"
+                className="rounded-xl"
+              >
+                <Filter className="w-5 h-5 mr-2" />
+                {sortBy ? `Tri: ${getSortLabel(sortBy)}` : 'Filtres'}
+                {sortBy && (
+                  sortOrder === 'asc' ? 
+                    <ChevronUp className="w-4 h-4 ml-2" /> : 
+                    <ChevronDown className="w-4 h-4 ml-2" />
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <DropdownMenuItem onClick={() => handleSort('createdAt')}>
+                <div className="flex items-center justify-between w-full">
+                  <span>Date de création</span>
+                  {sortBy === 'createdAt' && (
+                    sortOrder === 'asc' ? 
+                      <ChevronUp className="w-4 h-4" /> : 
+                      <ChevronDown className="w-4 h-4" />
+                  )}
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort('score')}>
+                <div className="flex items-center justify-between w-full">
+                  <span>Score Aura</span>
+                  {sortBy === 'score' && (
+                    sortOrder === 'asc' ? 
+                      <ChevronUp className="w-4 h-4" /> : 
+                      <ChevronDown className="w-4 h-4" />
+                  )}
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort('type')}>
+                <div className="flex items-center justify-between w-full">
+                  <span>Type d'analyse</span>
+                  {sortBy === 'type' && (
+                    sortOrder === 'asc' ? 
+                      <ChevronUp className="w-4 h-4" /> : 
+                      <ChevronDown className="w-4 h-4" />
+                  )}
+                </div>
+              </DropdownMenuItem>
+              {sortBy && (
+                <DropdownMenuItem onClick={() => { setSortBy(null); setSortOrder('desc'); }}>
+                  <span className="text-muted-foreground">Réinitialiser le tri</span>
+                </DropdownMenuItem>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Grille d'analyses */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-1">
-          {filteredAnalyses.map((analysis) => (
+          {filteredAndSortedAnalyses.map((analysis) => (
             <AnalysisCard key={analysis.id} analysis={analysis} />
           ))}
         </div>
 
-        {filteredAnalyses.length === 0 && (
+        {filteredAndSortedAnalyses.length === 0 && (
           <div className="text-center py-12">
             <div className="text-muted-foreground text-lg mb-4">
               Aucune analyse trouvée avec ces filtres
