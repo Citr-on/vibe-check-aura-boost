@@ -91,7 +91,7 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
   }, []);
 
   const displayValue = hoveredValue !== null ? hoveredValue : value;
-  const currentLabel = labels[displayValue] || "";
+  const currentLabel = labels[displayValue - 1] || "";
 
   return (
     <div className={cn("flex items-center", className)}>
@@ -112,7 +112,16 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
               >
                 {[0, 1, 2, 3, 4].map((segmentIndex) => {
                   const segmentValue = segmentIndex + 1;
-                  const isActive = displayValue >= segmentValue;
+                  const isSelected = value >= segmentValue;
+                  const isHovered = hoveredValue !== null && hoveredValue >= segmentValue;
+                  
+                  // Background color logic
+                  let backgroundColor;
+                  if (isSelected) {
+                    backgroundColor = color; // Full color for selected segments
+                  } else if (isHovered) {
+                    backgroundColor = `${color}80`; // 50% opacity for hovered segments
+                  }
                   
                   return (
                     <div
@@ -120,10 +129,10 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
                       className={cn(
                         "flex-1 cursor-pointer transition-colors duration-200 flex items-center justify-center",
                         segmentIndex > 0 && "border-l border-border",
-                        isActive ? "text-white" : "text-muted-foreground"
+                        (isSelected || isHovered) ? "text-white" : "text-muted-foreground"
                       )}
                       style={{
-                        backgroundColor: isActive ? color : undefined
+                        backgroundColor
                       }}
                       onMouseEnter={(e) => handleMouseEnter(segmentValue, e)}
                       onClick={() => handleClick(segmentValue)}
@@ -141,7 +150,7 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
                       transform: 'translateX(-50%)'
                     }}
                   >
-                    {labels[hoveredValue]}
+                    {labels[hoveredValue - 1]}
                   </div>
                 )}
               </div>
