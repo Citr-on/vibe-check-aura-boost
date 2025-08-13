@@ -168,15 +168,17 @@ const Dashboard = () => {
               >
                 {sortBy ? (
                   <>
-                    {(() => {
-                      const IconComponent = getSortIcon(sortBy);
-                      return <IconComponent className="w-5 h-5 mr-2" />;
-                    })()}
+                    <div className="flex items-center gap-2">
+                      {(() => {
+                        const IconComponent = getSortIcon(sortBy);
+                        return <IconComponent className="w-5 h-5" />;
+                      })()}
+                      {sortOrder === 'asc' ? 
+                        <ArrowUp className="w-4 h-4" /> : 
+                        <ArrowDown className="w-4 h-4" />
+                      }
+                    </div>
                     {getSortLabel(sortBy)}
-                    {sortOrder === 'asc' ? 
-                      <ArrowUp className="w-4 h-4 ml-2" /> : 
-                      <ArrowDown className="w-4 h-4 ml-2" />
-                    }
                   </>
                 ) : (
                   <>
