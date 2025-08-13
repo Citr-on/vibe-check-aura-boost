@@ -5,7 +5,7 @@ import { AnalysisCard, type Analysis } from "@/components/dashboard/AnalysisCard
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Filter, ChevronUp, ChevronDown, Calendar, Star, Layers } from "lucide-react";
+import { Plus, Filter, ChevronUp, ChevronDown, Calendar, Star, Layers, Clock } from "lucide-react";
 
 // Données d'exemple
 const mockAnalyses: Analysis[] = [
@@ -55,7 +55,7 @@ const mockAnalyses: Analysis[] = [
   }
 ];
 
-type SortBy = 'createdAt' | 'score' | 'type' | null;
+type SortBy = 'createdAt' | 'score' | 'type' | 'status' | null;
 type SortOrder = 'asc' | 'desc';
 
 const Dashboard = () => {
@@ -85,7 +85,18 @@ const Dashboard = () => {
       case 'createdAt': return 'Date de création';
       case 'score': return 'Score Aura';
       case 'type': return 'Type d\'analyse';
+      case 'status': return 'Statut';
       default: return '';
+    }
+  };
+
+  const getSortIcon = (type: SortBy) => {
+    switch (type) {
+      case 'createdAt': return Calendar;
+      case 'score': return Star;
+      case 'type': return Layers;
+      case 'status': return Clock;
+      default: return Filter;
     }
   };
 
@@ -108,6 +119,8 @@ const Dashboard = () => {
         comparison = aScore - bScore;
       } else if (sortBy === 'type') {
         comparison = a.type.localeCompare(b.type);
+      } else if (sortBy === 'status') {
+        comparison = a.status.localeCompare(b.status);
       }
       
       return sortOrder === 'asc' ? comparison : -comparison;
@@ -153,53 +166,77 @@ const Dashboard = () => {
                 size="lg"
                 className="rounded-xl"
               >
-                <Filter className="w-5 h-5 mr-2" />
-                {sortBy ? `Tri: ${getSortLabel(sortBy)}` : 'Filtres'}
-                {sortBy && (
-                  sortOrder === 'asc' ? 
-                    <ChevronUp className="w-4 h-4 ml-2" /> : 
-                    <ChevronDown className="w-4 h-4 ml-2" />
+                {sortBy ? (
+                  <>
+                    {(() => {
+                      const IconComponent = getSortIcon(sortBy);
+                      return <IconComponent className="w-5 h-5 mr-2" />;
+                    })()}
+                    {getSortLabel(sortBy)}
+                    {sortOrder === 'asc' ? 
+                      <ChevronUp className="w-4 h-4 ml-2" /> : 
+                      <ChevronDown className="w-4 h-4 ml-2" />
+                    }
+                  </>
+                ) : (
+                  <>
+                    <Filter className="w-5 h-5 mr-2" />
+                    Filtres
+                  </>
                 )}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuItem onClick={() => handleSort('createdAt')}>
                 <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-2">
+                  <span>Date de création</span>
+                  <div className="flex items-center gap-1">
                     <Calendar className="w-4 h-4" />
-                    <span>Date de création</span>
+                    {sortBy === 'createdAt' && (
+                      sortOrder === 'asc' ? 
+                        <ChevronUp className="w-4 h-4" /> : 
+                        <ChevronDown className="w-4 h-4" />
+                    )}
                   </div>
-                  {sortBy === 'createdAt' && (
-                    sortOrder === 'asc' ? 
-                      <ChevronUp className="w-4 h-4" /> : 
-                      <ChevronDown className="w-4 h-4" />
-                  )}
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => handleSort('score')}>
                 <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-2">
+                  <span>Score Aura</span>
+                  <div className="flex items-center gap-1">
                     <Star className="w-4 h-4" />
-                    <span>Score Aura</span>
+                    {sortBy === 'score' && (
+                      sortOrder === 'asc' ? 
+                        <ChevronUp className="w-4 h-4" /> : 
+                        <ChevronDown className="w-4 h-4" />
+                    )}
                   </div>
-                  {sortBy === 'score' && (
-                    sortOrder === 'asc' ? 
-                      <ChevronUp className="w-4 h-4" /> : 
-                      <ChevronDown className="w-4 h-4" />
-                  )}
                 </div>
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => handleSort('type')}>
                 <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-2">
+                  <span>Type d'analyse</span>
+                  <div className="flex items-center gap-1">
                     <Layers className="w-4 h-4" />
-                    <span>Type d'analyse</span>
+                    {sortBy === 'type' && (
+                      sortOrder === 'asc' ? 
+                        <ChevronUp className="w-4 h-4" /> : 
+                        <ChevronDown className="w-4 h-4" />
+                    )}
                   </div>
-                  {sortBy === 'type' && (
-                    sortOrder === 'asc' ? 
-                      <ChevronUp className="w-4 h-4" /> : 
-                      <ChevronDown className="w-4 h-4" />
-                  )}
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleSort('status')}>
+                <div className="flex items-center justify-between w-full">
+                  <span>Statut</span>
+                  <div className="flex items-center gap-1">
+                    <Clock className="w-4 h-4" />
+                    {sortBy === 'status' && (
+                      sortOrder === 'asc' ? 
+                        <ChevronUp className="w-4 h-4" /> : 
+                        <ChevronDown className="w-4 h-4" />
+                    )}
+                  </div>
                 </div>
               </DropdownMenuItem>
               {sortBy && (
