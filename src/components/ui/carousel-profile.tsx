@@ -25,9 +25,9 @@ export function CarouselProfile({ images, className }: CarouselProfileProps) {
   if (!images.length) return null;
 
   return (
-    <div className={cn("relative group", className)}>
+    <div className={cn("relative group h-full", className)}>
       {/* Image principale */}
-      <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden relative">
+      <div className="h-full bg-muted rounded-xl overflow-hidden relative">
         <img 
           src={images[currentImageIndex]} 
           alt={`Photo ${currentImageIndex + 1}`}
@@ -52,25 +52,25 @@ export function CarouselProfile({ images, className }: CarouselProfileProps) {
             </button>
           </>
         )}
+        
+        {/* Barres de pagination */}
+        {images.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1" style={{ width: '90%' }}>
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                className={cn(
+                  "flex-1 h-1 rounded-full transition-colors",
+                  index === currentImageIndex 
+                    ? "bg-white" 
+                    : "bg-white/30"
+                )}
+              />
+            ))}
+          </div>
+        )}
       </div>
-      
-      {/* Barres de pagination */}
-      {images.length > 1 && (
-        <div className="flex gap-1 mt-3 justify-center" style={{ width: '90%', margin: '12px auto 0' }}>
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={cn(
-                "flex-1 h-1 rounded-full transition-colors",
-                index === currentImageIndex 
-                  ? "bg-primary" 
-                  : "bg-muted-foreground/30"
-              )}
-            />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

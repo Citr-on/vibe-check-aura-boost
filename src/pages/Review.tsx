@@ -200,23 +200,23 @@ const Review = () => {
                 setCurrentProfileIndex(0);
               }
             }}
-            className="bg-muted rounded-full p-1"
+            className="bg-muted rounded-full p-1 w-96"
           >
             <ToggleGroupItem 
               value="photos" 
-              className="rounded-full px-6 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=off]:text-muted-foreground"
+              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground"
             >
               Photos
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="profils" 
-              className="rounded-full px-6 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=off]:text-muted-foreground"
+              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground"
             >
               Profils
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="tout" 
-              className="rounded-full px-6 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=off]:text-muted-foreground"
+              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground"
             >
               Tout
             </ToggleGroupItem>
@@ -230,16 +230,16 @@ const Review = () => {
               <CardHeader className="sr-only">
                 <CardTitle>{currentProfile?.type === "profile" ? "Profil à analyser" : "Photo à analyser"}</CardTitle>
               </CardHeader>
-              <CardContent className="p-2 h-full flex flex-col">
+              <CardContent className="p-4 h-full flex flex-col">
                 {currentProfile?.type === "profile" ? (
                   <div className="h-full flex flex-col">
                     {/* Carrousel de photos - 70% de la hauteur */}
-                    <div className="flex-[0.7]">
+                    <div className="h-[70%]">
                       <CarouselProfile images={currentProfile.images} />
                     </div>
                     
                     {/* Informations utilisateur - 30% de la hauteur */}
-                    <div className="flex-[0.3] mt-4 space-y-3">
+                    <div className="h-[30%] mt-4 px-2 space-y-3">
                       {/* Tags */}
                       {currentProfile.tags && (
                         <div className="flex flex-wrap gap-1">
