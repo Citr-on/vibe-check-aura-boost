@@ -3,7 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Slider } from "@/components/ui/slider";
+import { RatingGauge } from "@/components/ui/rating-gauge";
 import { Sparkles, Heart, Zap, MessageSquare, ArrowRight, Info } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
@@ -12,9 +12,9 @@ const Review = () => {
   const [aura] = useState(3.5);
   
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
-  const [feelingScore, setFeelingScore] = useState([1]);
-  const [vibeScore, setVibeScore] = useState([1]);
-  const [intrigueScore, setIntrigueScore] = useState([1]);
+  const [feelingScore, setFeelingScore] = useState(1);
+  const [vibeScore, setVibeScore] = useState(1);
+  const [intrigueScore, setIntrigueScore] = useState(1);
   const [positiveComment, setPositiveComment] = useState("");
   const [improvementComment, setImprovementComment] = useState("");
 
@@ -67,9 +67,9 @@ const Review = () => {
   const handleSubmit = () => {
     console.log({
       profile: currentProfile.name,
-      feelingScore: feelingScore[0],
-      vibeScore: vibeScore[0],
-      intrigueScore: intrigueScore[0],
+      feelingScore,
+      vibeScore,
+      intrigueScore,
       positiveComment,
       improvementComment
     });
@@ -86,17 +86,17 @@ const Review = () => {
     if (currentProfileIndex < profiles.length - 1) {
       setCurrentProfileIndex(currentProfileIndex + 1);
       // Reset les champs pour le nouveau profil
-      setFeelingScore([1]);
-      setVibeScore([1]);
-      setIntrigueScore([1]);
+      setFeelingScore(1);
+      setVibeScore(1);
+      setIntrigueScore(1);
       setPositiveComment("");
       setImprovementComment("");
     } else {
       // Fin des profils, retourner au premier ou afficher un message
       setCurrentProfileIndex(0);
-      setFeelingScore([1]);
-      setVibeScore([1]);
-      setIntrigueScore([1]);
+      setFeelingScore(1);
+      setVibeScore(1);
+      setIntrigueScore(1);
       setPositiveComment("");
       setImprovementComment("");
       console.log("Tous les profils ont été reviewés !");
@@ -180,74 +180,35 @@ const Review = () => {
             <CardContent className="space-y-6">
               {/* Jauges de notation */}
               <div className="space-y-4">
-                <div className="flex items-center">
-                  <div className="flex items-center space-x-2 font-medium w-24">
-                    <Heart className="w-4 h-4 text-red-500" />
-                    <span>Feeling</span>
-                  </div>
-                  <div className="flex items-center space-x-3 flex-1">
-                    <Slider
-                      value={feelingScore}
-                      onValueChange={setFeelingScore}
-                      max={3}
-                      min={0}
-                      step={1}
-                      className="flex-1"
-                    />
-                    <span className="text-sm text-muted-foreground min-w-16">
-                      {feelingScore[0] === 0 && "Non"}
-                      {feelingScore[0] === 1 && "Un peu"}
-                      {feelingScore[0] === 2 && "Oui"}
-                      {feelingScore[0] === 3 && "Totalement"}
-                    </span>
-                  </div>
-                </div>
+                <RatingGauge
+                  value={feelingScore}
+                  onChange={setFeelingScore}
+                  icon={<Heart className="w-4 h-4 text-red-500" />}
+                  label="Feeling"
+                  color="hsl(var(--destructive))"
+                  labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                  tooltipText="Feeling : Votre première impression. La personne est-elle attirante, bien mise en valeur ?"
+                />
 
-                <div className="flex items-center">
-                  <div className="flex items-center space-x-2 font-medium w-24">
-                    <Zap className="w-4 h-4 text-accent" />
-                    <span>Vibe</span>
-                  </div>
-                  <div className="flex items-center space-x-3 flex-1">
-                    <Slider
-                      value={vibeScore}
-                      onValueChange={setVibeScore}
-                      max={3}
-                      min={0}
-                      step={1}
-                      className="flex-1"
-                    />
-                    <span className="text-sm text-muted-foreground min-w-16">
-                      {vibeScore[0] === 0 && "Non"}
-                      {vibeScore[0] === 1 && "Un peu"}
-                      {vibeScore[0] === 2 && "Oui"}
-                      {vibeScore[0] === 3 && "Totalement"}
-                    </span>
-                  </div>
-                </div>
+                <RatingGauge
+                  value={vibeScore}
+                  onChange={setVibeScore}
+                  icon={<Zap className="w-4 h-4 text-accent" />}
+                  label="Vibe"
+                  color="hsl(var(--accent))"
+                  labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                  tooltipText="Vibe : La personnalité qui se dégage. Le profil semble-t-il authentique, fun, sincère ?"
+                />
 
-                <div className="flex items-center">
-                  <div className="flex items-center space-x-2 font-medium w-24">
-                    <MessageSquare className="w-4 h-4 text-primary" />
-                    <span>Intrigue</span>
-                  </div>
-                  <div className="flex items-center space-x-3 flex-1">
-                    <Slider
-                      value={intrigueScore}
-                      onValueChange={setIntrigueScore}
-                      max={3}
-                      min={0}
-                      step={1}
-                      className="flex-1"
-                    />
-                    <span className="text-sm text-muted-foreground min-w-16">
-                      {intrigueScore[0] === 0 && "Non"}
-                      {intrigueScore[0] === 1 && "Un peu"}
-                      {intrigueScore[0] === 2 && "Oui"}
-                      {intrigueScore[0] === 3 && "Totalement"}
-                    </span>
-                  </div>
-                </div>
+                <RatingGauge
+                  value={intrigueScore}
+                  onChange={setIntrigueScore}
+                  icon={<MessageSquare className="w-4 h-4 text-primary" />}
+                  label="Intrigue"
+                  color="hsl(var(--primary))"
+                  labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                  tooltipText="Intrigue : L'envie d'aller plus loin. Le profil donne-t-il envie d'engager la conversation ?"
+                />
               </div>
 
               {/* Commentaires */}
