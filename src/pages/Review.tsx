@@ -127,9 +127,9 @@ const Review = () => {
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 lg:items-start">
           {/* Élément à analyser */}
-          <Card className="rounded-2xl shadow-card">
+          <Card className="rounded-2xl shadow-card lg:sticky lg:top-4">
             <CardHeader className="sr-only">
               <CardTitle>Photo à analyser</CardTitle>
             </CardHeader>
@@ -145,7 +145,7 @@ const Review = () => {
           </Card>
 
           {/* Panneau de notation */}
-          <Card className="rounded-2xl shadow-card">
+          <Card className="rounded-2xl shadow-card min-h-full">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>Votre évaluation</span>
