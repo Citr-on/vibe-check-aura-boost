@@ -205,19 +205,31 @@ const Review = () => {
           >
             <ToggleGroupItem 
               value="photos" 
-              className="rounded-full px-8 py-2 flex-1 !data-[state=on]:bg-white !data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=off]:hover:bg-muted/50 transition-all border-none"
+              className="rounded-full px-8 py-2 flex-1"
+              style={{
+                backgroundColor: contentType === "photos" ? "white" : "transparent",
+                color: contentType === "photos" ? "black" : undefined
+              }}
             >
               Photos
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="profils" 
-              className="rounded-full px-8 py-2 flex-1 !data-[state=on]:bg-white !data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=off]:hover:bg-muted/50 transition-all border-none"
+              className="rounded-full px-8 py-2 flex-1"
+              style={{
+                backgroundColor: contentType === "profils" ? "white" : "transparent",
+                color: contentType === "profils" ? "black" : undefined
+              }}
             >
               Profils
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="tout" 
-              className="rounded-full px-8 py-2 flex-1 !data-[state=on]:bg-white !data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=off]:hover:bg-muted/50 transition-all border-none"
+              className="rounded-full px-8 py-2 flex-1"
+              style={{
+                backgroundColor: contentType === "tout" ? "white" : "transparent",
+                color: contentType === "tout" ? "black" : undefined
+              }}
             >
               Tout
             </ToggleGroupItem>

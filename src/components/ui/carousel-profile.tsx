@@ -57,16 +57,16 @@ export function CarouselProfile({ images, className }: CarouselProfileProps) {
         
         {/* Barres de pagination */}
         {images.length > 1 && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1" style={{ width: '90%' }}>
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-10" style={{ width: '90%' }}>
             {images.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
                 className={cn(
-                  "flex-1 h-1 rounded-full transition-colors",
+                  "flex-1 h-2 rounded-full transition-colors shadow-sm",
                   index === currentImageIndex 
-                    ? "bg-white" 
-                    : "bg-white/30"
+                    ? "bg-white shadow-lg" 
+                    : "bg-white/50 hover:bg-white/70"
                 )}
               />
             ))}
