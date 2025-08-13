@@ -135,8 +135,8 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
         </div>
       </div>
       
-      <CardContent className="flex flex-col h-32 p-4">
-        <div className="flex-1 mb-4">
+      <CardContent className="flex flex-col h-32 p-4 pb-4">
+        <div className="flex-1">
           {isCompleted ? (
             <div className="flex items-center justify-between">
               <div className="text-center">
@@ -167,19 +167,21 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
           )}
         </div>
         
-        {isCompleted ? (
-          <Link to={`/analysis/${analysis.id}`}>
-            <Button className="w-full rounded-xl" variant="outline">
-              <Eye className="w-4 h-4 mr-2" />
-              Voir le rapport
+        <div className="mt-4">
+          {isCompleted ? (
+            <Link to={`/analysis/${analysis.id}`}>
+              <Button className="w-full rounded-xl" variant="outline">
+                <Eye className="w-4 h-4 mr-2" />
+                Voir le rapport
+              </Button>
+            </Link>
+          ) : (
+            <Button className="w-full rounded-xl" variant="outline" disabled>
+              <Clock className="w-4 h-4 mr-2" />
+              En cours d'analyse
             </Button>
-          </Link>
-        ) : (
-          <Button className="w-full rounded-xl" variant="outline" disabled>
-            <Clock className="w-4 h-4 mr-2" />
-            En cours d'analyse
-          </Button>
-        )}
+          )}
+        </div>
       </CardContent>
     </Card>
   );
