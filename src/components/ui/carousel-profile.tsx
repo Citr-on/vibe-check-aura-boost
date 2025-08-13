@@ -9,6 +9,8 @@ interface CarouselProfileProps {
 
 export function CarouselProfile({ images, className }: CarouselProfileProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  console.log("CarouselProfile rendered with images:", images?.length || 0);
 
   const goToPrevious = () => {
     setCurrentImageIndex((prevIndex) => 

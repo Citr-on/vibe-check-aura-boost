@@ -195,6 +195,7 @@ const Review = () => {
             type="single" 
             value={contentType} 
             onValueChange={(value) => {
+              console.log("ToggleGroup value changed:", value);
               if (value) {
                 setContentType(value as "photos" | "profils" | "tout");
                 setCurrentProfileIndex(0);
@@ -204,19 +205,19 @@ const Review = () => {
           >
             <ToggleGroupItem 
               value="photos" 
-              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-white data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=on]:hover:bg-white data-[state=off]:hover:bg-muted/50 transition-all"
+              className="rounded-full px-8 py-2 flex-1 !data-[state=on]:bg-white !data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=off]:hover:bg-muted/50 transition-all border-none"
             >
               Photos
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="profils" 
-              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-white data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=on]:hover:bg-white data-[state=off]:hover:bg-muted/50 transition-all"
+              className="rounded-full px-8 py-2 flex-1 !data-[state=on]:bg-white !data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=off]:hover:bg-muted/50 transition-all border-none"
             >
               Profils
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="tout" 
-              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-white data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=on]:hover:bg-white data-[state=off]:hover:bg-muted/50 transition-all"
+              className="rounded-full px-8 py-2 flex-1 !data-[state=on]:bg-white !data-[state=on]:text-black data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=off]:hover:bg-muted/50 transition-all border-none"
             >
               Tout
             </ToggleGroupItem>
