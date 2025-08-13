@@ -127,25 +127,28 @@ const Review = () => {
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:items-start">
+        <div className="flex flex-col lg:flex-row gap-8 lg:items-stretch">
           {/* Élément à analyser */}
-          <Card className="rounded-2xl shadow-card lg:sticky lg:top-4">
-            <CardHeader className="sr-only">
-              <CardTitle>Photo à analyser</CardTitle>
-            </CardHeader>
-            <CardContent className="p-2">
-              <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden mb-4 flex items-center justify-center">
-                <img 
-                  src={currentProfile.image} 
-                  alt={`Photo de ${currentProfile.name}`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </CardContent>
-          </Card>
+          <div className="lg:w-1/2">
+            <Card className="rounded-2xl shadow-card h-full">
+              <CardHeader className="sr-only">
+                <CardTitle>Photo à analyser</CardTitle>
+              </CardHeader>
+              <CardContent className="p-2 h-full flex flex-col">
+                <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden flex items-center justify-center">
+                  <img 
+                    src={currentProfile.image} 
+                    alt={`Photo de ${currentProfile.name}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
           {/* Panneau de notation */}
-          <Card className="rounded-2xl shadow-card min-h-full">
+          <div className="lg:w-1/2">
+            <Card className="rounded-2xl shadow-card h-full">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>Votre évaluation</span>
@@ -282,7 +285,8 @@ const Review = () => {
               </div>
 
             </CardContent>
-          </Card>
+            </Card>
+          </div>
         </div>
       </main>
     </div>
