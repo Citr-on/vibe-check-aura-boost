@@ -5,7 +5,7 @@ import { AnalysisCard, type Analysis } from "@/components/dashboard/AnalysisCard
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Filter, ChevronUp, ChevronDown, Calendar, Star, Layers, Clock } from "lucide-react";
+import { Plus, Filter, ArrowUp, ArrowDown, Calendar, Star, Layers, Clock } from "lucide-react";
 
 // Données d'exemple
 const mockAnalyses: Analysis[] = [
@@ -174,8 +174,8 @@ const Dashboard = () => {
                     })()}
                     {getSortLabel(sortBy)}
                     {sortOrder === 'asc' ? 
-                      <ChevronUp className="w-4 h-4 ml-2" /> : 
-                      <ChevronDown className="w-4 h-4 ml-2" />
+                      <ArrowUp className="w-4 h-4 ml-2" /> : 
+                      <ArrowDown className="w-4 h-4 ml-2" />
                     }
                   </>
                 ) : (
@@ -194,8 +194,8 @@ const Dashboard = () => {
                     <Calendar className="w-4 h-4" />
                     {sortBy === 'createdAt' && (
                       sortOrder === 'asc' ? 
-                        <ChevronUp className="w-4 h-4" /> : 
-                        <ChevronDown className="w-4 h-4" />
+                        <ArrowUp className="w-4 h-4" /> : 
+                        <ArrowDown className="w-4 h-4" />
                     )}
                   </div>
                 </div>
@@ -207,8 +207,8 @@ const Dashboard = () => {
                     <Star className="w-4 h-4" />
                     {sortBy === 'score' && (
                       sortOrder === 'asc' ? 
-                        <ChevronUp className="w-4 h-4" /> : 
-                        <ChevronDown className="w-4 h-4" />
+                        <ArrowUp className="w-4 h-4" /> : 
+                        <ArrowDown className="w-4 h-4" />
                     )}
                   </div>
                 </div>
@@ -220,8 +220,8 @@ const Dashboard = () => {
                     <Layers className="w-4 h-4" />
                     {sortBy === 'type' && (
                       sortOrder === 'asc' ? 
-                        <ChevronUp className="w-4 h-4" /> : 
-                        <ChevronDown className="w-4 h-4" />
+                        <ArrowUp className="w-4 h-4" /> : 
+                        <ArrowDown className="w-4 h-4" />
                     )}
                   </div>
                 </div>
@@ -233,8 +233,8 @@ const Dashboard = () => {
                     <Clock className="w-4 h-4" />
                     {sortBy === 'status' && (
                       sortOrder === 'asc' ? 
-                        <ChevronUp className="w-4 h-4" /> : 
-                        <ChevronDown className="w-4 h-4" />
+                        <ArrowUp className="w-4 h-4" /> : 
+                        <ArrowDown className="w-4 h-4" />
                     )}
                   </div>
                 </div>
