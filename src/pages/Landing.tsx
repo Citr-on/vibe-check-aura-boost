@@ -48,7 +48,7 @@ const Landing = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
-            Ton profil peut te rapporter 2x plus de matchs. On te le prouve.
+            Ton profil peut te rapporter <span className="text-primary">2x plus de matchs.</span> On te le prouve.
           </h1>
           <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto">
             Aura combine l'avis honnête de milliers de personnes et la puissance de l'IA pour révéler le vrai potentiel de ton profil.
