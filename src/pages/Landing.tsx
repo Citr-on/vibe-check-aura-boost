@@ -45,7 +45,7 @@ const Landing = () => {
       </header>
 
       {/* Section 1: HERO */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 bg-gradient-mesh relative overflow-hidden">
         <div className="container mx-auto text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
             Ton profil peut te rapporter <span className="text-primary">2x plus de matchs.</span> On te le prouve.
