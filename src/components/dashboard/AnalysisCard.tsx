@@ -135,8 +135,8 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
         </div>
       </div>
       
-      <CardContent className="flex flex-col h-32 p-4 pb-4">
-        <div className="flex-1">
+      <CardContent className="p-4 h-32 flex flex-col justify-between">
+        <div>
           {isCompleted ? (
             <div className="flex items-center justify-between">
               <div className="text-center">
@@ -167,7 +167,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
           )}
         </div>
         
-        <div className="mt-4">
+        <div>
           {isCompleted ? (
             <Link to={`/analysis/${analysis.id}`}>
               <Button className="w-full rounded-xl" variant="outline">
