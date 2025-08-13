@@ -115,14 +115,6 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
                   const isSelected = value >= segmentValue;
                   const isHovered = hoveredValue !== null && hoveredValue >= segmentValue;
                   
-                  // Background color logic
-                  let backgroundColor;
-                  if (isSelected) {
-                    backgroundColor = color; // Full color for selected segments
-                  } else if (isHovered) {
-                    backgroundColor = `${color}80`; // 50% opacity for hovered segments
-                  }
-                  
                   return (
                     <div
                       key={segmentIndex}
@@ -132,7 +124,8 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
                         (isSelected || isHovered) ? "text-white" : "text-muted-foreground"
                       )}
                       style={{
-                        backgroundColor
+                        backgroundColor: isSelected ? color : (isHovered ? color : undefined),
+                        opacity: isSelected ? 1 : (isHovered ? 0.5 : 1)
                       }}
                       onMouseEnter={(e) => handleMouseEnter(segmentValue, e)}
                       onClick={() => handleClick(segmentValue)}
