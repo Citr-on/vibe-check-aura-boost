@@ -204,19 +204,19 @@ const Review = () => {
           >
             <ToggleGroupItem 
               value="photos" 
-              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground"
+              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=on]:hover:bg-background data-[state=off]:hover:bg-muted/50"
             >
               Photos
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="profils" 
-              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground"
+              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=on]:hover:bg-background data-[state=off]:hover:bg-muted/50"
             >
               Profils
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="tout" 
-              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground"
+              className="rounded-full px-8 py-2 flex-1 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm data-[state=off]:text-muted-foreground data-[state=on]:hover:bg-background data-[state=off]:hover:bg-muted/50"
             >
               Tout
             </ToggleGroupItem>
