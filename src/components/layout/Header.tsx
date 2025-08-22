@@ -27,13 +27,13 @@ export const Header = ({ credits, aura }: HeaderProps) => {
               <img 
                 src={insigneAura} 
                 alt="Aura" 
-                className="h-12 w-12 object-contain"
+                className="h-16 w-16 object-contain"
               />
             ) : (
               <img 
                 src={insigneLogotypeAura} 
                 alt="Aura" 
-                className="h-12 object-contain"
+                className="h-16 object-contain"
               />
             )}
           </Link>
