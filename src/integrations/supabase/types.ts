@@ -7,14 +7,52 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "12.2.12 (cd3cf9e)"
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          age: number | null
+          created_at: string
+          ethnic_origin:
+            | Database["public"]["Enums"]["ethnic_origin_type"]
+            | null
+          gender: Database["public"]["Enums"]["gender_type"] | null
+          height: number | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          age?: number | null
+          created_at?: string
+          ethnic_origin?:
+            | Database["public"]["Enums"]["ethnic_origin_type"]
+            | null
+          gender?: Database["public"]["Enums"]["gender_type"] | null
+          height?: number | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          age?: number | null
+          created_at?: string
+          ethnic_origin?:
+            | Database["public"]["Enums"]["ethnic_origin_type"]
+            | null
+          gender?: Database["public"]["Enums"]["gender_type"] | null
+          height?: number | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +61,16 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      ethnic_origin_type:
+        | "européenne"
+        | "africaine"
+        | "asiatique"
+        | "hispanique"
+        | "moyen-orientale"
+        | "métisse"
+        | "autre"
+        | "préfère-ne-pas-dire"
+      gender_type: "homme" | "femme" | "non-binaire" | "préfère-ne-pas-dire"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +197,18 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      ethnic_origin_type: [
+        "européenne",
+        "africaine",
+        "asiatique",
+        "hispanique",
+        "moyen-orientale",
+        "métisse",
+        "autre",
+        "préfère-ne-pas-dire",
+      ],
+      gender_type: ["homme", "femme", "non-binaire", "préfère-ne-pas-dire"],
+    },
   },
 } as const
