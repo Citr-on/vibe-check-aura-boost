@@ -21,17 +21,6 @@ const mockAnalyses: Analysis[] = [
     totalVotes: 50
   },
   {
-    id: '2',
-    type: 'bio',
-    title: 'Description de profil',
-    status: 'en-cours',
-    isPremium: false,
-    createdAt: '2024-01-20T14:15:00Z',
-    progress: 65,
-    votesReceived: 13,
-    totalVotes: 20
-  },
-  {
     id: '3',
     type: 'photo',
     title: 'Photo en pied',

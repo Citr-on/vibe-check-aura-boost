@@ -12,7 +12,7 @@ import bioSample2 from "@/assets/bio-sample-2.jpg";
 
 export interface Analysis {
   id: string;
-  type: 'photo' | 'bio' | 'profil-complet';
+  type: 'photo' | 'profil-complet';
   title: string;
   status: 'en-cours' | 'terminé';
   isPremium: boolean;
@@ -34,7 +34,6 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
   const getTypeLabel = () => {
     switch (analysis.type) {
       case 'photo': return 'Photo';
-      case 'bio': return 'Bio';
       case 'profil-complet': return 'Profil complet';
       default: return 'Analyse';
     }
@@ -44,8 +43,6 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
   const getAnalysisImage = () => {
     if (analysis.type === 'photo') {
       return analysis.id === '1' ? portraitSample1 : portraitSample2;
-    } else if (analysis.type === 'bio') {
-      return analysis.id === '2' ? bioSample1 : bioSample2;
     } else {
       // Pour profil-complet, on retourne null car on affichera une grille d'images
       return null;
