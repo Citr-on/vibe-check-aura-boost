@@ -11,6 +11,7 @@ import Credits from "./pages/Credits";
 import StudioIA from "./pages/StudioIA";
 import PhotoRetouchStudio from "./pages/PhotoRetouchStudio";
 import BioGeneratorStudio from "./pages/BioGeneratorStudio";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/review" element={<Review />} />
           <Route path="/analysis/:id" element={<AnalysisReport />} />
           <Route path="/credits" element={<Credits />} />
