@@ -56,14 +56,14 @@ export const Header = ({ credits, aura }: HeaderProps) => {
           {/* Balance & Profile */}
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-3 text-sm font-medium">
-              <div className="flex items-center space-x-1 text-foreground">
-                <Gem className="w-4 h-4 text-primary" />
-                <span>{credits} Crédits</span>
-              </div>
-              <div className="w-px h-4 bg-border"></div>
               <div className="flex items-center space-x-1 text-muted-foreground">
                 <Sparkles className="w-4 h-4 text-accent" />
                 <span>{aura} Aura</span>
+              </div>
+              <div className="w-px h-4 bg-border"></div>
+              <div className="flex items-center space-x-1 text-foreground">
+                <Gem className="w-4 h-4 text-primary" />
+                <span>{credits} Crédits</span>
               </div>
             </div>
             
