@@ -15,7 +15,7 @@ const Review = () => {
   const [aura] = useState(3.5);
   
   // État pour le type de contenu sélectionné
-  const [contentType, setContentType] = useState<"photos" | "profils" | "tout">("tout");
+  const [contentType, setContentType] = useState<"photos" | "tout">("tout");
   
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
   const [feelingScore, setFeelingScore] = useState(1);
@@ -91,12 +91,8 @@ const Review = () => {
     }
   ];
 
-  // Filtrage des profils selon le type sélectionné
-  const filteredProfiles = profiles.filter(profile => {
-    if (contentType === "photos") return profile.type === "photo";
-    if (contentType === "profils") return profile.type === "profile";
-    return true; // "tout"
-  });
+  // Filtrage des profils selon le type sélectionné (seulement photos maintenant)
+  const filteredProfiles = profiles.filter(profile => profile.type === "photo");
 
   const currentProfile = filteredProfiles[currentProfileIndex] || profiles[0];
 
@@ -139,47 +135,24 @@ const Review = () => {
     }
   };
 
-  // Tags contextuels selon le type de contenu
-  const getPositiveChips = () => {
-    if (currentProfile?.type === "profile") {
-      return [
-        { label: "Photos variées", text: "Belle variété de photos" },
-        { label: "Bonne description", text: "La description donne envie d'en savoir plus" },
-        { label: "Profil cohérent", text: "Profil très cohérent et bien construit" },
-        { label: "Authentique", text: "Le profil semble authentique" },
-        { label: "Donne confiance", text: "Ce profil m'inspire confiance" },
-        { label: "Plein d'humour", text: "J'aime l'humour dans ce profil" }
-      ];
-    }
-    return [
-      { label: "Style", text: "J'aime son style vestimentaire" },
-      { label: "Sourire", text: "Beau sourire !" },
-      { label: "Date", text: "J'accepterais carrément un date avec lui/elle !" },
-      { label: "Super photo", text: "Super photo !" },
-      { label: "Charme", text: "Beaucoup de charme" },
-      { label: "Naturel", text: "Photo très naturelle" }
-    ];
-  };
+  // Tags contextuels pour les photos uniquement
+  const getPositiveChips = () => [
+    { label: "Style", text: "J'aime son style vestimentaire" },
+    { label: "Sourire", text: "Beau sourire !" },
+    { label: "Date", text: "J'accepterais carrément un date avec lui/elle !" },
+    { label: "Super photo", text: "Super photo !" },
+    { label: "Charme", text: "Beaucoup de charme" },
+    { label: "Naturel", text: "Photo très naturelle" }
+  ];
 
-  const getImprovementChips = () => {
-    if (currentProfile?.type === "profile") {
-      return [
-        { label: "Manque de photos", text: "Quelques photos supplémentaires seraient un plus" },
-        { label: "Bio à développer", text: "La biographie pourrait être plus détaillée" },
-        { label: "Trop classique", text: "Le profil manque d'originalité" },
-        { label: "Photos similaires", text: "Diversifier les types de photos" },
-        { label: "Manque de clarté", text: "Les intentions pourraient être plus claires" }
-      ];
-    }
-    return [
-      { label: "Cadre", text: "Je changerais le cadrage de la photo" },
-      { label: "Gêné", text: "La personne a l'air mal à l'aise sur cette photo" },
-      { label: "Arrière-plan", text: "L'arrière-plan distrait l'attention" },
-      { label: "Lunettes", text: "Je préférerais sans lunettes de soleil" },
-      { label: "Éclairage", text: "L'éclairage pourrait être amélioré" },
-      { label: "Angle", text: "Un angle différent serait plus flatteur" }
-    ];
-  };
+  const getImprovementChips = () => [
+    { label: "Cadre", text: "Je changerais le cadrage de la photo" },
+    { label: "Gêné", text: "La personne a l'air mal à l'aise sur cette photo" },
+    { label: "Arrière-plan", text: "L'arrière-plan distrait l'attention" },
+    { label: "Lunettes", text: "Je préférerais sans lunettes de soleil" },
+    { label: "Éclairage", text: "L'éclairage pourrait être amélioré" },
+    { label: "Angle", text: "Un angle différent serait plus flatteur" }
+  ];
 
   const positiveChips = getPositiveChips();
   const improvementChips = getImprovementChips();
@@ -197,11 +170,11 @@ const Review = () => {
             onValueChange={(value) => {
               console.log("ToggleGroup value changed:", value);
               if (value) {
-                setContentType(value as "photos" | "profils" | "tout");
+                setContentType(value as "photos" | "tout");
                 setCurrentProfileIndex(0);
               }
             }}
-            className="bg-muted rounded-full p-1 w-96"
+            className="bg-muted rounded-full p-1 w-64"
           >
             <ToggleGroupItem 
               value="photos" 
@@ -212,16 +185,6 @@ const Review = () => {
               }}
             >
               Photos
-            </ToggleGroupItem>
-            <ToggleGroupItem 
-              value="profils" 
-              className="rounded-full px-8 py-2 flex-1"
-              style={{
-                backgroundColor: contentType === "profils" ? "white" : "transparent",
-                color: contentType === "profils" ? "black" : undefined
-              }}
-            >
-              Profils
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="tout" 
@@ -241,46 +204,16 @@ const Review = () => {
           <div className="lg:w-1/2">
             <Card className="rounded-2xl shadow-card h-full">
               <CardHeader className="sr-only">
-                <CardTitle>{currentProfile?.type === "profile" ? "Profil à analyser" : "Photo à analyser"}</CardTitle>
+                <CardTitle>Photo à analyser</CardTitle>
               </CardHeader>
               <CardContent className="p-4 h-full flex flex-col">
-                {currentProfile?.type === "profile" ? (
-                  <div className="h-full flex flex-col">
-                    {/* Carrousel de photos - 70% de la hauteur */}
-                    <div className="h-[70%]">
-                      <CarouselProfile images={currentProfile.images} />
-                    </div>
-                    
-                    {/* Informations utilisateur - 30% de la hauteur */}
-                    <div className="h-[30%] mt-4 px-2 space-y-3">
-                      {/* Tags */}
-                      {currentProfile.tags && (
-                        <div className="flex flex-wrap gap-1">
-                          {currentProfile.tags.map((tag, index) => (
-                            <Badge key={index} variant="secondary" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
-                      
-                      {/* Biographie */}
-                      {currentProfile.bio && (
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {currentProfile.bio}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden flex items-center justify-center">
-                    <img 
-                      src={currentProfile?.images?.[0]} 
-                      alt={`Photo de ${currentProfile?.name}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
+                <div className="aspect-[3/4] bg-muted rounded-xl overflow-hidden flex items-center justify-center">
+                  <img 
+                    src={currentProfile?.images?.[0]} 
+                    alt={`Photo de ${currentProfile?.name}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -362,11 +295,7 @@ const Review = () => {
                   <Textarea
                     value={positiveComment}
                     onChange={(e) => setPositiveComment(e.target.value)}
-                    placeholder={
-                      currentProfile?.type === "profile" 
-                        ? "Ce qui me plaît le plus sur ce profil..." 
-                        : "Partagez ce qui vous plaît dans cette photo/bio..."
-                    }
+                    placeholder="Partagez ce qui vous plaît dans cette photo..."
                     className="resize-none rounded-xl"
                     rows={2}
                   />
@@ -390,11 +319,7 @@ const Review = () => {
                   <Textarea
                     value={improvementComment}
                     onChange={(e) => setImprovementComment(e.target.value)}
-                    placeholder={
-                      currentProfile?.type === "profile" 
-                        ? "Un conseil pour améliorer ce profil..." 
-                        : "Donnez un conseil constructif et bienveillant..."
-                    }
+                    placeholder="Donnez un conseil constructif et bienveillant..."
                     className="resize-none rounded-xl"
                     rows={2}
                   />
