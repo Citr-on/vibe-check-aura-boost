@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Plus, Sparkles, Gem } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useIsMobile } from "@/hooks/use-mobile";
+import insigneAura from "@/assets/insigne-aura.png";
+import insigneLogotypeAura from "@/assets/insigne-logotype-aura.png";
 
 interface HeaderProps {
   credits: number;
@@ -10,6 +13,7 @@ interface HeaderProps {
 
 export const Header = ({ credits, aura }: HeaderProps) => {
   const location = useLocation();
+  const isMobile = useIsMobile();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -18,11 +22,20 @@ export const Header = ({ credits, aura }: HeaderProps) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-hero rounded-full flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-heading font-bold text-foreground">Aura</span>
+          <Link to="/" className="flex items-center">
+            {isMobile ? (
+              <img 
+                src={insigneAura} 
+                alt="Aura" 
+                className="h-8 w-8 object-contain"
+              />
+            ) : (
+              <img 
+                src={insigneLogotypeAura} 
+                alt="Aura" 
+                className="h-8 object-contain"
+              />
+            )}
           </Link>
 
           {/* Navigation */}
