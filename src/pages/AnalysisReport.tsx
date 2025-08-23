@@ -151,9 +151,9 @@ const AnalysisReport = () => {
                     Pour optimiser encore votre profil, nous recommandons d'ajuster légèrement l'angle de prise de vue 
                     pour éviter la contre-plongée et de choisir un arrière-plan plus neutre qui mettra davantage en valeur votre visage.
                   </p>
-                  <Button className="w-full mt-4 bg-gradient-hero hover:opacity-90 text-white rounded-xl">
-                    Améliorer ta photo avec notre IA
-                  </Button>
+              <Button className="w-full mt-4 rounded-xl">
+                Améliorer ta photo avec notre IA
+              </Button>
                 </div>
               )}
             </CardContent>
