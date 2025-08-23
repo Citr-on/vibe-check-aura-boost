@@ -5,57 +5,50 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { 
-  ResponsiveContainer,
-  RadarChart,
-  Radar,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis
-} from "recharts";
+import { ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from "recharts";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { FavouriteIcon, ZapIcon, MessageMultiple02Icon, LockIcon, GemIcon, ArrowUpIcon, ArrowDownIcon } from '@hugeicons/core-free-icons';
 import portraitSample1 from "@/assets/portrait-sample-1.jpg";
-
 const AnalysisReport = () => {
-  const { id } = useParams();
+  const {
+    id
+  } = useParams();
   const [credits] = useState(150);
   const [aura] = useState(3.5);
 
   // Simulation des données selon le type d'analyse
   const isStandardAnalysis = id === '2'; // L'analyse en cours dans notre mock
 
-  const scoreData = [
-    { name: 'Attirance', score: 2.8, fullMark: 3 },
-    { name: 'Style', score: 2.6, fullMark: 3 },
-    { name: 'Feeling', score: 2.1, fullMark: 3 }
-  ];
-
-  const demographicData = [
-    { name: '18-25', value: 35, color: '#48D1CC' },
-    { name: '26-35', value: 45, color: '#F7B538' },
-    { name: '36-45', value: 20, color: '#94a3b8' }
-  ];
-
-  const keywordData = [
-    'Sourire', 'Naturel', 'Confiant', 'Amical', 'Authentique',
-    'Chaleureux', 'Beau regard', 'Style', 'Accessible', 'Séduisant'
-  ];
-
-  const topStrengths = [
-    "Sourire naturel et chaleureux",
-    "Expression confiante et accessible", 
-    "Bon éclairage et qualité photo"
-  ];
-
-  const topWeaknesses = [
-    "Angle légèrement en contre-plongée",
-    "Arrière-plan pourrait être plus neutre",
-    "Photo un peu trop recadrée"
-  ];
-
-  return (
-    <div className="min-h-screen bg-background">
+  const scoreData = [{
+    name: 'Attirance',
+    score: 2.8,
+    fullMark: 3
+  }, {
+    name: 'Style',
+    score: 2.6,
+    fullMark: 3
+  }, {
+    name: 'Feeling',
+    score: 2.1,
+    fullMark: 3
+  }];
+  const demographicData = [{
+    name: '18-25',
+    value: 35,
+    color: '#48D1CC'
+  }, {
+    name: '26-35',
+    value: 45,
+    color: '#F7B538'
+  }, {
+    name: '36-45',
+    value: 20,
+    color: '#94a3b8'
+  }];
+  const keywordData = ['Sourire', 'Naturel', 'Confiant', 'Amical', 'Authentique', 'Chaleureux', 'Beau regard', 'Style', 'Accessible', 'Séduisant'];
+  const topStrengths = ["Sourire naturel et chaleureux", "Expression confiante et accessible", "Bon éclairage et qualité photo"];
+  const topWeaknesses = ["Angle légèrement en contre-plongée", "Arrière-plan pourrait être plus neutre", "Photo un peu trop recadrée"];
+  return <div className="min-h-screen bg-background">
       <Header credits={credits} aura={aura} />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -85,11 +78,7 @@ const AnalysisReport = () => {
             </CardHeader>
             <CardContent>
               <div className="aspect-[4/3] bg-muted rounded-xl overflow-hidden">
-                <img 
-                  src={portraitSample1} 
-                  alt="Photo de profil analysée"
-                  className="w-full h-full object-cover"
-                />
+                <img src={portraitSample1} alt="Photo de profil analysée" className="w-full h-full object-cover" />
               </div>
             </CardContent>
           </Card>
@@ -111,8 +100,7 @@ const AnalysisReport = () => {
                 <div className="text-sm text-muted-foreground">Score Aura global</div>
               </div>
 
-              {isStandardAnalysis ? (
-                <div className="relative">
+              {isStandardAnalysis ? <div className="relative">
                   <div className="blur-sm text-muted-foreground">
                     <p className="mb-4">
                       Votre photo de profil dégage une impression globalement positive avec un score de 7.6/10. 
@@ -135,9 +123,7 @@ const AnalysisReport = () => {
                       </Button>
                     </div>
                   </div>
-                </div>
-              ) : (
-                <div className="space-y-4">
+                </div> : <div className="space-y-4">
                   <p>
                     Votre photo de profil dégage une impression globalement très positive avec un score de 8.2/10. 
                     Les utilisateurs apprécient particulièrement votre sourire naturel et votre expression confiante, 
@@ -154,8 +140,7 @@ const AnalysisReport = () => {
               <Button className="w-full mt-4 rounded-xl">
                 Améliorer ta photo avec notre IA
               </Button>
-                </div>
-              )}
+                </div>}
             </CardContent>
           </Card>
         </div>
@@ -174,43 +159,43 @@ const AnalysisReport = () => {
                     <RadarChart data={scoreData}>
                       <PolarGrid gridType="circle" />
                       <PolarAngleAxis dataKey="name" />
-                      <PolarRadiusAxis 
-                        angle={90} 
-                        domain={[0, 3]} 
-                        tick={{ fontSize: 10 }}
-                        tickFormatter={(value) => {
-                          if (value === 0) return "Non";
-                          if (value === 1) return "Un peu";
-                          if (value === 2) return "Oui";
-                          if (value === 3) return "Totalement";
-                          return "";
-                        }}
-                      />
-                      <Radar
-                        name="Score"
-                        dataKey="score"
-                        stroke="#48D1CC"
-                        fill="#48D1CC"
-                        fillOpacity={0.3}
-                        strokeWidth={2}
-                      />
+                      <PolarRadiusAxis angle={90} domain={[0, 3]} tick={{
+                      fontSize: 10
+                    }} tickFormatter={value => {
+                      if (value === 0) return "Non";
+                      if (value === 1) return "Un peu";
+                      if (value === 2) return "Oui";
+                      if (value === 3) return "Totalement";
+                      return "";
+                    }} />
+                      <Radar name="Score" dataKey="score" stroke="#48D1CC" fill="#48D1CC" fillOpacity={0.3} strokeWidth={2} />
                     </RadarChart>
                   </ResponsiveContainer>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 mt-6">
                   {scoreData.map((item, index) => {
-                    const scoreOut10 = (item.score / 3) * 10;
-                    const getPerformanceIndicator = (score) => {
-                      if (score >= 8) return { text: "Top 20%", color: "text-green-600" };
-                      if (score >= 6) return { text: "Au-dessus de la moyenne", color: "text-blue-600" };
-                      if (score >= 4) return { text: "Dans la moyenne", color: "text-yellow-600" };
-                      return { text: "En dessous de la moyenne", color: "text-orange-600" };
+                  const scoreOut10 = item.score / 3 * 10;
+                  const getPerformanceIndicator = score => {
+                    if (score >= 8) return {
+                      text: "Top 20%",
+                      color: "text-green-600"
                     };
-                    const performance = getPerformanceIndicator(scoreOut10);
-                    
-                    return (
-                      <div key={index} className="text-center">
+                    if (score >= 6) return {
+                      text: "Au-dessus de la moyenne",
+                      color: "text-blue-600"
+                    };
+                    if (score >= 4) return {
+                      text: "Dans la moyenne",
+                      color: "text-yellow-600"
+                    };
+                    return {
+                      text: "En dessous de la moyenne",
+                      color: "text-orange-600"
+                    };
+                  };
+                  const performance = getPerformanceIndicator(scoreOut10);
+                  return <div key={index} className="text-center">
                         <div className="flex items-center justify-center mb-2">
                           {item.name === 'Attirance' && <HugeiconsIcon icon={FavouriteIcon} size={32} className="text-red-500" />}
                           {item.name === 'Style' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
@@ -223,16 +208,14 @@ const AnalysisReport = () => {
                           {performance.text}
                         </div>
                         <div className="text-xs text-muted-foreground">{item.name}</div>
-                      </div>
-                    );
-                  })}
+                      </div>;
+                })}
                 </div>
               </CardContent>
             </Card>
 
             {/* Points forts et faibles combinés */}
-            {!isStandardAnalysis && (
-              <div className="space-y-6 h-full flex flex-col justify-between">
+            {!isStandardAnalysis && <div className="space-y-6 h-full flex flex-col justify-between">
                 <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-green-600">
@@ -242,14 +225,12 @@ const AnalysisReport = () => {
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
-                      {topStrengths.map((strength, index) => (
-                        <li key={index} className="flex items-start space-x-2">
+                      {topStrengths.map((strength, index) => <li key={index} className="flex items-start space-x-2">
                           <div className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-semibold mt-0.5">
                             {index + 1}
                           </div>
                           <span className="text-sm">{strength}</span>
-                        </li>
-                      ))}
+                        </li>)}
                     </ul>
                   </CardContent>
                 </Card>
@@ -263,19 +244,16 @@ const AnalysisReport = () => {
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
-                      {topWeaknesses.map((weakness, index) => (
-                        <li key={index} className="flex items-start space-x-2">
+                      {topWeaknesses.map((weakness, index) => <li key={index} className="flex items-start space-x-2">
                           <div className="w-6 h-6 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-sm font-semibold mt-0.5">
                             {index + 1}
                           </div>
                           <span className="text-sm">{weakness}</span>
-                        </li>
-                      ))}
+                        </li>)}
                     </ul>
                   </CardContent>
                 </Card>
-              </div>
-            )}
+              </div>}
           </div>
 
             {/* Mots-clés */}
@@ -285,36 +263,20 @@ const AnalysisReport = () => {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
-                  {keywordData.map((keyword, index) => (
-                    <Badge key={index} variant="outline" className="rounded-full">
+                  {keywordData.map((keyword, index) => <Badge key={index} variant="outline" className="rounded-full">
                       {keyword}
-                    </Badge>
-                  ))}
+                    </Badge>)}
                 </div>
               </CardContent>
             </Card>
 
 
             {/* CTA Services Experts */}
-            {!isStandardAnalysis && (
-              <Card className="rounded-2xl shadow-card bg-gradient-hero text-white">
-                <CardContent className="p-8 text-center">
-                  <h3 className="text-2xl font-heading font-bold mb-4">
-                    Passez au niveau supérieur
-                  </h3>
-                  <p className="mb-6 opacity-90">
-                    Obtenez un coaching personnalisé avec nos experts en séduction digitale
-                  </p>
-                  <Button variant="secondary" size="lg" className="rounded-xl">
-                    Découvrir nos Services Experts
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
+            {!isStandardAnalysis && <Card className="rounded-2xl shadow-card bg-gradient-hero text-white">
+                
+              </Card>}
           </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default AnalysisReport;
