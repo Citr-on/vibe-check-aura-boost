@@ -20,7 +20,8 @@ export default {
 		extend: {
 			fontFamily: {
 				'heading': ['Poppins', 'sans-serif'],
-				'body': ['Inter', 'sans-serif'],
+				'body': ['Poppins', 'sans-serif'],
+				'sans': ['Poppins', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
