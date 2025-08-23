@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Plus, Sparkles, Gem } from "lucide-react";
+import { Plus, Sparkles, Gem, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 interface HeaderProps {
@@ -75,8 +75,9 @@ export const Header = ({ credits, aura }: HeaderProps) => {
 
             <Link to="/profile">
               <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
-                <AvatarImage src="/placeholder.svg" />
-                <AvatarFallback>U</AvatarFallback>
+                <AvatarFallback>
+                  <User className="w-4 h-4" />
+                </AvatarFallback>
               </Avatar>
             </Link>
           </div>
