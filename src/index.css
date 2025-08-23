@@ -46,6 +46,9 @@ All colors MUST be HSL.
     --shadow-card: 0 8px 40px -8px hsl(0 0% 0% / 0.015);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
+    /* Custom semantic colors */
+    --dark-teal: 184 69% 10%;
+
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
