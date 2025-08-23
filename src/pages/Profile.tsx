@@ -5,16 +5,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, User } from "lucide-react";
+import { Loader2, User, Mail, Lock, Vote } from "lucide-react";
 
 const profileSchema = z.object({
   gender: z.enum(['homme', 'femme', 'non-binaire', 'préfère-ne-pas-dire']).optional(),
-  age: z.number().min(16, "L'âge minimum est de 16 ans").max(100, "L'âge maximum est de 100 ans").optional(),
+  age: z.number().min(18, "L'âge minimum est de 18 ans").max(99, "L'âge maximum est de 99 ans").optional(),
   height: z.number().min(100, "La taille minimum est de 100 cm").max(250, "La taille maximum est de 250 cm").optional(),
   ethnic_origin: z.enum(['européenne', 'africaine', 'asiatique', 'hispanique', 'moyen-orientale', 'métisse', 'autre', 'préfère-ne-pas-dire']).optional(),
   religious_confession: z.enum(['christianisme', 'islam', 'judaisme', 'bouddhisme', 'hinduisme', 'athéisme', 'agnosticisme', 'autre', 'préfère-ne-pas-dire']).optional(),
@@ -132,9 +133,40 @@ const Profile = () => {
           </p>
         </div>
 
-        <Card className="shadow-soft">
+        {/* Account Section */}
+        <Card className="shadow-soft mb-8">
           <CardHeader>
-            <CardTitle>Informations personnelles</CardTitle>
+            <CardTitle className="flex items-center gap-3">
+              <Mail className="w-6 h-6 text-primary" />
+              Mon compte
+            </CardTitle>
+            <CardDescription>
+              Gérez votre adresse e-mail et votre mot de passe
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">Adresse e-mail</label>
+                <Input type="email" placeholder="votre@email.com" className="w-full" />
+              </div>
+              <div>
+                <label className="text-sm font-medium text-foreground mb-2 block">Mot de passe</label>
+                <Button variant="outline" className="w-full justify-start">
+                  <Lock className="w-4 h-4 mr-2" />
+                  Changer le mot de passe
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-soft mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+              <User className="w-6 h-6 text-primary" />
+              À propos de moi
+            </CardTitle>
             <CardDescription>
               Ces informations nous aident à personnaliser vos analyses et à vous fournir des résultats plus pertinents
             </CardDescription>
@@ -181,10 +213,10 @@ const Profile = () => {
                         <FormItem>
                           <FormLabel>Âge</FormLabel>
                           <FormControl>
-                            <Input
-                              type="number"
-                              min="16"
-                              max="100"
+                             <Input
+                               type="number"
+                               min="18"
+                               max="99"
                               placeholder="Votre âge"
                               {...field}
                               value={field.value || ''}
@@ -295,6 +327,112 @@ const Profile = () => {
                 </form>
               </Form>
             )}
+          </CardContent>
+        </Card>
+
+        {/* Voting Preferences Section */}
+        <Card className="shadow-soft">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+              <Vote className="w-6 h-6 text-primary" />
+              Quand je vote, je préfère analyser des...
+            </CardTitle>
+            <CardDescription>
+              Définissez vos préférences pour les analyses que vous souhaitez effectuer
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-4 block">Sexe</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionnez le sexe à analyser" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="homme">Homme</SelectItem>
+                      <SelectItem value="femme">Femme</SelectItem>
+                      <SelectItem value="non-binaire">Non-binaire</SelectItem>
+                      <SelectItem value="tous">Tous</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-4 block">Origine ethnique</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionnez l'origine à analyser" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="européenne">Européenne</SelectItem>
+                      <SelectItem value="africaine">Africaine</SelectItem>
+                      <SelectItem value="asiatique">Asiatique</SelectItem>
+                      <SelectItem value="hispanique">Hispanique</SelectItem>
+                      <SelectItem value="moyen-orientale">Moyen-orientale</SelectItem>
+                      <SelectItem value="métisse">Métisse</SelectItem>
+                      <SelectItem value="toutes">Toutes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-4 block">
+                    Âge: 18 - 99 ans
+                  </label>
+                  <div className="px-2">
+                    <Slider
+                      defaultValue={[18, 99]}
+                      max={99}
+                      min={18}
+                      step={1}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-4 block">
+                    Taille: 100 - 250 cm
+                  </label>
+                  <div className="px-2">
+                    <Slider
+                      defaultValue={[100, 250]}
+                      max={250}
+                      min={100}
+                      step={1}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-4 block">Confession religieuse</label>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionnez la confession à analyser" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="christianisme">Christianisme</SelectItem>
+                      <SelectItem value="islam">Islam</SelectItem>
+                      <SelectItem value="judaisme">Judaïsme</SelectItem>
+                      <SelectItem value="bouddhisme">Bouddhisme</SelectItem>
+                      <SelectItem value="hinduisme">Hindouisme</SelectItem>
+                      <SelectItem value="athéisme">Athéisme</SelectItem>
+                      <SelectItem value="agnosticisme">Agnosticisme</SelectItem>
+                      <SelectItem value="toutes">Toutes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div className="flex justify-end pt-6">
+                <Button className="bg-primary hover:bg-primary/90">
+                  Sauvegarder les préférences
+                </Button>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </main>
