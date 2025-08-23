@@ -363,7 +363,7 @@ const Review = () => {
                       <Popover>
                         <PopoverTrigger asChild>
                           <button className="text-muted-foreground hover:text-foreground transition-colors">
-                            <HugeiconsIcon icon={InformationCircleIcon} size={24} />
+                            <HugeiconsIcon icon={InformationCircleIcon} size={16} />
                           </button>
                         </PopoverTrigger>
                         <PopoverContent className="w-80 pointer-events-auto">
