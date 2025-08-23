@@ -360,12 +360,14 @@ const Review = () => {
                         <span className="text-sm">Retour</span>
                       </button>
                     )}
-                    <h3 className="text-lg font-semibold flex-1 text-center">Votre évaluation</h3>
-                    <div className="flex gap-2">
+                    
+                    {/* Titre et icône d'information centrés */}
+                    <div className="flex items-center justify-center gap-2 flex-1">
+                      <h3 className="text-lg font-semibold">Votre évaluation</h3>
                       <Popover>
                         <PopoverTrigger asChild>
                           <button className="text-muted-foreground hover:text-foreground transition-colors">
-                            <HugeiconsIcon icon={InformationCircleIcon} size={16} />
+                            <HugeiconsIcon icon={InformationCircleIcon} size={24} />
                           </button>
                         </PopoverTrigger>
                         <PopoverContent className="w-80 pointer-events-auto">
@@ -388,13 +390,14 @@ const Review = () => {
                           </div>
                         </PopoverContent>
                       </Popover>
-                      <button 
-                        onClick={toggleOverlay}
-                        className="text-muted-foreground hover:text-foreground transition-colors text-2xl leading-none"
-                      >
-                        ✕
-                      </button>
                     </div>
+                    
+                    <button 
+                      onClick={toggleOverlay}
+                      className="text-muted-foreground hover:text-foreground transition-colors text-2xl leading-none"
+                    >
+                      ✕
+                    </button>
                   </div>
 
                   {currentStep === "ratings" ? (
