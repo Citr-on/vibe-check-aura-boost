@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { PlusSignIcon, SparklesIcon, GemIcon, Settings02Icon, Menu01Icon, DashboardSquare01Icon, AiImageIcon, TaskEdit01Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
 import { Link, useLocation } from "react-router-dom";
@@ -64,7 +65,7 @@ export const Header = ({ credits, aura }: HeaderProps) => {
 
           {/* Balance & Profile */}
           <div className="flex items-center space-x-4">
-            <div className="hidden sm:flex items-center space-x-3 text-sm font-medium">
+            <div className="hidden sm:flex items-center space-x-2 text-sm font-medium">
               <div className="flex items-center space-x-1 text-muted-foreground">
                 <HugeiconsIcon icon={SparklesIcon} size={20} className="text-primary" />
                 <span>{aura} Aura</span>
@@ -74,13 +75,41 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                 <HugeiconsIcon icon={GemIcon} size={20} className="text-accent" />
                 <span>{credits} Crédits</span>
               </div>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button size="sm" variant="outline" className="w-8 h-8 p-0 ml-1">
+                    <HugeiconsIcon icon={PlusSignIcon} size={16} />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link to="/credits?pack=5" className="flex items-center justify-between w-full">
+                      <span>5 Crédits</span>
+                      <span className="text-muted-foreground">2,99€</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/credits?pack=20" className="flex items-center justify-between w-full">
+                      <span>20 Crédits</span>
+                      <span className="text-muted-foreground">9,99€</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/credits?pack=50" className="flex items-center justify-between w-full">
+                      <span>50 Crédits</span>
+                      <span className="text-muted-foreground">19,99€</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/credits?pack=100" className="flex items-center justify-between w-full">
+                      <span>100 Crédits</span>
+                      <span className="text-muted-foreground">34,99€</span>
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
-            
-            <Link to="/credits" className="hidden sm:block">
-              <Button size="sm" variant="outline" className="w-8 h-8 p-0">
-                <HugeiconsIcon icon={PlusSignIcon} size={16} />
-              </Button>
-            </Link>
 
             <Link to="/parametres" className="hidden lg:block">
               <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
@@ -153,17 +182,59 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                         <span>{credits} Crédits</span>
                       </div>
                     </div>
-                    <Link 
-                      to="/credits" 
-                      className="flex items-center space-x-3 font-body transition-colors hover:text-accent text-muted-foreground mb-4"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <div className="flex items-center gap-1">
-                        <HugeiconsIcon icon={GemIcon} size={20} />
-                        <HugeiconsIcon icon={PlusSignIcon} size={16} />
-                      </div>
-                      <span>Acheter des crédits</span>
-                    </Link>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button className="flex items-center space-x-3 font-body transition-colors hover:text-accent text-muted-foreground mb-4 w-full text-left">
+                          <div className="flex items-center gap-1">
+                            <HugeiconsIcon icon={GemIcon} size={20} />
+                            <HugeiconsIcon icon={PlusSignIcon} size={16} />
+                          </div>
+                          <span>Acheter des crédits</span>
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="start" className="w-48">
+                        <DropdownMenuItem asChild>
+                          <Link 
+                            to="/credits?pack=5" 
+                            className="flex items-center justify-between w-full"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <span>5 Crédits</span>
+                            <span className="text-muted-foreground">2,99€</span>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link 
+                            to="/credits?pack=20" 
+                            className="flex items-center justify-between w-full"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <span>20 Crédits</span>
+                            <span className="text-muted-foreground">9,99€</span>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link 
+                            to="/credits?pack=50" 
+                            className="flex items-center justify-between w-full"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <span>50 Crédits</span>
+                            <span className="text-muted-foreground">19,99€</span>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link 
+                            to="/credits?pack=100" 
+                            className="flex items-center justify-between w-full"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <span>100 Crédits</span>
+                            <span className="text-muted-foreground">34,99€</span>
+                          </Link>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                   
                   <hr className="border-border" />
