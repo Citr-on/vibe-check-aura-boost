@@ -249,7 +249,7 @@ const AnalysisReport = () => {
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
-                      {topWeaknesses.map((weakness, index) => <li key={index} className="flex items-start space-x-2">
+                      {topWeaknesses.map((weakness, index) => <li key={index} className="flex items-center space-x-2">
                           <div className="w-6 h-6 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-sm font-semibold mt-0.5">
                             {index + 1}
                           </div>
