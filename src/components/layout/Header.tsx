@@ -138,15 +138,6 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                   </Link>
                   
                   <div className="lg:hidden">
-                    <hr className="border-border mb-6" />
-                    <Link 
-                      to="/credits" 
-                      className="flex items-center space-x-3 font-body transition-colors hover:text-primary text-muted-foreground mb-4"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      <HugeiconsIcon icon={GemIcon} size={20} />
-                      <span>Acheter des crédits</span>
-                    </Link>
                     <div className="flex items-center space-x-3 text-sm font-medium mb-6">
                       <div className="flex items-center space-x-1 text-muted-foreground">
                         <HugeiconsIcon icon={SparklesIcon} size={20} className="text-accent" />
@@ -158,6 +149,15 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                         <span>{credits} Crédits</span>
                       </div>
                     </div>
+                    <Link 
+                      to="/credits" 
+                      className="flex items-center space-x-3 font-body transition-colors hover:text-primary text-muted-foreground mb-4"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <HugeiconsIcon icon={GemIcon} size={20} />
+                      <span>Acheter des crédits</span>
+                    </Link>
+                    <hr className="border-border mb-6" />
                   </div>
                   
                   <hr className="border-border" />
