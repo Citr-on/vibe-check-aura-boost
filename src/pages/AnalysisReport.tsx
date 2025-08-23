@@ -198,8 +198,8 @@ const AnalysisReport = () => {
                   return <div key={index} className="text-center">
                         <div className="flex items-center justify-center mb-2">
                           {item.name === 'Attirance' && <HugeiconsIcon icon={FavouriteIcon} size={32} className="text-red-500" />}
-                          {item.name === 'Style' && <HugeiconsIcon icon={SparklesIcon} size={32} className="text-accent" />}
-                          {item.name === 'Feeling' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-primary" />}
+                          {item.name === 'Style' && <HugeiconsIcon icon={SparklesIcon} size={32} className="text-primary" />}
+                          {item.name === 'Feeling' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
                         </div>
                         <div className="font-semibold text-lg mb-1">
                           {scoreOut10.toFixed(1)}/10
@@ -208,6 +208,11 @@ const AnalysisReport = () => {
                           {performance.text}
                         </div>
                         <div className="text-xs text-muted-foreground">{item.name}</div>
+                        <div className="text-xs text-muted-foreground mt-1 px-2 leading-tight">
+                          {item.name === 'Attirance' && "Votre première impression. La personne est-elle attirante, bien mise en valeur ?"}
+                          {item.name === 'Style' && "Le style et l'esthétique qui se dégagent. Les photos sont-elles bien prises, le look est-il soigné ?"}
+                          {item.name === 'Feeling' && "L'émotion et la personnalité qui se dégagent. Le profil semble-t-il authentique, fun, sincère ?"}
+                        </div>
                       </div>;
                 })}
                 </div>
