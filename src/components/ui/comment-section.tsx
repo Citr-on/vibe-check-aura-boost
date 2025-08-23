@@ -24,7 +24,7 @@ export const CommentSection = ({
 
   return (
     <div className="space-y-3">
-      <h4 className="text-sm font-medium">Commentaire</h4>
+      <h4 className="text-sm font-medium">Commentaire <span className="font-normal text-muted-foreground">(facultatif)</span></h4>
       
       {/* Section J'aime */}
       <div className="border border-border rounded-xl overflow-hidden">
