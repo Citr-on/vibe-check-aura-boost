@@ -12,7 +12,7 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Loading01Icon, Settings02Icon, MailIcon, LockIcon, NoteIcon } from '@hugeicons/core-free-icons';
+import { Loading01Icon, Settings02Icon, UserIcon, MailIcon, LockIcon, NoteIcon } from '@hugeicons/core-free-icons';
 
 const profileSchema = z.object({
   gender: z.enum(['homme', 'femme', 'non-binaire', 'préfère-ne-pas-dire']).optional(),
@@ -165,7 +165,7 @@ const Profile = () => {
         <Card className="shadow-soft mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <HugeiconsIcon icon={Settings02Icon} size={24} className="text-primary" />
+              <HugeiconsIcon icon={UserIcon} size={24} className="text-primary" />
               À propos de moi
             </CardTitle>
             <CardDescription>
