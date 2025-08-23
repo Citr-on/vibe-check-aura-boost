@@ -323,15 +323,24 @@ const Review = () => {
             </CardContent>
           </Card>
 
-          {/* Bouton flottant "Évaluer" */}
+          {/* Boutons flottants */}
           {!showOverlay && (
-            <button
-              onClick={toggleOverlay}
-              className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-3 shadow-lg z-50 transition-transform active:scale-95 flex items-center gap-2"
-            >
-              <HugeiconsIcon icon={MessageMultiple02Icon} size={20} />
-              <span className="font-medium">Évaluer</span>
-            </button>
+            <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 flex gap-3 z-50">
+              <button
+                onClick={toggleOverlay}
+                className="bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-3 shadow-lg transition-transform active:scale-95 flex items-center gap-2"
+              >
+                <HugeiconsIcon icon={MessageMultiple02Icon} size={20} />
+                <span className="font-medium">Évaluer</span>
+              </button>
+              <button
+                onClick={handleSkip}
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground rounded-full px-6 py-3 shadow-lg transition-transform active:scale-95 flex items-center gap-2"
+              >
+                <span className="font-medium">Passer</span>
+                <HugeiconsIcon icon={ArrowRight02Icon} size={20} />
+              </button>
+            </div>
           )}
 
           {/* Overlay pour l'évaluation */}
@@ -379,7 +388,7 @@ const Review = () => {
                       </Popover>
                       <button 
                         onClick={toggleOverlay}
-                        className="text-muted-foreground hover:text-foreground transition-colors"
+                        className="text-muted-foreground hover:text-foreground transition-colors text-2xl leading-none"
                       >
                         ✕
                       </button>
@@ -421,21 +430,14 @@ const Review = () => {
                         />
                       </div>
 
-                      {/* Boutons étape 1 */}
+                      {/* Bouton étape 1 */}
                       <div className="flex flex-col gap-3 pt-4 pb-6 shrink-0">
                         <Button 
                           onClick={handleNext}
                           className="w-full bg-primary hover:bg-primary/90 rounded-xl"
                         >
-                          <HugeiconsIcon icon={ArrowRight02Icon} size={16} className="mr-2" />
-                          Suivant
-                        </Button>
-                        <Button 
-                          onClick={handleSkip}
-                          variant="outline"
-                          className="w-full rounded-xl"
-                        >
-                          Passer
+                          <span>Suivant</span>
+                          <HugeiconsIcon icon={ArrowRight02Icon} size={16} className="ml-2" />
                         </Button>
                       </div>
                     </div>
@@ -585,7 +587,7 @@ const Review = () => {
                 <Popover>
                   <PopoverTrigger asChild>
                     <button className="text-muted-foreground hover:text-foreground transition-colors">
-                      <HugeiconsIcon icon={InformationCircleIcon} size={32} />
+                      <HugeiconsIcon icon={InformationCircleIcon} size={24} />
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-80 pointer-events-auto">
