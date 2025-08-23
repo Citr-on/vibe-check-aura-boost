@@ -137,7 +137,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
           {isCompleted ? (
             <div className="flex items-center justify-between">
               <div className="text-center">
-                <div className={`text-2xl font-bold ${
+                <div className={`text-xl md:text-2xl font-bold ${
                   (analysis.score || 0) <= 5.5 
                     ? 'text-destructive' 
                     : (analysis.score || 0) <= 7.9 
@@ -149,7 +149,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
                 <div className="text-xs text-muted-foreground">Score Aura</div>
               </div>
               <div className="text-center">
-                <div className="text-lg font-semibold">
+                <div className="text-base md:text-lg font-semibold">
                   {analysis.votesReceived}/{analysis.totalVotes}
                 </div>
                 <div className="text-xs text-muted-foreground">Avis reçus</div>
