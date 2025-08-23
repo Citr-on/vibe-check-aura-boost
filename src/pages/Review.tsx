@@ -7,8 +7,9 @@ import { RatingGauge } from "@/components/ui/rating-gauge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Badge } from "@/components/ui/badge";
 import { CarouselProfile } from "@/components/ui/carousel-profile";
+import { CommentSection } from "@/components/ui/comment-section";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { SparklesIcon, FavouriteIcon, ZapIcon, MessageMultiple02Icon, ArrowRight02Icon, InformationCircleIcon, StarIcon } from '@hugeicons/core-free-icons';
+import { SparklesIcon, FavouriteIcon, ZapIcon, MessageMultiple02Icon, ArrowRight02Icon, InformationCircleIcon, StarIcon, ArrowLeft02Icon } from '@hugeicons/core-free-icons';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -26,6 +27,9 @@ const Review = () => {
   const [intrigueScore, setIntrigueScore] = useState(1);
   const [positiveComment, setPositiveComment] = useState("");
   const [improvementComment, setImprovementComment] = useState("");
+  
+  // Cache des commentaires par profil
+  const [commentCache, setCommentCache] = useState<{[key: number]: {positive: string, improvement: string}}>({});
   
   // États pour l'interface mobile
   const [currentStep, setCurrentStep] = useState<"ratings" | "comments">("ratings");
@@ -126,23 +130,45 @@ const Review = () => {
   };
 
   const nextProfile = () => {
+    // Sauvegarder les commentaires du profil actuel
+    if (positiveComment || improvementComment) {
+      setCommentCache(prev => ({
+        ...prev,
+        [currentProfile.id]: {
+          positive: positiveComment,
+          improvement: improvementComment
+        }
+      }));
+    }
+
     if (currentProfileIndex < filteredProfiles.length - 1) {
-      setCurrentProfileIndex(currentProfileIndex + 1);
-      // Reset les champs pour le nouveau profil
+      const nextIndex = currentProfileIndex + 1;
+      const nextProfile = filteredProfiles[nextIndex];
+      setCurrentProfileIndex(nextIndex);
+      
+      // Restaurer les commentaires du nouveau profil s'ils existent
+      const cached = commentCache[nextProfile.id];
+      setPositiveComment(cached?.positive || "");
+      setImprovementComment(cached?.improvement || "");
+      
+      // Reset les scores
       setFeelingScore(1);
       setVibeScore(1);
       setIntrigueScore(1);
-      setPositiveComment("");
-      setImprovementComment("");
       setCurrentStep("ratings");
     } else {
-      // Fin des profils, retourner au premier ou afficher un message
+      // Fin des profils, retourner au premier
+      const firstProfile = filteredProfiles[0];
       setCurrentProfileIndex(0);
+      
+      // Restaurer les commentaires du premier profil s'ils existent
+      const cached = commentCache[firstProfile.id];
+      setPositiveComment(cached?.positive || "");
+      setImprovementComment(cached?.improvement || "");
+      
       setFeelingScore(1);
       setVibeScore(1);
       setIntrigueScore(1);
-      setPositiveComment("");
-      setImprovementComment("");
       setCurrentStep("ratings");
       console.log("Tous les profils ont été reviewés !");
     }
@@ -222,7 +248,7 @@ const Review = () => {
           >
             <ToggleGroupItem 
               value="photos" 
-              className="rounded-full px-4 py-2 flex-1 text-xs"
+              className="rounded-full px-4 py-1 flex-1 text-xs"
               style={{
                 backgroundColor: contentType === "photos" ? "white" : "transparent",
                 color: contentType === "photos" ? "black" : undefined
@@ -232,7 +258,7 @@ const Review = () => {
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="profils" 
-              className="rounded-full px-4 py-2 flex-1 text-xs"
+              className="rounded-full px-4 py-1 flex-1 text-xs"
               style={{
                 backgroundColor: contentType === "profils" ? "white" : "transparent",
                 color: contentType === "profils" ? "black" : undefined
@@ -242,7 +268,7 @@ const Review = () => {
             </ToggleGroupItem>
             <ToggleGroupItem 
               value="tout" 
-              className="rounded-full px-4 py-2 flex-1 text-xs"
+              className="rounded-full px-4 py-1 flex-1 text-xs"
               style={{
                 backgroundColor: contentType === "tout" ? "white" : "transparent",
                 color: contentType === "tout" ? "black" : undefined
@@ -297,12 +323,13 @@ const Review = () => {
             </CardContent>
           </Card>
 
-          {/* Bouton flottant pour afficher l'overlay */}
+          {/* Bouton flottant "Évaluer" */}
           <button
             onClick={toggleOverlay}
-            className="absolute bottom-4 right-4 bg-primary hover:bg-primary/90 text-white rounded-full p-3 shadow-lg z-50 transition-transform active:scale-95"
+            className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-3 shadow-lg z-50 transition-transform active:scale-95 flex items-center gap-2"
           >
-            <HugeiconsIcon icon={StarIcon} size={24} />
+            <HugeiconsIcon icon={StarIcon} size={20} />
+            <span className="font-medium">Évaluer</span>
           </button>
 
           {/* Overlay pour l'évaluation */}
@@ -311,7 +338,16 @@ const Review = () => {
               <div className="w-full bg-background rounded-2xl shadow-2xl border border-border max-h-[80vh] overflow-hidden">
                 <div className="p-4 h-full flex flex-col max-h-[70vh]">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold">Votre évaluation</h3>
+                    {currentStep === "comments" && (
+                      <button
+                        onClick={() => setCurrentStep("ratings")}
+                        className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        <HugeiconsIcon icon={ArrowLeft02Icon} size={20} />
+                        <span className="text-sm">Retour</span>
+                      </button>
+                    )}
+                    <h3 className="text-lg font-semibold flex-1 text-center">Votre évaluation</h3>
                     <div className="flex gap-2">
                       <Popover>
                         <PopoverTrigger asChild>
@@ -403,63 +439,16 @@ const Review = () => {
                     </div>
                   ) : (
                     <div className="flex-1 flex flex-col">
-                      {/* Commentaires */}
-                      <div className="space-y-4 flex-1 overflow-y-auto">
-                        <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Ce que j'aime le plus... <span className="text-muted-foreground font-normal">facultatif</span>
-                          </label>
-                          <Textarea
-                            value={positiveComment}
-                            onChange={(e) => setPositiveComment(e.target.value)}
-                            placeholder={
-                              currentProfile?.type === "profile" 
-                                ? "Ce qui me plaît le plus..." 
-                                : "Ce qui vous plaît dans cette photo..."
-                            }
-                            className="resize-none rounded-xl"
-                            rows={2}
-                          />
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {positiveChips.slice(0, 3).map((chip) => (
-                              <button
-                                key={chip.label}
-                                onClick={() => setPositiveComment(chip.text)}
-                                className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
-                              >
-                                {chip.label}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Un conseil pour améliorer... <span className="text-muted-foreground font-normal">facultatif</span>
-                          </label>
-                          <Textarea
-                            value={improvementComment}
-                            onChange={(e) => setImprovementComment(e.target.value)}
-                            placeholder={
-                              currentProfile?.type === "profile" 
-                                ? "Un conseil pour améliorer..." 
-                                : "Un conseil constructif..."
-                            }
-                            className="resize-none rounded-xl"
-                            rows={2}
-                          />
-                          <div className="flex flex-wrap gap-1 mt-2">
-                            {improvementChips.slice(0, 3).map((chip) => (
-                              <button
-                                key={chip.label}
-                                onClick={() => setImprovementComment(chip.text)}
-                                className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
-                              >
-                                {chip.label}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
+                      {/* Section commentaire avec composant filtrable */}
+                      <div className="flex-1 overflow-y-auto">
+                        <CommentSection
+                          positiveComment={positiveComment}
+                          setPositiveComment={setPositiveComment}
+                          improvementComment={improvementComment}
+                          setImprovementComment={setImprovementComment}
+                          positiveChips={positiveChips}
+                          improvementChips={improvementChips}
+                        />
                       </div>
 
                       {/* Bouton étape 2 */}
