@@ -634,9 +634,9 @@ const Review = () => {
                 <RatingGauge
                   value={vibeScore}
                   onChange={setVibeScore}
-                  icon={<HugeiconsIcon icon={SparklesIcon} size={32} className="text-accent" />}
+                  icon={<HugeiconsIcon icon={SparklesIcon} size={32} className="text-primary" />}
                   label="Style"
-                  color="hsl(var(--accent))"
+                  color="hsl(var(--primary))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
                   tooltipText="Style : Le style et l'esthétique qui se dégagent. Les photos sont-elles bien prises, le look est-il soigné ?"
                 />
@@ -644,9 +644,9 @@ const Review = () => {
                 <RatingGauge
                   value={intrigueScore}
                   onChange={setIntrigueScore}
-                  icon={<HugeiconsIcon icon={ZapIcon} size={32} className="text-primary" />}
+                  icon={<HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
                   label="Feeling"
-                  color="hsl(var(--primary))"
+                  color="hsl(var(--accent))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
                   tooltipText="Feeling : L'émotion et la personnalité qui se dégagent. Le profil semble-t-il authentique, fun, sincère ?"
                 />
