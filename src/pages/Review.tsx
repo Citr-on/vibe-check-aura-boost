@@ -307,14 +307,14 @@ const Review = () => {
                       <p className="text-xs text-muted-foreground">
                         Seuls les retours utiles et respectueux sont récompensés. Les insultes, trolls ou avis "à la chaîne" ne seront pas pris en compte.
                       </p>
-                      <div className="space-y-2">
-                        <h5 className="font-medium text-xs">Les Critères :</h5>
-                        <div className="space-y-1 text-xs text-muted-foreground">
-                          <p><span className="font-medium">Feeling :</span> Votre première impression. La personne est-elle attirante, bien mise en valeur ?</p>
-                          <p><span className="font-medium">Vibe :</span> La personnalité qui se dégage. Le profil semble-t-il authentique, fun, sincère ?</p>
-                          <p><span className="font-medium">Intrigue :</span> L'envie d'aller plus loin. Le profil donne-t-il envie d'engager la conversation ?</p>
+                        <div className="space-y-2">
+                          <h5 className="font-medium text-xs">Les Critères :</h5>
+                          <div className="space-y-1 text-xs text-muted-foreground">
+                            <p><span className="font-medium">Attirance :</span> Votre première impression. La personne est-elle attirante, bien mise en valeur ?</p>
+                            <p><span className="font-medium">Style :</span> Le style et l'esthétique qui se dégagent. Les photos sont-elles bien prises, le look est-il soigné ?</p>
+                            <p><span className="font-medium">Feeling :</span> L'émotion et la personnalité qui se dégagent. Le profil semble-t-il authentique, fun, sincère ?</p>
+                          </div>
                         </div>
-                      </div>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -327,30 +327,30 @@ const Review = () => {
                   value={feelingScore}
                   onChange={setFeelingScore}
                   icon={<HugeiconsIcon icon={FavouriteIcon} size={32} className="text-red-500" />}
-                  label="Feeling"
+                  label="Attirance"
                   color="hsl(var(--destructive))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
-                  tooltipText="Feeling : Votre première impression. La personne est-elle attirante, bien mise en valeur ?"
+                  tooltipText="Attirance : Votre première impression. La personne est-elle attirante, bien mise en valeur ?"
                 />
 
                 <RatingGauge
                   value={vibeScore}
                   onChange={setVibeScore}
-                  icon={<HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
-                  label="Vibe"
+                  icon={<HugeiconsIcon icon={SparklesIcon} size={32} className="text-accent" />}
+                  label="Style"
                   color="hsl(var(--accent))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
-                  tooltipText="Vibe : La personnalité qui se dégage. Le profil semble-t-il authentique, fun, sincère ?"
+                  tooltipText="Style : Le style et l'esthétique qui se dégagent. Les photos sont-elles bien prises, le look est-il soigné ?"
                 />
 
                 <RatingGauge
                   value={intrigueScore}
                   onChange={setIntrigueScore}
-                  icon={<HugeiconsIcon icon={MessageMultiple02Icon} size={32} className="text-primary" />}
-                  label="Intrigue"
+                  icon={<HugeiconsIcon icon={ZapIcon} size={32} className="text-primary" />}
+                  label="Feeling"
                   color="hsl(var(--primary))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
-                  tooltipText="Intrigue : L'envie d'aller plus loin. Le profil donne-t-il envie d'engager la conversation ?"
+                  tooltipText="Feeling : L'émotion et la personnalité qui se dégagent. Le profil semble-t-il authentique, fun, sincère ?"
                 />
               </div>
 
