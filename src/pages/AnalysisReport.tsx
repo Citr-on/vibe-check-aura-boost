@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from "recharts";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { FavouriteIcon, ZapIcon, MessageMultiple02Icon, LockIcon, GemIcon, ArrowUpIcon, ArrowDownIcon } from '@hugeicons/core-free-icons';
+import { FavouriteIcon, ZapIcon, MessageMultiple02Icon, LockIcon, GemIcon, ArrowUpIcon, ArrowDownIcon, SparklesIcon } from '@hugeicons/core-free-icons';
 import portraitSample1 from "@/assets/portrait-sample-1.jpg";
 const AnalysisReport = () => {
   const {
@@ -198,8 +198,8 @@ const AnalysisReport = () => {
                   return <div key={index} className="text-center">
                         <div className="flex items-center justify-center mb-2">
                           {item.name === 'Attirance' && <HugeiconsIcon icon={FavouriteIcon} size={32} className="text-red-500" />}
-                          {item.name === 'Style' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
-                          {item.name === 'Feeling' && <HugeiconsIcon icon={MessageMultiple02Icon} size={32} className="text-primary" />}
+                          {item.name === 'Style' && <HugeiconsIcon icon={SparklesIcon} size={32} className="text-accent" />}
+                          {item.name === 'Feeling' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-primary" />}
                         </div>
                         <div className="font-semibold text-lg mb-1">
                           {scoreOut10.toFixed(1)}/10
