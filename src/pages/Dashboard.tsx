@@ -5,7 +5,8 @@ import { AnalysisCard, type Analysis } from "@/components/dashboard/AnalysisCard
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Plus, Filter, ArrowUp, ArrowDown, Calendar, Star, Layers, Clock } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { PlusSignIcon, FilterIcon, ArrowUp01Icon, ArrowDown01Icon, Calendar03Icon, FavouriteIcon, Layers01Icon, Clock01Icon } from '@hugeicons/core-free-icons';
 
 // Données d'exemple
 const mockAnalyses: Analysis[] = [
@@ -81,11 +82,11 @@ const Dashboard = () => {
 
   const getSortIcon = (type: SortBy) => {
     switch (type) {
-      case 'createdAt': return Calendar;
-      case 'score': return Star;
-      case 'type': return Layers;
-      case 'status': return Clock;
-      default: return Filter;
+      case 'createdAt': return Calendar03Icon;
+      case 'score': return FavouriteIcon;
+      case 'type': return Layers01Icon;
+      case 'status': return Clock01Icon;
+      default: return FilterIcon;
     }
   };
 
@@ -144,7 +145,7 @@ const Dashboard = () => {
             size="lg"
             className="bg-primary hover:bg-primary/90 rounded-xl"
           >
-            <Plus className="w-5 h-5 mr-2" />
+            <HugeiconsIcon icon={PlusSignIcon} size={20} className="mr-2" />
             Lancer une nouvelle analyse
           </Button>
 
@@ -159,19 +160,19 @@ const Dashboard = () => {
                   <>
                     <div className="flex items-center gap-2">
                       {(() => {
-                        const IconComponent = getSortIcon(sortBy);
-                        return <IconComponent className="w-5 h-5" />;
+                        const iconName = getSortIcon(sortBy);
+                        return <HugeiconsIcon icon={iconName} size={20} />;
                       })()}
                       {sortOrder === 'asc' ? 
-                        <ArrowUp className="w-4 h-4" /> : 
-                        <ArrowDown className="w-4 h-4" />
+                        <HugeiconsIcon icon={ArrowUp01Icon} size={16} /> : 
+                        <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
                       }
                     </div>
                     {getSortLabel(sortBy)}
                   </>
                 ) : (
                   <>
-                    <Filter className="w-5 h-5 mr-2" />
+                    <HugeiconsIcon icon={FilterIcon} size={20} className="mr-2" />
                     Filtres
                   </>
                 )}
@@ -182,11 +183,11 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between w-full">
                   <span>Date de création</span>
                   <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
+                    <HugeiconsIcon icon={Calendar03Icon} size={16} />
                     {sortBy === 'createdAt' && (
                       sortOrder === 'asc' ? 
-                        <ArrowUp className="w-4 h-4" /> : 
-                        <ArrowDown className="w-4 h-4" />
+                        <HugeiconsIcon icon={ArrowUp01Icon} size={16} /> : 
+                        <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
                     )}
                   </div>
                 </div>
@@ -195,11 +196,11 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between w-full">
                   <span>Score Aura</span>
                   <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4" />
+                    <HugeiconsIcon icon={FavouriteIcon} size={16} />
                     {sortBy === 'score' && (
                       sortOrder === 'asc' ? 
-                        <ArrowUp className="w-4 h-4" /> : 
-                        <ArrowDown className="w-4 h-4" />
+                        <HugeiconsIcon icon={ArrowUp01Icon} size={16} /> : 
+                        <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
                     )}
                   </div>
                 </div>
@@ -208,11 +209,11 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between w-full">
                   <span>Type d'analyse</span>
                   <div className="flex items-center gap-1">
-                    <Layers className="w-4 h-4" />
+                    <HugeiconsIcon icon={Layers01Icon} size={16} />
                     {sortBy === 'type' && (
                       sortOrder === 'asc' ? 
-                        <ArrowUp className="w-4 h-4" /> : 
-                        <ArrowDown className="w-4 h-4" />
+                        <HugeiconsIcon icon={ArrowUp01Icon} size={16} /> : 
+                        <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
                     )}
                   </div>
                 </div>
@@ -221,11 +222,11 @@ const Dashboard = () => {
                 <div className="flex items-center justify-between w-full">
                   <span>Statut</span>
                   <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
+                    <HugeiconsIcon icon={Clock01Icon} size={16} />
                     {sortBy === 'status' && (
                       sortOrder === 'asc' ? 
-                        <ArrowUp className="w-4 h-4" /> : 
-                        <ArrowDown className="w-4 h-4" />
+                        <HugeiconsIcon icon={ArrowUp01Icon} size={16} /> : 
+                        <HugeiconsIcon icon={ArrowDown01Icon} size={16} />
                     )}
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Plus, Sparkles, Gem, User } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { PlusSignIcon, SparklesIcon, GemIcon, UserIcon } from '@hugeicons/core-free-icons';
 import { Link, useLocation } from "react-router-dom";
 
 interface HeaderProps {
@@ -20,7 +21,7 @@ export const Header = ({ credits, aura }: HeaderProps) => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-hero rounded-full flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
+              <HugeiconsIcon icon={SparklesIcon} size={20} color="white" />
             </div>
             <span className="text-xl font-heading font-bold text-foreground">Aura</span>
           </Link>
@@ -57,26 +58,26 @@ export const Header = ({ credits, aura }: HeaderProps) => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-3 text-sm font-medium">
               <div className="flex items-center space-x-1 text-muted-foreground">
-                <Sparkles className="w-4 h-4 text-accent" />
+                <HugeiconsIcon icon={SparklesIcon} size={16} className="text-accent" />
                 <span>{aura} Aura</span>
               </div>
               <div className="w-px h-4 bg-border"></div>
               <div className="flex items-center space-x-1 text-foreground">
-                <Gem className="w-4 h-4 text-primary" />
+                <HugeiconsIcon icon={GemIcon} size={16} className="text-primary" />
                 <span>{credits} Crédits</span>
               </div>
             </div>
             
             <Link to="/credits">
               <Button size="sm" variant="outline" className="w-8 h-8 p-0">
-                <Plus className="w-4 h-4" />
+                <HugeiconsIcon icon={PlusSignIcon} size={16} />
               </Button>
             </Link>
 
             <Link to="/profile">
               <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
                 <AvatarFallback>
-                  <User className="w-4 h-4" />
+                  <HugeiconsIcon icon={UserIcon} size={16} />
                 </AvatarFallback>
               </Avatar>
             </Link>

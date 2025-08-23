@@ -11,7 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, User, Mail, Lock, Vote } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Loading01Icon, UserIcon, MailIcon, LockIcon, NoteIcon } from '@hugeicons/core-free-icons';
 
 const profileSchema = z.object({
   gender: z.enum(['homme', 'femme', 'non-binaire', 'préfère-ne-pas-dire']).optional(),
@@ -125,7 +126,7 @@ const Profile = () => {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-heading font-bold text-foreground mb-2 flex items-center gap-3">
-            <User className="w-8 h-8 text-primary" />
+            <HugeiconsIcon icon={UserIcon} size={32} className="text-primary" />
             Mon Profil
           </h1>
           <p className="text-muted-foreground">
@@ -137,7 +138,7 @@ const Profile = () => {
         <Card className="shadow-soft mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <Mail className="w-6 h-6 text-primary" />
+              <HugeiconsIcon icon={MailIcon} size={24} className="text-primary" />
               Mon compte
             </CardTitle>
             <CardDescription>
@@ -153,7 +154,7 @@ const Profile = () => {
               <div>
                 <label className="text-sm font-medium text-foreground mb-2 block">Mot de passe</label>
                 <Button variant="outline" className="w-full justify-start">
-                  <Lock className="w-4 h-4 mr-2" />
+                  <HugeiconsIcon icon={LockIcon} size={16} className="mr-2" />
                   Changer le mot de passe
                 </Button>
               </div>
@@ -164,7 +165,7 @@ const Profile = () => {
         <Card className="shadow-soft mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <User className="w-6 h-6 text-primary" />
+              <HugeiconsIcon icon={UserIcon} size={24} className="text-primary" />
               À propos de moi
             </CardTitle>
             <CardDescription>
@@ -175,7 +176,7 @@ const Profile = () => {
           <CardContent>
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                <HugeiconsIcon icon={Loading01Icon} size={24} className="animate-spin text-primary" />
                 <span className="ml-2 text-muted-foreground">Chargement...</span>
               </div>
             ) : (
@@ -316,7 +317,7 @@ const Profile = () => {
                     >
                       {isSaving ? (
                         <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          <HugeiconsIcon icon={Loading01Icon} size={16} className="mr-2 animate-spin" />
                           Sauvegarde...
                         </>
                       ) : (
@@ -334,7 +335,7 @@ const Profile = () => {
         <Card className="shadow-soft">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <Vote className="w-6 h-6 text-primary" />
+              <HugeiconsIcon icon={NoteIcon} size={24} className="text-primary" />
               Quand je vote, je préfère analyser des...
             </CardTitle>
             <CardDescription>

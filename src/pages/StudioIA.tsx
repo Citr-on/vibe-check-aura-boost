@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Zap, Camera, Feather, Cpu } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { FlashIcon, Camera01Icon, Edit02Icon, CpuIcon } from '@hugeicons/core-free-icons';
 import { Link } from "react-router-dom";
 
 const StudioIA = () => {
@@ -31,8 +32,8 @@ const StudioIA = () => {
             <CardHeader className="text-center pb-6">
               <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors">
                 <div className="relative">
-                  <Camera className="w-8 h-8 text-primary" />
-                  <Zap className="w-4 h-4 text-accent absolute -top-1 -right-1" />
+                  <HugeiconsIcon icon={Camera01Icon} size={32} className="text-primary" />
+                  <HugeiconsIcon icon={FlashIcon} size={16} className="text-accent absolute -top-1 -right-1" />
                 </div>
               </div>
               <CardTitle className="text-2xl font-heading">Retouche Photo IA</CardTitle>
@@ -55,8 +56,8 @@ const StudioIA = () => {
             <CardHeader className="text-center pb-6">
               <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors">
                 <div className="relative">
-                  <Feather className="w-8 h-8 text-primary" />
-                  <Cpu className="w-4 h-4 text-accent absolute -top-1 -right-1" />
+                  <HugeiconsIcon icon={Edit02Icon} size={32} className="text-primary" />
+                  <HugeiconsIcon icon={CpuIcon} size={16} className="text-accent absolute -top-1 -right-1" />
                 </div>
               </div>
               <CardTitle className="text-2xl font-heading">Générateur de Bio IA</CardTitle>

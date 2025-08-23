@@ -60,6 +60,36 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 - Lucide React (for icons)
+- HugeIcons (for premium icon styles)
+
+## HugeIcons Integration
+
+This project uses HugeIcons for beautiful, consistent icons throughout the application.
+
+### Installation
+
+```sh
+npm install @hugeicons/react @hugeicons/core-free-icons
+```
+
+### Usage Pattern
+
+```tsx
+import { HugeiconsIcon } from '@hugeicons/react';
+import { SearchIcon, UserIcon, PlusSignIcon } from '@hugeicons/core-free-icons';
+
+// Basic usage
+<HugeiconsIcon icon={SearchIcon} size={24} />
+
+// With custom styling
+<HugeiconsIcon icon={UserIcon} size={20} className="text-primary" />
+```
+
+### Available Icons
+- Navigation: `UserIcon`, `SearchIcon`, `PlusSignIcon`
+- Actions: `FilterIcon`, `EditIcon`, `DeleteIcon`
+- UI Elements: `Loading01Icon`, `ArrowUp01Icon`, `ArrowDown01Icon`
+- Content: `MailIcon`, `LockIcon`, `NoteIcon`
 
 ## How can I deploy this project?
 
