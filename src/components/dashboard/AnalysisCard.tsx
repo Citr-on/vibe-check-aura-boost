@@ -124,7 +124,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
         </div>
       </div>
       
-      <CardContent className="p-4 h-32 flex flex-col justify-between">
+      <CardContent className="p-2 md:p-4 h-32 flex flex-col justify-between">
         <div>
           {isCompleted ? (
             <div className="flex items-center justify-between">
