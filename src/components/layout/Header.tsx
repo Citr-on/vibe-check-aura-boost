@@ -152,7 +152,7 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                     </div>
                     <Link 
                       to="/credits" 
-                      className="flex items-center space-x-3 font-body transition-colors hover:text-primary text-muted-foreground mb-4"
+                      className="flex items-center space-x-3 font-body transition-colors hover:text-accent text-muted-foreground mb-4"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <HugeiconsIcon icon={GemIcon} size={20} />
