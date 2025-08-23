@@ -173,7 +173,8 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
           ) : (
             <Button className="w-full rounded-xl" variant="outline" disabled>
               <Clock className="w-4 h-4 mr-2" />
-              En cours d'analyse
+              <span className="md:hidden">En cours</span>
+              <span className="hidden md:inline">En cours d'analyse</span>
             </Button>
           )}
         </div>
