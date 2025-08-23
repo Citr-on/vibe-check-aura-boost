@@ -3,7 +3,8 @@ import { Header } from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Gem, Sparkles, Check, Star, Users, MessageSquare } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { GemIcon, SparklesIcon, Tick01Icon, StarIcon, UserIcon, MessageMultiple02Icon } from '@hugeicons/core-free-icons';
 const Credits = () => {
   const [credits] = useState(150);
   const [aura] = useState(3.5);
@@ -80,7 +81,7 @@ const Credits = () => {
                 
                 <CardHeader className="text-center pb-4">
                   <div className="flex items-center justify-center mb-4">
-                    <Gem className="w-8 h-8 text-primary" />
+                    <HugeiconsIcon icon={GemIcon} size={32} className="text-primary" />
                   </div>
                   <CardTitle className="text-2xl font-heading">
                     {pack.credits.toLocaleString()} Crédits
@@ -107,7 +108,7 @@ const Credits = () => {
 
           <div className="bg-muted/50 rounded-xl p-4 text-center">
             <div className="flex items-center justify-center space-x-2 text-sm text-muted-foreground">
-              <Sparkles className="w-4 h-4 text-accent" />
+              <HugeiconsIcon icon={SparklesIcon} size={16} className="text-accent" />
               <span>
                 <strong>Note importante :</strong> L'Aura ✨ ne peut être que gagnée en participant à la communauté, 
                 elle ne peut pas être achetée.

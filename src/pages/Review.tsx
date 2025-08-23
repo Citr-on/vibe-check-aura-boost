@@ -7,7 +7,8 @@ import { RatingGauge } from "@/components/ui/rating-gauge";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Badge } from "@/components/ui/badge";
 import { CarouselProfile } from "@/components/ui/carousel-profile";
-import { Sparkles, Heart, Zap, MessageSquare, ArrowRight, Info } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { SparklesIcon, FavouriteIcon, ZapIcon, MessageMultiple02Icon, ArrowRight02Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const Review = () => {
@@ -294,7 +295,7 @@ const Review = () => {
                 <Popover>
                   <PopoverTrigger asChild>
                     <button className="text-muted-foreground hover:text-foreground transition-colors">
-                      <Info className="w-4 h-4" />
+                      <HugeiconsIcon icon={InformationCircleIcon} size={16} />
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-80 pointer-events-auto">
@@ -325,7 +326,7 @@ const Review = () => {
                 <RatingGauge
                   value={feelingScore}
                   onChange={setFeelingScore}
-                  icon={<Heart className="w-4 h-4 text-red-500" />}
+                  icon={<HugeiconsIcon icon={FavouriteIcon} size={16} className="text-red-500" />}
                   label="Feeling"
                   color="hsl(var(--destructive))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
@@ -335,7 +336,7 @@ const Review = () => {
                 <RatingGauge
                   value={vibeScore}
                   onChange={setVibeScore}
-                  icon={<Zap className="w-4 h-4 text-accent" />}
+                  icon={<HugeiconsIcon icon={ZapIcon} size={16} className="text-accent" />}
                   label="Vibe"
                   color="hsl(var(--accent))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
@@ -345,7 +346,7 @@ const Review = () => {
                 <RatingGauge
                   value={intrigueScore}
                   onChange={setIntrigueScore}
-                  icon={<MessageSquare className="w-4 h-4 text-primary" />}
+                  icon={<HugeiconsIcon icon={MessageMultiple02Icon} size={16} className="text-primary" />}
                   label="Intrigue"
                   color="hsl(var(--primary))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
@@ -418,7 +419,7 @@ const Review = () => {
                   onClick={handleSubmit}
                   className="flex-1 bg-primary hover:bg-primary/90 rounded-xl"
                 >
-                  <Sparkles className="w-4 h-4 mr-2" />
+                  <HugeiconsIcon icon={SparklesIcon} size={16} className="mr-2" />
                   Soumettre & Gagner de l'Aura
                 </Button>
                 <Button 
@@ -426,7 +427,7 @@ const Review = () => {
                   variant="outline"
                   className="rounded-xl"
                 >
-                  <ArrowRight className="w-4 h-4 mr-2" />
+                  <HugeiconsIcon icon={ArrowRight02Icon} size={16} className="mr-2" />
                   Passer
                 </Button>
               </div>

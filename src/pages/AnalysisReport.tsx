@@ -13,7 +13,8 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis
 } from "recharts";
-import { Heart, Zap, MessageSquare, Lock, Gem, TrendingUp, TrendingDown } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { FavouriteIcon, ZapIcon, MessageMultiple02Icon, LockIcon, GemIcon, ArrowUpIcon, ArrowDownIcon } from '@hugeicons/core-free-icons';
 
 const AnalysisReport = () => {
   const { id } = useParams();
@@ -84,7 +85,7 @@ const AnalysisReport = () => {
             <CardContent>
               <div className="aspect-[4/3] bg-muted rounded-xl flex items-center justify-center">
                 <div className="text-center text-muted-foreground">
-                  <Heart className="w-12 h-12 mx-auto mb-2" />
+                  <HugeiconsIcon icon={FavouriteIcon} size={48} className="mx-auto mb-2" />
                   <p>Photo de profil</p>
                 </div>
               </div>
@@ -96,7 +97,7 @@ const AnalysisReport = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <span>Synthèse par IA</span>
-                {isStandardAnalysis && <Lock className="w-5 h-5 text-muted-foreground" />}
+                {isStandardAnalysis && <HugeiconsIcon icon={LockIcon} size={20} className="text-muted-foreground" />}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -121,13 +122,13 @@ const AnalysisReport = () => {
                   </div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="bg-card border rounded-xl p-6 text-center max-w-sm">
-                      <Lock className="w-8 h-8 mx-auto mb-3 text-muted-foreground" />
+                      <HugeiconsIcon icon={LockIcon} size={32} className="mx-auto mb-3 text-muted-foreground" />
                       <h3 className="font-semibold mb-2">Synthèse verrouillée</h3>
                       <p className="text-sm text-muted-foreground mb-4">
                         Révélez la synthèse de notre IA et nos conseils personnalisés.
                       </p>
                       <Button className="w-full">
-                        <Gem className="w-4 h-4 mr-2" />
+                        <HugeiconsIcon icon={GemIcon} size={16} className="mr-2" />
                         Débloquer avec 25 Crédits
                       </Button>
                     </div>
@@ -209,9 +210,9 @@ const AnalysisReport = () => {
                     return (
                       <div key={index} className="text-center">
                         <div className="flex items-center justify-center mb-2">
-                          {item.name === 'Feeling' && <Heart className="w-5 h-5 text-red-500" />}
-                          {item.name === 'Vibe' && <Zap className="w-5 h-5 text-accent" />}
-                          {item.name === 'Intrigue' && <MessageSquare className="w-5 h-5 text-primary" />}
+                          {item.name === 'Feeling' && <HugeiconsIcon icon={FavouriteIcon} size={20} className="text-red-500" />}
+                          {item.name === 'Vibe' && <HugeiconsIcon icon={ZapIcon} size={20} className="text-accent" />}
+                          {item.name === 'Intrigue' && <HugeiconsIcon icon={MessageMultiple02Icon} size={20} className="text-primary" />}
                         </div>
                         <div className="font-semibold text-lg mb-1">
                           {scoreOut10.toFixed(1)}/10
@@ -233,7 +234,7 @@ const AnalysisReport = () => {
                 <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-green-600">
-                      <TrendingUp className="w-5 h-5" />
+                      <HugeiconsIcon icon={ArrowUpIcon} size={20} />
                       <span>Top 3 Points Forts</span>
                     </CardTitle>
                   </CardHeader>
@@ -254,7 +255,7 @@ const AnalysisReport = () => {
                 <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-orange-600">
-                      <TrendingDown className="w-5 h-5" />
+                      <HugeiconsIcon icon={ArrowDownIcon} size={20} />
                       <span>Points d'Amélioration</span>
                     </CardTitle>
                   </CardHeader>

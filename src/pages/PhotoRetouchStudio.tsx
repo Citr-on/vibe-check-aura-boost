@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Zap, Check, Rocket, Image as ImageIcon } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ArrowLeft01Icon, ZapIcon, Tick01Icon, RocketIcon, Image01Icon } from '@hugeicons/core-free-icons';
 import { Link } from "react-router-dom";
 import { StudioAnalysisModal } from "@/components/dashboard/StudioAnalysisModal";
 import bioSample1 from "@/assets/bio-sample-1.jpg";
@@ -78,7 +79,7 @@ const PhotoRetouchStudio = () => {
         <div className="flex items-center mb-8">
           <Link to="/studio-ia" className="mr-4">
             <Button variant="ghost" size="sm">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="mr-2" />
               Retour au Studio
             </Button>
           </Link>
@@ -100,7 +101,7 @@ const PhotoRetouchStudio = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <ImageIcon className="w-5 h-5 mr-2" />
+                  <HugeiconsIcon icon={Image01Icon} size={20} className="mr-2" />
                   Sélectionnez votre photo
                 </CardTitle>
               </CardHeader>
@@ -114,7 +115,7 @@ const PhotoRetouchStudio = () => {
                       console.log('File uploaded:', e.target.files?.[0]);
                     }} />
                       <div className="w-full h-32 flex flex-col items-center justify-center text-muted-foreground">
-                        <ImageIcon className="w-8 h-8 mb-2" />
+                        <HugeiconsIcon icon={Image01Icon} size={32} className="mb-2" />
                         <span className="text-sm text-center px-2">Ajouter une photo</span>
                       </div>
                     </label>
@@ -123,7 +124,7 @@ const PhotoRetouchStudio = () => {
                     {photos.map(photo => <button key={photo.id} onClick={() => setSelectedPhoto(photo.id)} className={`relative rounded-lg overflow-hidden border-2 transition-all ${selectedPhoto === photo.id ? "border-primary shadow-lg" : "border-border hover:border-primary/50"}`}>
                         <img src={photo.src} alt={photo.alt} className="w-full h-32 object-cover" />
                         {selectedPhoto === photo.id && <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
-                            <Check className="w-4 h-4" />
+                            <HugeiconsIcon icon={Tick01Icon} size={16} />
                           </div>}
                       </button>)}
                   </div>
@@ -172,7 +173,7 @@ const PhotoRetouchStudio = () => {
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
                   Transformation en cours...
                 </> : <>
-                  <Zap className="w-5 h-5 mr-2" />
+                  <HugeiconsIcon icon={ZapIcon} size={20} className="mr-2" />
                   Transformer ma photo (Coût : 3 Crédits 💎)
                 </>}
             </Button>
@@ -229,11 +230,11 @@ const PhotoRetouchStudio = () => {
                     {/* Action Buttons */}
                     <div className="flex gap-3">
                       <Button variant="outline" className="flex-1">
-                        <Check className="w-4 h-4 mr-2" />
+                        <HugeiconsIcon icon={Tick01Icon} size={16} className="mr-2" />
                         Enregistrer dans ma galerie
                       </Button>
                       <Button className="flex-1" onClick={handleEvaluatePhoto}>
-                        <Rocket className="w-4 h-4 mr-2" />
+                        <HugeiconsIcon icon={RocketIcon} size={16} className="mr-2" />
                         Faire évaluer cette photo
                       </Button>
                     </div>

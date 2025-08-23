@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Feather, X, Copy, Check } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ArrowLeft01Icon, FeatherIcon, Cancel01Icon, Copy01Icon, Tick01Icon } from '@hugeicons/core-free-icons';
 import { Link } from "react-router-dom";
 
 const BioGeneratorStudio = () => {
@@ -79,7 +80,7 @@ const BioGeneratorStudio = () => {
         <div className="flex items-center mb-8">
           <Link to="/studio-ia" className="mr-4">
             <Button variant="ghost" size="sm">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+              <HugeiconsIcon icon={ArrowLeft01Icon} size={16} className="mr-2" />
               Retour au Studio
             </Button>
           </Link>
@@ -141,7 +142,7 @@ const BioGeneratorStudio = () => {
                           onClick={() => removeKeyword(index)}
                           className="ml-2 hover:text-destructive"
                         >
-                          <X className="w-3 h-3" />
+                          <HugeiconsIcon icon={Cancel01Icon} size={12} />
                         </button>
                       </Badge>
                     ))}
@@ -210,7 +211,7 @@ const BioGeneratorStudio = () => {
                 </>
               ) : (
                 <>
-                  <Feather className="w-5 h-5 mr-2" />
+                  <HugeiconsIcon icon={FeatherIcon} size={20} className="mr-2" />
                   Générer mes bios (Coût : 2 Crédits 💎)
                 </>
               )}
@@ -265,12 +266,12 @@ const BioGeneratorStudio = () => {
                       >
                         {copied ? (
                           <>
-                            <Check className="w-4 h-4 mr-2 text-green-600" />
+                            <HugeiconsIcon icon={Tick01Icon} size={16} className="mr-2 text-green-600" />
                             Copié !
                           </>
                         ) : (
                           <>
-                            <Copy className="w-4 h-4 mr-2" />
+                            <HugeiconsIcon icon={Copy01Icon} size={16} className="mr-2" />
                             Copier le texte
                           </>
                         )}
