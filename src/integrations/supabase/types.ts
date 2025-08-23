@@ -24,6 +24,9 @@ export type Database = {
           gender: Database["public"]["Enums"]["gender_type"] | null
           height: number | null
           id: string
+          religious_confession:
+            | Database["public"]["Enums"]["religious_confession_type"]
+            | null
           updated_at: string
           user_id: string
         }
@@ -36,6 +39,9 @@ export type Database = {
           gender?: Database["public"]["Enums"]["gender_type"] | null
           height?: number | null
           id?: string
+          religious_confession?:
+            | Database["public"]["Enums"]["religious_confession_type"]
+            | null
           updated_at?: string
           user_id: string
         }
@@ -48,6 +54,9 @@ export type Database = {
           gender?: Database["public"]["Enums"]["gender_type"] | null
           height?: number | null
           id?: string
+          religious_confession?:
+            | Database["public"]["Enums"]["religious_confession_type"]
+            | null
           updated_at?: string
           user_id?: string
         }
@@ -71,6 +80,16 @@ export type Database = {
         | "autre"
         | "préfère-ne-pas-dire"
       gender_type: "homme" | "femme" | "non-binaire" | "préfère-ne-pas-dire"
+      religious_confession_type:
+        | "christianisme"
+        | "islam"
+        | "judaisme"
+        | "bouddhisme"
+        | "hinduisme"
+        | "athéisme"
+        | "agnosticisme"
+        | "autre"
+        | "préfère-ne-pas-dire"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -209,6 +228,17 @@ export const Constants = {
         "préfère-ne-pas-dire",
       ],
       gender_type: ["homme", "femme", "non-binaire", "préfère-ne-pas-dire"],
+      religious_confession_type: [
+        "christianisme",
+        "islam",
+        "judaisme",
+        "bouddhisme",
+        "hinduisme",
+        "athéisme",
+        "agnosticisme",
+        "autre",
+        "préfère-ne-pas-dire",
+      ],
     },
   },
 } as const

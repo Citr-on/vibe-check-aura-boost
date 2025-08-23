@@ -17,6 +17,7 @@ const profileSchema = z.object({
   age: z.number().min(16, "L'âge minimum est de 16 ans").max(100, "L'âge maximum est de 100 ans").optional(),
   height: z.number().min(100, "La taille minimum est de 100 cm").max(250, "La taille maximum est de 250 cm").optional(),
   ethnic_origin: z.enum(['européenne', 'africaine', 'asiatique', 'hispanique', 'moyen-orientale', 'métisse', 'autre', 'préfère-ne-pas-dire']).optional(),
+  religious_confession: z.enum(['christianisme', 'islam', 'judaisme', 'bouddhisme', 'hinduisme', 'athéisme', 'agnosticisme', 'autre', 'préfère-ne-pas-dire']).optional(),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -37,6 +38,7 @@ const Profile = () => {
       age: undefined,
       height: undefined,
       ethnic_origin: undefined,
+      religious_confession: undefined,
     },
   });
 
@@ -50,9 +52,9 @@ const Profile = () => {
           .from('profiles')
           .select('*')
           .eq('user_id', 'temp-user-id')
-          .single();
+          .maybeSingle();
 
-        if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+        if (error) {
           throw error;
         }
 
@@ -62,6 +64,7 @@ const Profile = () => {
             age: data.age || undefined,
             height: data.height || undefined,
             ethnic_origin: data.ethnic_origin || undefined,
+            religious_confession: data.religious_confession || undefined,
           });
         }
       } catch (error) {
@@ -89,6 +92,7 @@ const Profile = () => {
         age: data.age,
         height: data.height,
         ethnic_origin: data.ethnic_origin,
+        religious_confession: data.religious_confession,
       };
 
       const { error } = await supabase
@@ -233,6 +237,35 @@ const Profile = () => {
                               <SelectItem value="hispanique">Hispanique</SelectItem>
                               <SelectItem value="moyen-orientale">Moyen-orientale</SelectItem>
                               <SelectItem value="métisse">Métisse</SelectItem>
+                              <SelectItem value="autre">Autre</SelectItem>
+                              <SelectItem value="préfère-ne-pas-dire">Préfère ne pas dire</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="religious_confession"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Confession religieuse</FormLabel>
+                          <Select onValueChange={field.onChange} value={field.value}>
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Sélectionnez votre confession" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="christianisme">Christianisme</SelectItem>
+                              <SelectItem value="islam">Islam</SelectItem>
+                              <SelectItem value="judaisme">Judaïsme</SelectItem>
+                              <SelectItem value="bouddhisme">Bouddhisme</SelectItem>
+                              <SelectItem value="hinduisme">Hindouisme</SelectItem>
+                              <SelectItem value="athéisme">Athéisme</SelectItem>
+                              <SelectItem value="agnosticisme">Agnosticisme</SelectItem>
                               <SelectItem value="autre">Autre</SelectItem>
                               <SelectItem value="préfère-ne-pas-dire">Préfère ne pas dire</SelectItem>
                             </SelectContent>
