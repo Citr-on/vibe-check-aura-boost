@@ -154,7 +154,7 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
           </Tooltip>
         </TooltipProvider>
         
-        <span className="text-sm text-muted-foreground min-w-16">
+        <span className="text-sm text-muted-foreground w-fit ml-auto">
           {currentLabel}
         </span>
       </div>
