@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { CarouselProfile } from "@/components/ui/carousel-profile";
 import { CommentSection } from "@/components/ui/comment-section";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { SparklesIcon, FavouriteIcon, ZapIcon, MessageMultiple02Icon, ArrowRight02Icon, InformationCircleIcon, StarIcon, ArrowLeft02Icon } from '@hugeicons/core-free-icons';
+import { SparklesIcon, FavouriteIcon, ZapIcon, TaskEdit01Icon, ArrowRight02Icon, InformationCircleIcon, StarIcon, ArrowLeft02Icon } from '@hugeicons/core-free-icons';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -339,7 +339,7 @@ const Review = () => {
                 onClick={toggleOverlay}
                 className="bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-3 shadow-lg transition-transform active:scale-95 flex items-center gap-2"
               >
-                <HugeiconsIcon icon={MessageMultiple02Icon} size={20} />
+                <HugeiconsIcon icon={TaskEdit01Icon} size={20} />
                 <span className="font-medium">Évaluer</span>
               </button>
             </div>
