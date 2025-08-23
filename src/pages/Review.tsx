@@ -8,7 +8,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Badge } from "@/components/ui/badge";
 import { CarouselProfile } from "@/components/ui/carousel-profile";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { SparklesIcon, FavouriteIcon, ZapIcon, MessageMultiple02Icon, ArrowRight02Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
+import { SparklesIcon, FavouriteIcon, ZapIcon, MessageMultiple02Icon, ArrowRight02Icon, InformationCircleIcon, StarIcon } from '@hugeicons/core-free-icons';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -29,7 +29,7 @@ const Review = () => {
   
   // États pour l'interface mobile
   const [currentStep, setCurrentStep] = useState<"ratings" | "comments">("ratings");
-  const [overlayHeight, setOverlayHeight] = useState(25); // pourcentage de hauteur de l'overlay
+  const [showOverlay, setShowOverlay] = useState(false);
 
   // Profils à reviewer
   const profiles = [
@@ -152,48 +152,8 @@ const Review = () => {
     setCurrentStep("comments");
   };
   
-  const handleDragStart = (e: React.TouchEvent) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    const startY = touch.clientY;
-    const startHeight = overlayHeight;
-    let isDragging = false;
-    
-    const handleDragMove = (e: TouchEvent) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      const currentY = touch.clientY;
-      const deltaY = startY - currentY;
-      const viewportHeight = window.innerHeight;
-      
-      // Marquer qu'on est en train de drag après un petit mouvement
-      if (Math.abs(deltaY) > 5) {
-        isDragging = true;
-      }
-      
-      if (isDragging) {
-        const sensitivity = 120; // Augmente la sensibilité du drag
-        const newHeight = Math.min(75, Math.max(20, startHeight + (deltaY / viewportHeight) * sensitivity));
-        setOverlayHeight(newHeight);
-      }
-    };
-    
-    const handleDragEnd = () => {
-      document.removeEventListener('touchmove', handleDragMove);
-      document.removeEventListener('touchend', handleDragEnd);
-      
-      // Snap vers des positions définies
-      if (overlayHeight < 30) {
-        setOverlayHeight(25);
-      } else if (overlayHeight > 60) {
-        setOverlayHeight(70);
-      } else {
-        setOverlayHeight(45);
-      }
-    };
-    
-    document.addEventListener('touchmove', handleDragMove);
-    document.addEventListener('touchend', handleDragEnd);
+  const toggleOverlay = () => {
+    setShowOverlay(!showOverlay);
   };
 
   // Tags contextuels selon le type de contenu
@@ -337,176 +297,187 @@ const Review = () => {
             </CardContent>
           </Card>
 
-          {/* Overlay draggable pour l'évaluation */}
-          <div 
-            className="absolute bottom-0 left-4 right-4 bg-background/95 backdrop-blur-sm rounded-t-2xl shadow-2xl border border-border transition-all duration-150 ease-out z-40"
-            style={{ height: `${overlayHeight}%` }}
+          {/* Bouton flottant pour afficher l'overlay */}
+          <button
+            onClick={toggleOverlay}
+            className="absolute bottom-4 right-4 bg-primary hover:bg-primary/90 text-white rounded-full p-3 shadow-lg z-50 transition-transform active:scale-95"
           >
-            {/* Handle de drag */}
-            <div 
-              className="w-12 h-1.5 bg-muted-foreground/30 rounded-full mx-auto mt-3 cursor-grab active:cursor-grabbing"
-              onTouchStart={handleDragStart}
-            />
-            
-            <div className="p-4 h-full flex flex-col overflow-hidden">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Votre évaluation</h3>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <button className="text-muted-foreground hover:text-foreground transition-colors">
-                      <HugeiconsIcon icon={InformationCircleIcon} size={24} />
-                    </button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-80 pointer-events-auto">
-                    <div className="space-y-3">
-                      <h4 className="font-semibold text-sm">Guide de l'évaluation</h4>
-                      <p className="text-xs text-muted-foreground">
-                        Donnez un avis constructif et gagnez <span className="text-accent font-medium">0.1 Aura ✨</span> pour chaque évaluation validée.
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Seuls les retours utiles et respectueux sont récompensés.
-                      </p>
-                      <div className="space-y-2">
-                        <h5 className="font-medium text-xs">Les Critères :</h5>
-                        <div className="space-y-1 text-xs text-muted-foreground">
-                          <p><span className="font-medium">Attirance :</span> Votre première impression</p>
-                          <p><span className="font-medium">Style :</span> L'esthétique et les photos</p>
-                          <p><span className="font-medium">Feeling :</span> L'authenticité et la personnalité</p>
+            <HugeiconsIcon icon={StarIcon} size={24} />
+          </button>
+
+          {/* Overlay pour l'évaluation */}
+          {showOverlay && (
+            <div className="absolute inset-0 bg-black/50 z-40 flex items-end p-4">
+              <div className="w-full bg-background rounded-2xl shadow-2xl border border-border max-h-[80vh] overflow-hidden">
+                <div className="p-4 h-full flex flex-col max-h-[70vh]">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold">Votre évaluation</h3>
+                    <div className="flex gap-2">
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <button className="text-muted-foreground hover:text-foreground transition-colors">
+                            <HugeiconsIcon icon={InformationCircleIcon} size={24} />
+                          </button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80 pointer-events-auto">
+                          <div className="space-y-3">
+                            <h4 className="font-semibold text-sm">Guide de l'évaluation</h4>
+                            <p className="text-xs text-muted-foreground">
+                              Donnez un avis constructif et gagnez <span className="text-accent font-medium">0.1 Aura ✨</span> pour chaque évaluation validée.
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              Seuls les retours utiles et respectueux sont récompensés.
+                            </p>
+                            <div className="space-y-2">
+                              <h5 className="font-medium text-xs">Les Critères :</h5>
+                              <div className="space-y-1 text-xs text-muted-foreground">
+                                <p><span className="font-medium">Attirance :</span> Votre première impression</p>
+                                <p><span className="font-medium">Style :</span> L'esthétique et les photos</p>
+                                <p><span className="font-medium">Feeling :</span> L'authenticité et la personnalité</p>
+                              </div>
+                            </div>
+                          </div>
+                        </PopoverContent>
+                      </Popover>
+                      <button 
+                        onClick={toggleOverlay}
+                        className="text-muted-foreground hover:text-foreground transition-colors"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+
+                  {currentStep === "ratings" ? (
+                    <div className="flex-1 flex flex-col">
+                      {/* Jauges de notation */}
+                      <div className="space-y-4 flex-1">
+                        <RatingGauge
+                          value={feelingScore}
+                          onChange={setFeelingScore}
+                          icon={<HugeiconsIcon icon={FavouriteIcon} size={24} className="text-red-500" />}
+                          label="Attirance"
+                          color="hsl(var(--destructive))"
+                          labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                          tooltipText="Attirance : Votre première impression"
+                        />
+
+                        <RatingGauge
+                          value={vibeScore}
+                          onChange={setVibeScore}
+                          icon={<HugeiconsIcon icon={SparklesIcon} size={24} className="text-accent" />}
+                          label="Style"
+                          color="hsl(var(--accent))"
+                          labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                          tooltipText="Style : L'esthétique et les photos"
+                        />
+
+                        <RatingGauge
+                          value={intrigueScore}
+                          onChange={setIntrigueScore}
+                          icon={<HugeiconsIcon icon={ZapIcon} size={24} className="text-primary" />}
+                          label="Feeling"
+                          color="hsl(var(--primary))"
+                          labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                          tooltipText="Feeling : L'authenticité et la personnalité"
+                        />
+                      </div>
+
+                      {/* Boutons étape 1 */}
+                      <div className="flex flex-col gap-3 pt-4 pb-6 shrink-0">
+                        <Button 
+                          onClick={handleNext}
+                          className="w-full bg-primary hover:bg-primary/90 rounded-xl"
+                        >
+                          <HugeiconsIcon icon={ArrowRight02Icon} size={16} className="mr-2" />
+                          Suivant
+                        </Button>
+                        <Button 
+                          onClick={handleSkip}
+                          variant="outline"
+                          className="w-full rounded-xl"
+                        >
+                          Passer
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex-1 flex flex-col">
+                      {/* Commentaires */}
+                      <div className="space-y-4 flex-1 overflow-y-auto">
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Ce que j'aime le plus... <span className="text-muted-foreground font-normal">facultatif</span>
+                          </label>
+                          <Textarea
+                            value={positiveComment}
+                            onChange={(e) => setPositiveComment(e.target.value)}
+                            placeholder={
+                              currentProfile?.type === "profile" 
+                                ? "Ce qui me plaît le plus..." 
+                                : "Ce qui vous plaît dans cette photo..."
+                            }
+                            className="resize-none rounded-xl"
+                            rows={2}
+                          />
+                          <div className="flex flex-wrap gap-1 mt-2">
+                            {positiveChips.slice(0, 3).map((chip) => (
+                              <button
+                                key={chip.label}
+                                onClick={() => setPositiveComment(chip.text)}
+                                className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                              >
+                                {chip.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium mb-2">
+                            Un conseil pour améliorer... <span className="text-muted-foreground font-normal">facultatif</span>
+                          </label>
+                          <Textarea
+                            value={improvementComment}
+                            onChange={(e) => setImprovementComment(e.target.value)}
+                            placeholder={
+                              currentProfile?.type === "profile" 
+                                ? "Un conseil pour améliorer..." 
+                                : "Un conseil constructif..."
+                            }
+                            className="resize-none rounded-xl"
+                            rows={2}
+                          />
+                          <div className="flex flex-wrap gap-1 mt-2">
+                            {improvementChips.slice(0, 3).map((chip) => (
+                              <button
+                                key={chip.label}
+                                onClick={() => setImprovementComment(chip.text)}
+                                className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                              >
+                                {chip.label}
+                              </button>
+                            ))}
+                          </div>
                         </div>
                       </div>
+
+                      {/* Bouton étape 2 */}
+                      <div className="pt-4 pb-6 shrink-0">
+                        <Button 
+                          onClick={handleSubmit}
+                          className="w-full bg-primary hover:bg-primary/90 rounded-xl"
+                        >
+                          <HugeiconsIcon icon={SparklesIcon} size={16} className="mr-2" />
+                          Soumettre & Gagner de l'Aura
+                        </Button>
+                      </div>
                     </div>
-                  </PopoverContent>
-                </Popover>
+                  )}
+                </div>
               </div>
-
-              {currentStep === "ratings" ? (
-                <div className="flex-1 flex flex-col">
-                  {/* Jauges de notation */}
-                  <div className="space-y-4 flex-1">
-                    <RatingGauge
-                      value={feelingScore}
-                      onChange={setFeelingScore}
-                      icon={<HugeiconsIcon icon={FavouriteIcon} size={24} className="text-red-500" />}
-                      label="Attirance"
-                      color="hsl(var(--destructive))"
-                      labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
-                      tooltipText="Attirance : Votre première impression"
-                    />
-
-                    <RatingGauge
-                      value={vibeScore}
-                      onChange={setVibeScore}
-                      icon={<HugeiconsIcon icon={SparklesIcon} size={24} className="text-accent" />}
-                      label="Style"
-                      color="hsl(var(--accent))"
-                      labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
-                      tooltipText="Style : L'esthétique et les photos"
-                    />
-
-                    <RatingGauge
-                      value={intrigueScore}
-                      onChange={setIntrigueScore}
-                      icon={<HugeiconsIcon icon={ZapIcon} size={24} className="text-primary" />}
-                      label="Feeling"
-                      color="hsl(var(--primary))"
-                      labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
-                      tooltipText="Feeling : L'authenticité et la personnalité"
-                    />
-                  </div>
-
-                  {/* Boutons étape 1 */}
-                  <div className="flex flex-col gap-3 pt-4 pb-6 shrink-0">
-                    <Button 
-                      onClick={handleNext}
-                      className="w-full bg-primary hover:bg-primary/90 rounded-xl"
-                    >
-                      <HugeiconsIcon icon={ArrowRight02Icon} size={16} className="mr-2" />
-                      Suivant
-                    </Button>
-                    <Button 
-                      onClick={handleSkip}
-                      variant="outline"
-                      className="w-full rounded-xl"
-                    >
-                      Passer
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex-1 flex flex-col">
-                  {/* Commentaires */}
-                  <div className="space-y-4 flex-1 overflow-y-auto">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Ce que j'aime le plus... <span className="text-muted-foreground font-normal">facultatif</span>
-                      </label>
-                      <Textarea
-                        value={positiveComment}
-                        onChange={(e) => setPositiveComment(e.target.value)}
-                        placeholder={
-                          currentProfile?.type === "profile" 
-                            ? "Ce qui me plaît le plus..." 
-                            : "Ce qui vous plaît dans cette photo..."
-                        }
-                        className="resize-none rounded-xl"
-                        rows={2}
-                      />
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {positiveChips.slice(0, 3).map((chip) => (
-                          <button
-                            key={chip.label}
-                            onClick={() => setPositiveComment(chip.text)}
-                            className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
-                          >
-                            {chip.label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Un conseil pour améliorer... <span className="text-muted-foreground font-normal">facultatif</span>
-                      </label>
-                      <Textarea
-                        value={improvementComment}
-                        onChange={(e) => setImprovementComment(e.target.value)}
-                        placeholder={
-                          currentProfile?.type === "profile" 
-                            ? "Un conseil pour améliorer..." 
-                            : "Un conseil constructif..."
-                        }
-                        className="resize-none rounded-xl"
-                        rows={2}
-                      />
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {improvementChips.slice(0, 3).map((chip) => (
-                          <button
-                            key={chip.label}
-                            onClick={() => setImprovementComment(chip.text)}
-                            className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
-                          >
-                            {chip.label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bouton étape 2 */}
-                  <div className="pt-4 pb-6 shrink-0">
-                    <Button 
-                      onClick={handleSubmit}
-                      className="w-full bg-primary hover:bg-primary/90 rounded-xl"
-                    >
-                      <HugeiconsIcon icon={SparklesIcon} size={16} className="mr-2" />
-                      Soumettre & Gagner de l'Aura
-                    </Button>
-                  </div>
-                </div>
-              )}
             </div>
-          </div>
+          )}
         </div>
       </div>
     );
