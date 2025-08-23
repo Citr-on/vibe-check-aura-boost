@@ -95,7 +95,7 @@ const AnalysisReport = () => {
               {/* Score global */}
               <div className="text-center mb-6">
                 <div className="text-4xl font-bold text-primary mb-2">
-                  {isStandardAnalysis ? '7.6' : '8.2'}/10
+                  {isStandardAnalysis ? '7.6' : '8.2'}<span className="font-normal">/10</span>
                 </div>
                 <div className="text-sm text-muted-foreground">Score Aura global</div>
               </div>
@@ -202,7 +202,7 @@ const AnalysisReport = () => {
                           {item.name === 'Feeling' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
                         </div>
                         <div className="font-semibold text-lg mb-1">
-                          {scoreOut10.toFixed(1)}/10
+                          {scoreOut10.toFixed(1)}<span className="font-normal">/10</span>
                         </div>
                         <div className={`text-xs font-medium mb-1 ${performance.color}`}>
                           {performance.text}

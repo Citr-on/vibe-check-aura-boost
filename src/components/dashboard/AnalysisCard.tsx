@@ -136,7 +136,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
                       ? 'text-accent' 
                       : 'text-primary'
                 }`}>
-                  {analysis.score}/10
+                  {analysis.score}<span className="font-normal">/10</span>
                 </div>
                 <div className="text-xs text-muted-foreground">Score Aura</div>
               </div>
