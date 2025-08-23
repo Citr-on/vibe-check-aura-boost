@@ -94,13 +94,15 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
   const currentLabel = labels[displayValue - 1] || "";
 
   return (
-    <div className={cn("flex items-center", className)}>
-      <div className="flex items-center space-x-2 font-medium w-24">
+    <div className={cn("space-y-2", className)}>
+      {/* Ligne 1: Icône + Nom du critère, alignés à gauche */}
+      <div className="flex items-center space-x-2 font-medium">
         {icon}
         <span>{label}</span>
       </div>
       
-      <div className="flex items-center space-x-3 flex-1">
+      {/* Ligne 2: Composant + indicateur de valeur, width fill */}
+      <div className="flex items-center space-x-3 w-full">
         <TooltipProvider>
           <Tooltip open={showTooltip}>
             <TooltipTrigger asChild>
@@ -154,7 +156,7 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
           </Tooltip>
         </TooltipProvider>
         
-        <span className="text-sm text-muted-foreground w-fit ml-auto">
+        <span className="text-sm text-muted-foreground whitespace-nowrap">
           {currentLabel}
         </span>
       </div>
