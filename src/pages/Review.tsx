@@ -10,6 +10,7 @@ import { CarouselProfile } from "@/components/ui/carousel-profile";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { SparklesIcon, FavouriteIcon, ZapIcon, MessageMultiple02Icon, ArrowRight02Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Review = () => {
   const [credits] = useState(150);
@@ -18,12 +19,17 @@ const Review = () => {
   // État pour le type de contenu sélectionné
   const [contentType, setContentType] = useState<"photos" | "profils" | "tout">("tout");
   
+  const isMobile = useIsMobile();
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
   const [feelingScore, setFeelingScore] = useState(1);
   const [vibeScore, setVibeScore] = useState(1);
   const [intrigueScore, setIntrigueScore] = useState(1);
   const [positiveComment, setPositiveComment] = useState("");
   const [improvementComment, setImprovementComment] = useState("");
+  
+  // États pour l'interface mobile
+  const [currentStep, setCurrentStep] = useState<"ratings" | "comments">("ratings");
+  const [overlayHeight, setOverlayHeight] = useState(40); // pourcentage de hauteur de l'overlay
 
   // Profils à reviewer
   const profiles = [
@@ -128,6 +134,7 @@ const Review = () => {
       setIntrigueScore(1);
       setPositiveComment("");
       setImprovementComment("");
+      setCurrentStep("ratings");
     } else {
       // Fin des profils, retourner au premier ou afficher un message
       setCurrentProfileIndex(0);
@@ -136,8 +143,35 @@ const Review = () => {
       setIntrigueScore(1);
       setPositiveComment("");
       setImprovementComment("");
+      setCurrentStep("ratings");
       console.log("Tous les profils ont été reviewés !");
     }
+  };
+  
+  const handleNext = () => {
+    setCurrentStep("comments");
+  };
+  
+  const handleDragStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    const startY = touch.clientY;
+    
+    const handleDragMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      const currentY = touch.clientY;
+      const deltaY = startY - currentY;
+      const viewportHeight = window.innerHeight;
+      const newHeight = Math.min(80, Math.max(30, overlayHeight + (deltaY / viewportHeight) * 100));
+      setOverlayHeight(newHeight);
+    };
+    
+    const handleDragEnd = () => {
+      document.removeEventListener('touchmove', handleDragMove);
+      document.removeEventListener('touchend', handleDragEnd);
+    };
+    
+    document.addEventListener('touchmove', handleDragMove);
+    document.addEventListener('touchend', handleDragEnd);
   };
 
   // Tags contextuels selon le type de contenu
@@ -185,6 +219,278 @@ const Review = () => {
   const positiveChips = getPositiveChips();
   const improvementChips = getImprovementChips();
 
+  if (isMobile) {
+    return (
+      <div className="h-screen bg-background flex flex-col overflow-hidden">
+        <Header credits={credits} aura={aura} />
+        
+        {/* Sélecteur de type de contenu - Mobile */}
+        <div className="flex justify-center px-4 py-2 shrink-0">
+          <ToggleGroup 
+            type="single" 
+            value={contentType} 
+            onValueChange={(value) => {
+              if (value) {
+                setContentType(value as "photos" | "profils" | "tout");
+                setCurrentProfileIndex(0);
+                setCurrentStep("ratings");
+              }
+            }}
+            className="bg-muted rounded-full p-1 w-full max-w-sm"
+          >
+            <ToggleGroupItem 
+              value="photos" 
+              className="rounded-full px-4 py-2 flex-1 text-xs"
+              style={{
+                backgroundColor: contentType === "photos" ? "white" : "transparent",
+                color: contentType === "photos" ? "black" : undefined
+              }}
+            >
+              Photos
+            </ToggleGroupItem>
+            <ToggleGroupItem 
+              value="profils" 
+              className="rounded-full px-4 py-2 flex-1 text-xs"
+              style={{
+                backgroundColor: contentType === "profils" ? "white" : "transparent",
+                color: contentType === "profils" ? "black" : undefined
+              }}
+            >
+              Profils
+            </ToggleGroupItem>
+            <ToggleGroupItem 
+              value="tout" 
+              className="rounded-full px-4 py-2 flex-1 text-xs"
+              style={{
+                backgroundColor: contentType === "tout" ? "white" : "transparent",
+                color: contentType === "tout" ? "black" : undefined
+              }}
+            >
+              Tout
+            </ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+
+        {/* Contenu principal - Photo/Profil */}
+        <div className="flex-1 px-4 relative overflow-hidden">
+          <Card className="rounded-2xl shadow-card h-full">
+            <CardContent className="p-4 h-full flex flex-col">
+              {currentProfile?.type === "profile" ? (
+                <div className="h-full flex flex-col">
+                  {/* Carrousel de photos - 70% de la hauteur */}
+                  <div className="h-[70%]">
+                    <CarouselProfile images={currentProfile.images} />
+                  </div>
+                  
+                  {/* Informations utilisateur - 30% de la hauteur */}
+                  <div className="h-[30%] mt-4 px-2 space-y-3 overflow-hidden">
+                    {/* Tags */}
+                    {currentProfile.tags && (
+                      <div className="flex flex-wrap gap-1">
+                        {currentProfile.tags.map((tag, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
+                    
+                    {/* Biographie */}
+                    {currentProfile.bio && (
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 overflow-hidden">
+                        {currentProfile.bio}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="h-full bg-muted rounded-xl overflow-hidden flex items-center justify-center">
+                  <img 
+                    src={currentProfile?.images?.[0]} 
+                    alt={`Photo de ${currentProfile?.name}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Overlay draggable pour l'évaluation */}
+          <div 
+            className="absolute bottom-0 left-4 right-4 bg-background rounded-t-2xl shadow-2xl border border-border transition-all duration-300 ease-out"
+            style={{ height: `${overlayHeight}%` }}
+          >
+            {/* Handle de drag */}
+            <div 
+              className="w-12 h-1.5 bg-muted-foreground/30 rounded-full mx-auto mt-3 cursor-grab active:cursor-grabbing"
+              onTouchStart={handleDragStart}
+            />
+            
+            <div className="p-4 h-full flex flex-col overflow-hidden">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">Votre évaluation</h3>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button className="text-muted-foreground hover:text-foreground transition-colors">
+                      <HugeiconsIcon icon={InformationCircleIcon} size={24} />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 pointer-events-auto">
+                    <div className="space-y-3">
+                      <h4 className="font-semibold text-sm">Guide de l'évaluation</h4>
+                      <p className="text-xs text-muted-foreground">
+                        Donnez un avis constructif et gagnez <span className="text-accent font-medium">0.1 Aura ✨</span> pour chaque évaluation validée.
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Seuls les retours utiles et respectueux sont récompensés.
+                      </p>
+                      <div className="space-y-2">
+                        <h5 className="font-medium text-xs">Les Critères :</h5>
+                        <div className="space-y-1 text-xs text-muted-foreground">
+                          <p><span className="font-medium">Attirance :</span> Votre première impression</p>
+                          <p><span className="font-medium">Style :</span> L'esthétique et les photos</p>
+                          <p><span className="font-medium">Feeling :</span> L'authenticité et la personnalité</p>
+                        </div>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              {currentStep === "ratings" ? (
+                <div className="flex-1 flex flex-col">
+                  {/* Jauges de notation */}
+                  <div className="space-y-4 flex-1">
+                    <RatingGauge
+                      value={feelingScore}
+                      onChange={setFeelingScore}
+                      icon={<HugeiconsIcon icon={FavouriteIcon} size={24} className="text-red-500" />}
+                      label="Attirance"
+                      color="hsl(var(--destructive))"
+                      labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                      tooltipText="Attirance : Votre première impression"
+                    />
+
+                    <RatingGauge
+                      value={vibeScore}
+                      onChange={setVibeScore}
+                      icon={<HugeiconsIcon icon={SparklesIcon} size={24} className="text-accent" />}
+                      label="Style"
+                      color="hsl(var(--accent))"
+                      labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                      tooltipText="Style : L'esthétique et les photos"
+                    />
+
+                    <RatingGauge
+                      value={intrigueScore}
+                      onChange={setIntrigueScore}
+                      icon={<HugeiconsIcon icon={ZapIcon} size={24} className="text-primary" />}
+                      label="Feeling"
+                      color="hsl(var(--primary))"
+                      labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
+                      tooltipText="Feeling : L'authenticité et la personnalité"
+                    />
+                  </div>
+
+                  {/* Boutons étape 1 */}
+                  <div className="flex flex-col gap-3 pt-4 shrink-0">
+                    <Button 
+                      onClick={handleNext}
+                      className="w-full bg-primary hover:bg-primary/90 rounded-xl"
+                    >
+                      <HugeiconsIcon icon={ArrowRight02Icon} size={16} className="mr-2" />
+                      Suivant
+                    </Button>
+                    <Button 
+                      onClick={handleSkip}
+                      variant="outline"
+                      className="w-full rounded-xl"
+                    >
+                      Passer
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex-1 flex flex-col">
+                  {/* Commentaires */}
+                  <div className="space-y-4 flex-1 overflow-y-auto">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Ce que j'aime le plus... <span className="text-muted-foreground font-normal">facultatif</span>
+                      </label>
+                      <Textarea
+                        value={positiveComment}
+                        onChange={(e) => setPositiveComment(e.target.value)}
+                        placeholder={
+                          currentProfile?.type === "profile" 
+                            ? "Ce qui me plaît le plus..." 
+                            : "Ce qui vous plaît dans cette photo..."
+                        }
+                        className="resize-none rounded-xl"
+                        rows={2}
+                      />
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {positiveChips.slice(0, 3).map((chip) => (
+                          <button
+                            key={chip.label}
+                            onClick={() => setPositiveComment(chip.text)}
+                            className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                          >
+                            {chip.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        Un conseil pour améliorer... <span className="text-muted-foreground font-normal">facultatif</span>
+                      </label>
+                      <Textarea
+                        value={improvementComment}
+                        onChange={(e) => setImprovementComment(e.target.value)}
+                        placeholder={
+                          currentProfile?.type === "profile" 
+                            ? "Un conseil pour améliorer..." 
+                            : "Un conseil constructif..."
+                        }
+                        className="resize-none rounded-xl"
+                        rows={2}
+                      />
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {improvementChips.slice(0, 3).map((chip) => (
+                          <button
+                            key={chip.label}
+                            onClick={() => setImprovementComment(chip.text)}
+                            className="px-2 py-1 text-xs rounded-full border border-border hover:border-primary/50 hover:bg-primary/5 transition-colors"
+                          >
+                            {chip.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bouton étape 2 */}
+                  <div className="pt-4 shrink-0">
+                    <Button 
+                      onClick={handleSubmit}
+                      className="w-full bg-primary hover:bg-primary/90 rounded-xl"
+                    >
+                      <HugeiconsIcon icon={SparklesIcon} size={16} className="mr-2" />
+                      Soumettre & Gagner de l'Aura
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Version desktop (inchangée)
   return (
     <div className="min-h-screen bg-background">
       <Header credits={credits} aura={aura} />
