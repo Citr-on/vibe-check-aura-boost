@@ -26,9 +26,9 @@ const AnalysisReport = () => {
   const isStandardAnalysis = id === '2'; // L'analyse en cours dans notre mock
 
   const scoreData = [
-    { name: 'Feeling', score: 2.8, fullMark: 3 },
-    { name: 'Vibe', score: 2.6, fullMark: 3 },
-    { name: 'Intrigue', score: 2.1, fullMark: 3 }
+    { name: 'Attirance', score: 2.8, fullMark: 3 },
+    { name: 'Style', score: 2.6, fullMark: 3 },
+    { name: 'Feeling', score: 2.1, fullMark: 3 }
   ];
 
   const demographicData = [
@@ -212,9 +212,9 @@ const AnalysisReport = () => {
                     return (
                       <div key={index} className="text-center">
                         <div className="flex items-center justify-center mb-2">
-                          {item.name === 'Feeling' && <HugeiconsIcon icon={FavouriteIcon} size={32} className="text-red-500" />}
-                          {item.name === 'Vibe' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
-                          {item.name === 'Intrigue' && <HugeiconsIcon icon={MessageMultiple02Icon} size={32} className="text-primary" />}
+                          {item.name === 'Attirance' && <HugeiconsIcon icon={FavouriteIcon} size={32} className="text-red-500" />}
+                          {item.name === 'Style' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
+                          {item.name === 'Feeling' && <HugeiconsIcon icon={MessageMultiple02Icon} size={32} className="text-primary" />}
                         </div>
                         <div className="font-semibold text-lg mb-1">
                           {scoreOut10.toFixed(1)}/10
