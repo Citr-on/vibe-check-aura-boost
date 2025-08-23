@@ -32,40 +32,65 @@ export const Header = ({ credits, aura }: HeaderProps) => {
           </Link>
 
           {/* Navigation - Desktop */}
-          {!isMobile && (
-            <nav className="hidden md:flex items-center space-x-8">
-              <Link 
-                to="/dashboard" 
-                className={`font-body transition-colors hover:text-primary ${
-                  isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground'
-                }`}
-              >
-                Mes Analyses
-              </Link>
-              <Link 
-                to="/studio-ia" 
-                className={`font-body transition-colors hover:text-primary ${
-                  isActive('/studio-ia') ? 'text-primary font-medium' : 'text-muted-foreground'
-                }`}
-              >
-                Studio IA
-              </Link>
-              <Link 
-                to="/review" 
-                className={`font-body transition-colors hover:text-primary ${
-                  isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'
-                }`}
-              >
-                Donner un avis
-              </Link>
-            </nav>
-          )}
+          <nav className="hidden lg:flex items-center space-x-8">
+            <Link 
+              to="/dashboard" 
+              className={`font-body transition-colors hover:text-primary ${
+                isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground'
+              }`}
+            >
+              Mes Analyses
+            </Link>
+            <Link 
+              to="/studio-ia" 
+              className={`font-body transition-colors hover:text-primary ${
+                isActive('/studio-ia') ? 'text-primary font-medium' : 'text-muted-foreground'
+              }`}
+            >
+              Studio IA
+            </Link>
+            <Link 
+              to="/review" 
+              className={`font-body transition-colors hover:text-primary ${
+                isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'
+              }`}
+            >
+              Donner un avis
+            </Link>
+          </nav>
 
-          {/* Mobile Menu Burger */}
-          {isMobile && (
+          {/* Balance & Profile */}
+          <div className="flex items-center space-x-4">
+            <div className="hidden sm:flex items-center space-x-3 text-sm font-medium">
+              <div className="flex items-center space-x-1 text-muted-foreground">
+                <HugeiconsIcon icon={SparklesIcon} size={16} className="text-accent" />
+                <span>{aura} Aura</span>
+              </div>
+              <div className="w-px h-4 bg-border"></div>
+              <div className="flex items-center space-x-1 text-foreground">
+                <HugeiconsIcon icon={GemIcon} size={16} className="text-primary" />
+                <span>{credits} Crédits</span>
+              </div>
+            </div>
+            
+            <Link to="/credits" className="hidden sm:block">
+              <Button size="sm" variant="outline" className="w-8 h-8 p-0">
+                <HugeiconsIcon icon={PlusSignIcon} size={16} />
+              </Button>
+            </Link>
+
+            <Link to="/profile" className="hidden lg:block">
+              <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
+                <AvatarFallback>
+                  <HugeiconsIcon icon={UserIcon} size={16} />
+                </AvatarFallback>
+              </Avatar>
+            </Link>
+
+            {/* Mobile/Tablet Menu Burger */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="md:hidden">
+                <Button variant="ghost" size="sm" className="lg:hidden">
                   <HugeiconsIcon icon={Menu01Icon} size={24} />
                 </Button>
               </SheetTrigger>
@@ -111,6 +136,30 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                     <HugeiconsIcon icon={UserIcon} size={20} />
                     <span>Profil</span>
                   </Link>
+                  
+                  <div className="lg:hidden">
+                    <hr className="border-border mb-6" />
+                    <Link 
+                      to="/credits" 
+                      className="flex items-center space-x-3 font-body transition-colors hover:text-primary text-muted-foreground mb-4"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <HugeiconsIcon icon={GemIcon} size={20} />
+                      <span>Acheter des crédits</span>
+                    </Link>
+                    <div className="flex items-center space-x-3 text-sm font-medium mb-6">
+                      <div className="flex items-center space-x-1 text-muted-foreground">
+                        <HugeiconsIcon icon={SparklesIcon} size={16} className="text-accent" />
+                        <span>{aura} Aura</span>
+                      </div>
+                      <div className="w-px h-4 bg-border"></div>
+                      <div className="flex items-center space-x-1 text-foreground">
+                        <HugeiconsIcon icon={GemIcon} size={16} className="text-primary" />
+                        <span>{credits} Crédits</span>
+                      </div>
+                    </div>
+                  </div>
+                  
                   <hr className="border-border" />
                   <Link 
                     to="/faq" 
@@ -123,37 +172,6 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                 </div>
               </SheetContent>
             </Sheet>
-          )}
-
-          {/* Balance & Profile */}
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-3 text-sm font-medium">
-              <div className="flex items-center space-x-1 text-muted-foreground">
-                <HugeiconsIcon icon={SparklesIcon} size={16} className="text-accent" />
-                <span>{aura} Aura</span>
-              </div>
-              <div className="w-px h-4 bg-border"></div>
-              <div className="flex items-center space-x-1 text-foreground">
-                <HugeiconsIcon icon={GemIcon} size={16} className="text-primary" />
-                <span>{credits} Crédits</span>
-              </div>
-            </div>
-            
-            <Link to="/credits">
-              <Button size="sm" variant="outline" className="w-8 h-8 p-0">
-                <HugeiconsIcon icon={PlusSignIcon} size={16} />
-              </Button>
-            </Link>
-
-            {!isMobile && (
-              <Link to="/profile">
-                <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
-                  <AvatarFallback>
-                    <HugeiconsIcon icon={UserIcon} size={16} />
-                  </AvatarFallback>
-                </Avatar>
-              </Link>
-            )}
           </div>
         </div>
       </div>
