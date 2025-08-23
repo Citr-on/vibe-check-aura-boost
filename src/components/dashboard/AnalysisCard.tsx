@@ -142,7 +142,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
               </div>
               <div className="text-center">
                 <div className="text-base md:text-lg font-semibold">
-                  {analysis.votesReceived}/{analysis.totalVotes}
+                  {analysis.votesReceived}<span className="font-normal">/{analysis.totalVotes}</span>
                 </div>
                 <div className="text-xs text-muted-foreground">Avis reçus</div>
               </div>
