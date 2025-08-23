@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { MessageMultiple02Icon, BugIcon, SparklesIcon } from '@hugeicons/core-free-icons';
+import { MessageMultiple02Icon, BugIcon, SparklesIcon, BubbleChatQuestionIcon } from '@hugeicons/core-free-icons';
 import { useToast } from "@/hooks/use-toast";
 
 const FAQ = () => {
@@ -85,7 +85,7 @@ const FAQ = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <HugeiconsIcon icon={MessageMultiple02Icon} size={24} className="text-primary" />
+                  <HugeiconsIcon icon={BubbleChatQuestionIcon} size={24} className="text-primary" />
                   Questions Fréquentes
                 </CardTitle>
                 <CardDescription>
