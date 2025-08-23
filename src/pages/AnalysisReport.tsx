@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { FavouriteIcon, ZapIcon, MessageMultiple02Icon, LockIcon, GemIcon, ArrowUpIcon, ArrowDownIcon } from '@hugeicons/core-free-icons';
+import portraitSample1 from "@/assets/portrait-sample-1.jpg";
 
 const AnalysisReport = () => {
   const { id } = useParams();
@@ -83,11 +84,12 @@ const AnalysisReport = () => {
               <CardTitle>Photo analysée</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="aspect-[4/3] bg-muted rounded-xl flex items-center justify-center">
-                <div className="text-center text-muted-foreground">
-                  <HugeiconsIcon icon={FavouriteIcon} size={48} className="mx-auto mb-2" />
-                  <p>Photo de profil</p>
-                </div>
+              <div className="aspect-[4/3] bg-muted rounded-xl overflow-hidden">
+                <img 
+                  src={portraitSample1} 
+                  alt="Photo de profil analysée"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </CardContent>
           </Card>
