@@ -295,7 +295,7 @@ const Review = () => {
                 <Popover>
                   <PopoverTrigger asChild>
                     <button className="text-muted-foreground hover:text-foreground transition-colors">
-                      <HugeiconsIcon icon={InformationCircleIcon} size={16} />
+                      <HugeiconsIcon icon={InformationCircleIcon} size={32} />
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-80 pointer-events-auto">
@@ -326,7 +326,7 @@ const Review = () => {
                 <RatingGauge
                   value={feelingScore}
                   onChange={setFeelingScore}
-                  icon={<HugeiconsIcon icon={FavouriteIcon} size={16} className="text-red-500" />}
+                  icon={<HugeiconsIcon icon={FavouriteIcon} size={32} className="text-red-500" />}
                   label="Feeling"
                   color="hsl(var(--destructive))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
@@ -336,7 +336,7 @@ const Review = () => {
                 <RatingGauge
                   value={vibeScore}
                   onChange={setVibeScore}
-                  icon={<HugeiconsIcon icon={ZapIcon} size={16} className="text-accent" />}
+                  icon={<HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
                   label="Vibe"
                   color="hsl(var(--accent))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}
@@ -346,7 +346,7 @@ const Review = () => {
                 <RatingGauge
                   value={intrigueScore}
                   onChange={setIntrigueScore}
-                  icon={<HugeiconsIcon icon={MessageMultiple02Icon} size={16} className="text-primary" />}
+                  icon={<HugeiconsIcon icon={MessageMultiple02Icon} size={32} className="text-primary" />}
                   label="Intrigue"
                   color="hsl(var(--primary))"
                   labels={["Non", "Un peu", "Assez", "Beaucoup", "Carrément !"]}

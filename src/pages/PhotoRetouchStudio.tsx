@@ -101,7 +101,7 @@ const PhotoRetouchStudio = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <HugeiconsIcon icon={Image01Icon} size={20} className="mr-2" />
+                  <HugeiconsIcon icon={Image01Icon} size={32} className="mr-2" />
                   Sélectionnez votre photo
                 </CardTitle>
               </CardHeader>
@@ -173,7 +173,7 @@ const PhotoRetouchStudio = () => {
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"></div>
                   Transformation en cours...
                 </> : <>
-                  <HugeiconsIcon icon={ZapIcon} size={20} className="mr-2" />
+                  <HugeiconsIcon icon={ZapIcon} size={32} className="mr-2" />
                   Transformer ma photo (Coût : 3 Crédits 💎)
                 </>}
             </Button>

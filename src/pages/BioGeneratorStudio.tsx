@@ -211,7 +211,7 @@ const BioGeneratorStudio = () => {
                 </>
               ) : (
                 <>
-                  <HugeiconsIcon icon={FeatherIcon} size={20} className="mr-2" />
+                  <HugeiconsIcon icon={FeatherIcon} size={32} className="mr-2" />
                   Générer mes bios (Coût : 2 Crédits 💎)
                 </>
               )}

@@ -210,9 +210,9 @@ const AnalysisReport = () => {
                     return (
                       <div key={index} className="text-center">
                         <div className="flex items-center justify-center mb-2">
-                          {item.name === 'Feeling' && <HugeiconsIcon icon={FavouriteIcon} size={20} className="text-red-500" />}
-                          {item.name === 'Vibe' && <HugeiconsIcon icon={ZapIcon} size={20} className="text-accent" />}
-                          {item.name === 'Intrigue' && <HugeiconsIcon icon={MessageMultiple02Icon} size={20} className="text-primary" />}
+                          {item.name === 'Feeling' && <HugeiconsIcon icon={FavouriteIcon} size={32} className="text-red-500" />}
+                          {item.name === 'Vibe' && <HugeiconsIcon icon={ZapIcon} size={32} className="text-accent" />}
+                          {item.name === 'Intrigue' && <HugeiconsIcon icon={MessageMultiple02Icon} size={32} className="text-primary" />}
                         </div>
                         <div className="font-semibold text-lg mb-1">
                           {scoreOut10.toFixed(1)}/10
@@ -234,7 +234,7 @@ const AnalysisReport = () => {
                 <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-green-600">
-                      <HugeiconsIcon icon={ArrowUpIcon} size={20} />
+                      <HugeiconsIcon icon={ArrowUpIcon} size={32} />
                       <span>Top 3 Points Forts</span>
                     </CardTitle>
                   </CardHeader>
@@ -255,7 +255,7 @@ const AnalysisReport = () => {
                 <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-orange-600">
-                      <HugeiconsIcon icon={ArrowDownIcon} size={20} />
+                      <HugeiconsIcon icon={ArrowDownIcon} size={32} />
                       <span>Points d'Amélioration</span>
                     </CardTitle>
                   </CardHeader>
