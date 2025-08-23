@@ -34,7 +34,7 @@ const App = () => (
           <Route path="/studio-ia" element={<StudioIA />} />
           <Route path="/studio-ia/retouche-photo" element={<PhotoRetouchStudio />} />
           <Route path="/studio-ia/generateur-bio" element={<BioGeneratorStudio />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/parametres" element={<Profile />} />
           <Route path="/faq" element={<FAQ />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

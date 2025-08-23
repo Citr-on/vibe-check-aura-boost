@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { PlusSignIcon, SparklesIcon, GemIcon, UserIcon, Menu01Icon, DashboardSquare01Icon, AiImageIcon, TaskEdit01Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
+import { PlusSignIcon, SparklesIcon, GemIcon, Settings02Icon, Menu01Icon, DashboardSquare01Icon, AiImageIcon, TaskEdit01Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
 import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState } from "react";
@@ -79,10 +79,10 @@ export const Header = ({ credits, aura }: HeaderProps) => {
               </Button>
             </Link>
 
-            <Link to="/profile" className="hidden lg:block">
+            <Link to="/parametres" className="hidden lg:block">
               <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
                 <AvatarFallback>
-                  <HugeiconsIcon icon={UserIcon} size={16} />
+                  <HugeiconsIcon icon={Settings02Icon} size={16} />
                 </AvatarFallback>
               </Avatar>
             </Link>
@@ -127,14 +127,14 @@ export const Header = ({ credits, aura }: HeaderProps) => {
 <span>Évaluer des profils</span>
                   </Link>
                   <Link 
-                    to="/profile" 
+                    to="/parametres" 
                     className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${
-                      isActive('/profile') ? 'text-primary font-medium' : 'text-muted-foreground'
+                      isActive('/parametres') ? 'text-primary font-medium' : 'text-muted-foreground'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <HugeiconsIcon icon={UserIcon} size={20} />
-                    <span>Profil</span>
+                    <HugeiconsIcon icon={Settings02Icon} size={20} />
+                    <span>Paramètres</span>
                   </Link>
                   
                   <div className="lg:hidden">

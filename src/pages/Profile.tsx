@@ -12,7 +12,7 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { Loading01Icon, UserIcon, MailIcon, LockIcon, NoteIcon } from '@hugeicons/core-free-icons';
+import { Loading01Icon, Settings02Icon, MailIcon, LockIcon, NoteIcon } from '@hugeicons/core-free-icons';
 
 const profileSchema = z.object({
   gender: z.enum(['homme', 'femme', 'non-binaire', 'préfère-ne-pas-dire']).optional(),
@@ -126,11 +126,11 @@ const Profile = () => {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-heading font-bold text-foreground mb-2 flex items-center gap-3">
-            <HugeiconsIcon icon={UserIcon} size={32} className="text-primary" />
-            Mon Profil
+            <HugeiconsIcon icon={Settings02Icon} size={32} className="text-primary" />
+            Paramètres
           </h1>
           <p className="text-muted-foreground">
-            Gérez vos informations personnelles pour des analyses plus précises
+            Gérez vos informations personnelles et préférences pour des analyses plus précises
           </p>
         </div>
 
@@ -165,7 +165,7 @@ const Profile = () => {
         <Card className="shadow-soft mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <HugeiconsIcon icon={UserIcon} size={24} className="text-primary" />
+              <HugeiconsIcon icon={Settings02Icon} size={24} className="text-primary" />
               À propos de moi
             </CardTitle>
             <CardDescription>
