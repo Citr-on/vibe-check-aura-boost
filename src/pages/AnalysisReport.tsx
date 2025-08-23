@@ -211,7 +211,7 @@ const AnalysisReport = () => {
                         <div className="text-xs text-muted-foreground mt-1 px-2 leading-tight">
                           {item.name === 'Attirance' && "La personne est-elle attirante"}
                           {item.name === 'Style' && "Le style et l'esthétique qui se dégagent"}
-                          {item.name === 'Feeling' && "Le profil semble fiable, fun, sincère"}
+                          {item.name === 'Feeling' && "La personne semble fiable, fun, sincère"}
                         </div>
                       </div>;
                 })}
