@@ -430,7 +430,7 @@ const Profile = () => {
 
               <div className="flex justify-end pt-6">
                 <Button className="bg-primary hover:bg-primary/90">
-                  Sauvegarder les préférences
+                  Sauvegarder
                 </Button>
               </div>
             </div>
