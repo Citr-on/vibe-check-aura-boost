@@ -29,7 +29,7 @@ const Review = () => {
   
   // États pour l'interface mobile
   const [currentStep, setCurrentStep] = useState<"ratings" | "comments">("ratings");
-  const [overlayHeight, setOverlayHeight] = useState(40); // pourcentage de hauteur de l'overlay
+  const [overlayHeight, setOverlayHeight] = useState(25); // pourcentage de hauteur de l'overlay
 
   // Profils à reviewer
   const profiles = [
@@ -157,6 +157,7 @@ const Review = () => {
     const touch = e.touches[0];
     const startY = touch.clientY;
     const startHeight = overlayHeight;
+    let isDragging = false;
     
     const handleDragMove = (e: TouchEvent) => {
       e.preventDefault();
@@ -164,13 +165,31 @@ const Review = () => {
       const currentY = touch.clientY;
       const deltaY = startY - currentY;
       const viewportHeight = window.innerHeight;
-      const newHeight = Math.min(80, Math.max(30, startHeight + (deltaY / viewportHeight) * 100));
-      setOverlayHeight(newHeight);
+      
+      // Marquer qu'on est en train de drag après un petit mouvement
+      if (Math.abs(deltaY) > 5) {
+        isDragging = true;
+      }
+      
+      if (isDragging) {
+        const sensitivity = 120; // Augmente la sensibilité du drag
+        const newHeight = Math.min(75, Math.max(20, startHeight + (deltaY / viewportHeight) * sensitivity));
+        setOverlayHeight(newHeight);
+      }
     };
     
     const handleDragEnd = () => {
       document.removeEventListener('touchmove', handleDragMove);
       document.removeEventListener('touchend', handleDragEnd);
+      
+      // Snap vers des positions définies
+      if (overlayHeight < 30) {
+        setOverlayHeight(25);
+      } else if (overlayHeight > 60) {
+        setOverlayHeight(70);
+      } else {
+        setOverlayHeight(45);
+      }
     };
     
     document.addEventListener('touchmove', handleDragMove);
@@ -286,7 +305,7 @@ const Review = () => {
                   </div>
                   
                   {/* Informations utilisateur - 30% de la hauteur */}
-                  <div className="h-[30%] mt-4 px-2 space-y-3 overflow-hidden">
+                  <div className="h-[30%] mt-4 px-2 space-y-3 overflow-hidden pb-2">
                     {/* Tags */}
                     {currentProfile.tags && (
                       <div className="flex flex-wrap gap-1">
@@ -300,7 +319,7 @@ const Review = () => {
                     
                     {/* Biographie */}
                     {currentProfile.bio && (
-                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 overflow-hidden">
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 overflow-hidden">
                         {currentProfile.bio}
                       </p>
                     )}
@@ -320,7 +339,7 @@ const Review = () => {
 
           {/* Overlay draggable pour l'évaluation */}
           <div 
-            className="absolute bottom-0 left-4 right-4 bg-background rounded-t-2xl shadow-2xl border border-border transition-all duration-200 ease-out z-40"
+            className="absolute bottom-0 left-4 right-4 bg-background/95 backdrop-blur-sm rounded-t-2xl shadow-2xl border border-border transition-all duration-150 ease-out z-40"
             style={{ height: `${overlayHeight}%` }}
           >
             {/* Handle de drag */}
