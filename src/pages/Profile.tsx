@@ -335,7 +335,7 @@ const Profile = () => {
         <Card className="shadow-soft">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
-              <HugeiconsIcon icon={NoteIcon} size={26} className="text-primary" />
+              <HugeiconsIcon icon={NoteIcon} size={28} className="text-primary flex-shrink-0" />
               Quand je vote, je préfère analyser des...
             </CardTitle>
             <CardDescription>
