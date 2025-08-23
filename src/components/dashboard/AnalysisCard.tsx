@@ -122,14 +122,6 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
             {getTypeLabel()}
           </Badge>
         </div>
-        <div className="absolute top-3 right-3 flex items-center space-x-1 text-xs text-white bg-black/50 px-2 py-1 rounded-full">
-          {isCompleted ? (
-            <CheckCircle className="w-4 h-4 text-green-400" />
-          ) : (
-            <Clock className="w-4 h-4 text-orange-400" />
-          )}
-          <span className="capitalize">{analysis.status}</span>
-        </div>
       </div>
       
       <CardContent className="p-4 h-32 flex flex-col justify-between">
