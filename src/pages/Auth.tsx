@@ -40,7 +40,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-gradient-mesh flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-card">
+      <Card className="w-full max-w-md shadow-card drop-shadow-lg">
         <CardHeader className="text-center space-y-2">
           {!showOtp ? (
             <>
