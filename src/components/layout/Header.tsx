@@ -63,12 +63,12 @@ export const Header = ({ credits, aura }: HeaderProps) => {
           <div className="flex items-center space-x-4">
             <div className="hidden sm:flex items-center space-x-3 text-sm font-medium">
               <div className="flex items-center space-x-1 text-muted-foreground">
-                <HugeiconsIcon icon={SparklesIcon} size={16} className="text-accent" />
+                <HugeiconsIcon icon={SparklesIcon} size={20} className="text-primary" />
                 <span>{aura} Aura</span>
               </div>
               <div className="w-px h-4 bg-border"></div>
               <div className="flex items-center space-x-1 text-foreground">
-                <HugeiconsIcon icon={GemIcon} size={16} className="text-primary" />
+                <HugeiconsIcon icon={GemIcon} size={20} className="text-accent" />
                 <span>{credits} Crédits</span>
               </div>
             </div>
@@ -141,12 +141,12 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                     <hr className="border-border mb-6" />
                     <div className="flex items-center space-x-3 text-sm font-medium mb-6">
                       <div className="flex items-center space-x-1 text-muted-foreground">
-                        <HugeiconsIcon icon={SparklesIcon} size={20} className="text-accent" />
+                        <HugeiconsIcon icon={SparklesIcon} size={20} className="text-primary" />
                         <span>{aura} Aura</span>
                       </div>
                       <div className="w-px h-4 bg-border"></div>
                       <div className="flex items-center space-x-1 text-foreground">
-                        <HugeiconsIcon icon={GemIcon} size={20} className="text-primary" />
+                        <HugeiconsIcon icon={GemIcon} size={20} className="text-accent" />
                         <span>{credits} Crédits</span>
                       </div>
                     </div>
