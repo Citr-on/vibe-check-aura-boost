@@ -137,7 +137,13 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
           {isCompleted ? (
             <div className="flex items-center justify-between">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
+                <div className={`text-2xl font-bold ${
+                  (analysis.score || 0) <= 5.5 
+                    ? 'text-destructive' 
+                    : (analysis.score || 0) <= 7.9 
+                      ? 'text-accent' 
+                      : 'text-primary'
+                }`}>
                   {analysis.score}/10
                 </div>
                 <div className="text-xs text-muted-foreground">Score Aura</div>
