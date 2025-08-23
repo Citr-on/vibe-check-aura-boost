@@ -39,9 +39,9 @@ All colors MUST be HSL.
 
     /* Aura design tokens */
     --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-    --gradient-mesh: radial-gradient(ellipse 1200px 900px at 50% 0%, hsl(var(--primary) / 0.25) 0%, transparent 60%), 
-                     radial-gradient(ellipse 600px 450px at 20% 100%, hsl(var(--accent) / 0.20) 0%, transparent 60%),
-                     radial-gradient(ellipse 900px 600px at 80% 70%, hsl(var(--primary) / 0.15) 0%, transparent 60%);
+    --gradient-mesh: radial-gradient(ellipse 1200px 900px at 50% 0%, hsl(var(--primary) / 0.35) 0%, transparent 65%), 
+                     radial-gradient(ellipse 600px 450px at 20% 100%, hsl(var(--accent) / 0.30) 0%, transparent 65%),
+                     radial-gradient(ellipse 900px 600px at 80% 70%, hsl(var(--destructive) / 0.25) 0%, transparent 65%);
     --shadow-soft: 0 10px 30px -10px hsl(var(--primary) / 0.1);
     --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
