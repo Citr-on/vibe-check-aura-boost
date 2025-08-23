@@ -177,6 +177,8 @@ const Review = () => {
   const handleNext = () => {
     if (feelingScore > 0 && vibeScore > 0 && intrigueScore > 0) {
       setCurrentStep("comments");
+    } else {
+      alert("Veuillez évaluer tous les critères avant de continuer.");
     }
   };
   
@@ -715,7 +717,8 @@ const Review = () => {
               <div className="flex space-x-3 pt-4">
                 <Button 
                   onClick={handleSubmit}
-                  className="flex-1 bg-primary hover:bg-primary/90 rounded-xl"
+                  disabled={feelingScore === 0 || vibeScore === 0 || intrigueScore === 0}
+                  className="flex-1 bg-primary hover:bg-primary/90 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <HugeiconsIcon icon={SparklesIcon} size={16} className="mr-2" />
                   Soumettre & Gagner de l'Aura
