@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { PlusSignIcon, SparklesIcon, GemIcon, UserIcon, Menu01Icon, DashboardSquare01Icon, AiInnovation01Icon, ThumbsUpIcon, InformationCircleIcon } from '@hugeicons/core-free-icons';
+import { PlusSignIcon, SparklesIcon, GemIcon, UserIcon, Menu01Icon, DashboardSquare01Icon, AiImageIcon, TaskEdit01Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
 import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState } from "react";
@@ -55,7 +55,7 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                 isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'
               }`}
             >
-              Donner un avis
+              Évaluer des profils
             </Link>
           </nav>
 
@@ -113,7 +113,7 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <HugeiconsIcon icon={AiInnovation01Icon} size={20} />
+                    <HugeiconsIcon icon={AiImageIcon} size={20} />
                     <span>Studio IA</span>
                   </Link>
                   <Link 
@@ -123,8 +123,8 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <HugeiconsIcon icon={ThumbsUpIcon} size={20} />
-                    <span>Donner un avis</span>
+                    <HugeiconsIcon icon={TaskEdit01Icon} size={20} />
+<span>Évaluer des profils</span>
                   </Link>
                   <Link 
                     to="/profile" 
