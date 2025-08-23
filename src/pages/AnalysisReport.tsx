@@ -209,9 +209,9 @@ const AnalysisReport = () => {
                         </div>
                         <div className="text-xs text-muted-foreground">{item.name}</div>
                         <div className="text-xs text-muted-foreground mt-1 px-2 leading-tight">
-                          {item.name === 'Attirance' && "Votre première impression. La personne est-elle attirante, bien mise en valeur ?"}
-                          {item.name === 'Style' && "Le style et l'esthétique qui se dégagent. Les photos sont-elles bien prises, le look est-il soigné ?"}
-                          {item.name === 'Feeling' && "L'émotion et la personnalité qui se dégagent. Le profil semble-t-il authentique, fun, sincère ?"}
+                          {item.name === 'Attirance' && "La personne est-elle attirante"}
+                          {item.name === 'Style' && "Le style et l'esthétique qui se dégagent"}
+                          {item.name === 'Feeling' && "Le profil semble fiable, fun, sincère"}
                         </div>
                       </div>;
                 })}
