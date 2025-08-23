@@ -22,9 +22,9 @@ const Review = () => {
   
   const isMobile = useIsMobile();
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
-  const [feelingScore, setFeelingScore] = useState(1);
-  const [vibeScore, setVibeScore] = useState(1);
-  const [intrigueScore, setIntrigueScore] = useState(1);
+  const [feelingScore, setFeelingScore] = useState(0);
+  const [vibeScore, setVibeScore] = useState(0);
+  const [intrigueScore, setIntrigueScore] = useState(0);
   const [positiveComment, setPositiveComment] = useState("");
   const [improvementComment, setImprovementComment] = useState("");
   
@@ -152,9 +152,9 @@ const Review = () => {
       setImprovementComment(cached?.improvement || "");
       
       // Reset les scores
-      setFeelingScore(1);
-      setVibeScore(1);
-      setIntrigueScore(1);
+      setFeelingScore(0);
+      setVibeScore(0);
+      setIntrigueScore(0);
       setCurrentStep("ratings");
     } else {
       // Fin des profils, retourner au premier
@@ -166,16 +166,18 @@ const Review = () => {
       setPositiveComment(cached?.positive || "");
       setImprovementComment(cached?.improvement || "");
       
-      setFeelingScore(1);
-      setVibeScore(1);
-      setIntrigueScore(1);
+      setFeelingScore(0);
+      setVibeScore(0);
+      setIntrigueScore(0);
       setCurrentStep("ratings");
       console.log("Tous les profils ont été reviewés !");
     }
   };
   
   const handleNext = () => {
-    setCurrentStep("comments");
+    if (feelingScore > 0 && vibeScore > 0 && intrigueScore > 0) {
+      setCurrentStep("comments");
+    }
   };
   
   const toggleOverlay = () => {
@@ -434,7 +436,8 @@ const Review = () => {
                       <div className="flex flex-col gap-3 pt-4 pb-6 shrink-0">
                         <Button 
                           onClick={handleNext}
-                          className="w-full bg-primary hover:bg-primary/90 rounded-xl"
+                          disabled={feelingScore === 0 || vibeScore === 0 || intrigueScore === 0}
+                          className="w-full bg-primary hover:bg-primary/90 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           <span>Suivant</span>
                           <HugeiconsIcon icon={ArrowRight02Icon} size={16} className="ml-2" />

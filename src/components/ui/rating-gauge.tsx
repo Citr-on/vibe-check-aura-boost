@@ -91,7 +91,7 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
   }, []);
 
   const displayValue = hoveredValue !== null ? hoveredValue : value;
-  const currentLabel = labels[displayValue - 1] || "";
+  const currentLabel = value > 0 ? (labels[displayValue - 1] || "") : "";
 
   return (
     <div className={cn("space-y-2", className)}>
@@ -114,7 +114,7 @@ export const RatingGauge: React.FC<RatingGaugeProps> = ({
               >
                 {[0, 1, 2, 3, 4].map((segmentIndex) => {
                   const segmentValue = segmentIndex + 1;
-                  const isSelected = value >= segmentValue;
+                  const isSelected = value > 0 && value >= segmentValue;
                   const isHovered = hoveredValue !== null && hoveredValue >= segmentValue;
                   
                   return (
