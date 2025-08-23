@@ -35,26 +35,29 @@ export const Header = ({ credits, aura }: HeaderProps) => {
           <nav className="hidden lg:flex items-center space-x-8">
             <Link 
               to="/dashboard" 
-              className={`font-body transition-colors hover:text-primary ${
+              className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${
                 isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground'
               }`}
             >
+              <HugeiconsIcon icon={DashboardSquare01Icon} size={16} />
               Mes Analyses
             </Link>
             <Link 
               to="/studio-ia" 
-              className={`font-body transition-colors hover:text-primary ${
+              className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${
                 isActive('/studio-ia') ? 'text-primary font-medium' : 'text-muted-foreground'
               }`}
             >
+              <HugeiconsIcon icon={AiImageIcon} size={16} />
               Studio IA
             </Link>
             <Link 
               to="/review" 
-              className={`font-body transition-colors hover:text-primary ${
+              className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${
                 isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'
               }`}
             >
+              <HugeiconsIcon icon={TaskEdit01Icon} size={16} />
               Évaluer des profils
             </Link>
           </nav>
