@@ -9,6 +9,7 @@ interface CarouselProfileProps {
 
 export function CarouselProfile({ images, className }: CarouselProfileProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
   
   console.log("CarouselProfile rendered with images:", images?.length || 0);
 
@@ -24,12 +25,37 @@ export function CarouselProfile({ images, className }: CarouselProfileProps) {
     );
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+    
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+    
+    if (Math.abs(diff) > 50) { // Minimum distance for swipe
+      if (diff > 0) {
+        goToNext();
+      } else {
+        goToPrevious();
+      }
+    }
+    
+    setTouchStart(null);
+  };
+
   if (!images.length) return null;
 
   return (
     <div className={cn("relative group h-full", className)}>
       {/* Image principale */}
-      <div className="h-full bg-muted rounded-xl overflow-hidden relative">
+      <div 
+        className="h-full bg-muted rounded-xl overflow-hidden relative"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         <img 
           src={images[currentImageIndex]} 
           alt={`Photo ${currentImageIndex + 1}`}
@@ -57,7 +83,7 @@ export function CarouselProfile({ images, className }: CarouselProfileProps) {
         
         {/* Barres de pagination */}
         {images.length > 1 && (
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-10" style={{ width: '90%' }}>
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1 z-30" style={{ width: '90%' }}>
             {images.map((_, index) => (
               <button
                 key={index}

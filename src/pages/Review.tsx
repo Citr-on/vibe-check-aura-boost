@@ -153,15 +153,18 @@ const Review = () => {
   };
   
   const handleDragStart = (e: React.TouchEvent) => {
+    e.preventDefault();
     const touch = e.touches[0];
     const startY = touch.clientY;
+    const startHeight = overlayHeight;
     
     const handleDragMove = (e: TouchEvent) => {
+      e.preventDefault();
       const touch = e.touches[0];
       const currentY = touch.clientY;
       const deltaY = startY - currentY;
       const viewportHeight = window.innerHeight;
-      const newHeight = Math.min(80, Math.max(30, overlayHeight + (deltaY / viewportHeight) * 100));
+      const newHeight = Math.min(80, Math.max(30, startHeight + (deltaY / viewportHeight) * 100));
       setOverlayHeight(newHeight);
     };
     
@@ -317,7 +320,7 @@ const Review = () => {
 
           {/* Overlay draggable pour l'évaluation */}
           <div 
-            className="absolute bottom-0 left-4 right-4 bg-background rounded-t-2xl shadow-2xl border border-border transition-all duration-300 ease-out"
+            className="absolute bottom-0 left-4 right-4 bg-background rounded-t-2xl shadow-2xl border border-border transition-all duration-200 ease-out z-40"
             style={{ height: `${overlayHeight}%` }}
           >
             {/* Handle de drag */}
@@ -393,7 +396,7 @@ const Review = () => {
                   </div>
 
                   {/* Boutons étape 1 */}
-                  <div className="flex flex-col gap-3 pt-4 shrink-0">
+                  <div className="flex flex-col gap-3 pt-4 pb-6 shrink-0">
                     <Button 
                       onClick={handleNext}
                       className="w-full bg-primary hover:bg-primary/90 rounded-xl"
@@ -472,7 +475,7 @@ const Review = () => {
                   </div>
 
                   {/* Bouton étape 2 */}
-                  <div className="pt-4 shrink-0">
+                  <div className="pt-4 pb-6 shrink-0">
                     <Button 
                       onClick={handleSubmit}
                       className="w-full bg-primary hover:bg-primary/90 rounded-xl"
