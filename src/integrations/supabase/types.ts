@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      dev_accounts: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string
+          password_hash: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          password_hash: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          password_hash?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number | null
@@ -67,7 +94,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      authenticate_dev_account: {
+        Args: { p_email: string; p_password: string }
+        Returns: {
+          account_email: string
+          account_id: string
+          account_name: string
+        }[]
+      }
     }
     Enums: {
       ethnic_origin_type:
