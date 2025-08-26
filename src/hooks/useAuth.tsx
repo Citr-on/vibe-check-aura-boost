@@ -9,7 +9,31 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Vérifier si bypass est activé
+  const urlParams = new URLSearchParams(window.location.search);
+  const hasBypass = urlParams.get('bypass') === 'true';
+
+  // Utilisateur fictif pour le bypass
+  const mockUser = {
+    id: 'bypass-user-123',
+    email: 'dev@bypass.com',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    app_metadata: {},
+    user_metadata: {},
+    aud: 'authenticated',
+    role: 'authenticated'
+  } as User;
+
   useEffect(() => {
+    // Si bypass activé, utiliser l'utilisateur fictif
+    if (hasBypass) {
+      setUser(mockUser);
+      setSession(null); // Pas de session réelle mais un utilisateur fictif
+      setLoading(false);
+      return;
+    }
+
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -32,7 +56,7 @@ export const useAuth = () => {
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, hasBypass]);
 
   const signInWithEmail = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
