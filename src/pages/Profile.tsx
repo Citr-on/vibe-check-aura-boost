@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Loading01Icon, Settings02Icon, UserIcon, MailIcon, LockIcon, NoteIcon } from '@hugeicons/core-free-icons';
 
@@ -28,6 +29,7 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
   
   // Mock data for now - in a real app this would come from authentication
   const [credits] = useState(150);
@@ -47,13 +49,14 @@ const Profile = () => {
   // Load existing profile data
   useEffect(() => {
     const loadProfile = async () => {
+      if (!user?.id) return;
+      
       setIsLoading(true);
       try {
-        // For now, using a temporary user ID since there's no auth system
         const { data, error } = await supabase
           .from('profiles')
           .select('*')
-          .eq('user_id', 'temp-user-id')
+          .eq('user_id', user.id)
           .maybeSingle();
 
         if (error) {
@@ -82,14 +85,16 @@ const Profile = () => {
     };
 
     loadProfile();
-  }, [form, toast]);
+  }, [form, toast, user?.id]);
 
   const onSubmit = async (data: ProfileFormData) => {
+    if (!user?.id) return;
+    
     setIsSaving(true);
     try {
       // Convert string values to numbers for age and height
       const profileData = {
-        user_id: 'temp-user-id',
+        user_id: user.id,
         gender: data.gender,
         age: data.age,
         height: data.height,

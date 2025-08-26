@@ -15,6 +15,7 @@ import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
 import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -25,16 +26,16 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/review" element={<Review />} />
-          <Route path="/analysis/:id" element={<AnalysisReport />} />
-          <Route path="/credits" element={<Credits />} />
-          <Route path="/studio-ia" element={<StudioIA />} />
-          <Route path="/studio-ia/retouche-photo" element={<PhotoRetouchStudio />} />
-          <Route path="/studio-ia/generateur-bio" element={<BioGeneratorStudio />} />
-          <Route path="/parametres" element={<Profile />} />
+          <Route path="/review" element={<ProtectedRoute><Review /></ProtectedRoute>} />
+          <Route path="/analysis/:id" element={<ProtectedRoute><AnalysisReport /></ProtectedRoute>} />
+          <Route path="/credits" element={<ProtectedRoute><Credits /></ProtectedRoute>} />
+          <Route path="/studio-ia" element={<ProtectedRoute><StudioIA /></ProtectedRoute>} />
+          <Route path="/studio-ia/retouche-photo" element={<ProtectedRoute><PhotoRetouchStudio /></ProtectedRoute>} />
+          <Route path="/studio-ia/generateur-bio" element={<ProtectedRoute><BioGeneratorStudio /></ProtectedRoute>} />
+          <Route path="/parametres" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/faq" element={<FAQ />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
