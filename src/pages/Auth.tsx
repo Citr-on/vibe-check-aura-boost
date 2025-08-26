@@ -4,6 +4,7 @@ import { SocialAuth } from "@/components/auth/SocialAuth";
 import { EmailAuth } from "@/components/auth/EmailAuth";
 import { OtpVerification } from "@/components/auth/OtpVerification";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useNavigate } from "react-router-dom";
 
@@ -28,6 +29,10 @@ const Auth = () => {
   const handleBackFromOtp = () => {
     setShowOtp(false);
     setOtpEmail("");
+  };
+
+  const handleBypassAuth = () => {
+    navigate('/dashboard?bypass=true');
   };
 
   if (loading) {
@@ -74,6 +79,16 @@ const Auth = () => {
             </div>
 
             <EmailAuth onOtpRequired={handleOtpRequired} />
+            
+            <div className="pt-4 border-t">
+              <Button 
+                variant="outline" 
+                className="w-full" 
+                onClick={handleBypassAuth}
+              >
+                Accès direct (dev)
+              </Button>
+            </div>
           </CardContent>
         )}
       </Card>
