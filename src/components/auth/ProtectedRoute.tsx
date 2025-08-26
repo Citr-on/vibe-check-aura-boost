@@ -10,16 +10,13 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
-  // Bypass temporaire - ajouter ?bypass=true dans l'URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const hasBypass = urlParams.get('bypass') === 'true';
 
   useEffect(() => {
-    // Redirect to auth page if not authenticated and not loading (sauf si bypass)
-    if (!loading && !user && !hasBypass) {
+    // Redirect to auth page if not authenticated and not loading
+    if (!loading && !user) {
       navigate('/auth');
     }
-  }, [user, loading, navigate, hasBypass]);
+  }, [user, loading, navigate]);
 
   // Show loading spinner while checking auth
   if (loading) {
@@ -30,11 +27,11 @@ export const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     );
   }
 
-  // Show nothing if not authenticated (will redirect) sauf si bypass
-  if (!user && !hasBypass) {
+  // Show nothing if not authenticated (will redirect)
+  if (!user) {
     return null;
   }
 
-  // Render children if authenticated ou bypass
+  // Render children if authenticated
   return <>{children}</>;
 };

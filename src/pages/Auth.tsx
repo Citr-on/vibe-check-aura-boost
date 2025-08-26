@@ -31,9 +31,6 @@ const Auth = () => {
     setOtpEmail("");
   };
 
-  const handleBypassAuth = () => {
-    navigate('/dashboard?bypass=true');
-  };
 
   if (loading) {
     return (
@@ -79,16 +76,6 @@ const Auth = () => {
             </div>
 
             <EmailAuth onOtpRequired={handleOtpRequired} />
-            
-            <div className="pt-4 border-t">
-              <Button 
-                variant="outline" 
-                className="w-full" 
-                onClick={handleBypassAuth}
-              >
-                Accès direct (dev)
-              </Button>
-            </div>
           </CardContent>
         )}
       </Card>
