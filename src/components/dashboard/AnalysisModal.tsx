@@ -549,7 +549,7 @@ export const AnalysisModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[95vh] overflow-hidden flex flex-col">
+      <DialogContent className="max-w-2xl h-[600px] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-2xl font-heading">
             {currentStep === 'upload' && (analysisType === 'photo' ? "Je veux faire évaluer une photo" : "Je veux faire évaluer un profil complet")}
