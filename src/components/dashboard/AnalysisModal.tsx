@@ -67,7 +67,7 @@ export const AnalysisModal = ({
   aura, 
   onAnalysisSelect 
 }: AnalysisModalProps) => {
-  const [currentStep, setCurrentStep] = useState<'upload' | 'selection' | 'targeting' | 'demographics'>('upload');
+  const [currentStep, setCurrentStep] = useState<'upload' | 'targeting' | 'demographics' | 'selection'>('upload');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | string | null>(null);
   const [targetGender, setTargetGender] = useState<'men' | 'women' | 'both'>('both');
@@ -85,14 +85,8 @@ export const AnalysisModal = ({
 
   const handleOptionSelect = (optionId: string) => {
     setSelectedOption(optionId);
-    const option = analysisOptions.find(o => o.id === optionId);
-    if (option?.isPremium) {
-      // Premium options go to demographics step
-      setCurrentStep('demographics');
-    } else {
-      // Free options go to targeting step
-      setCurrentStep('targeting');
-    }
+    // Selection is now the final step, so we submit directly
+    handleFinalSubmit();
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,10 +161,10 @@ export const AnalysisModal = ({
         <Button variant="outline" onClick={() => onOpenChange(false)}>
           Annuler
         </Button>
-        <Button 
-          onClick={() => setCurrentStep('selection')}
-          disabled={!selectedImage}
-        >
+        <Button onClick={() => {
+          // Always go to targeting first, user can navigate to demographics if needed
+          setCurrentStep('targeting');
+        }}>
           Continuer
           <ChevronRight className="w-4 h-4 ml-2" />
         </Button>
@@ -291,7 +285,7 @@ export const AnalysisModal = ({
       </div>
 
       <div className="flex justify-between">
-        <Button variant="outline" onClick={() => setCurrentStep('upload')}>
+        <Button variant="outline" onClick={() => setCurrentStep('targeting')}>
           <ChevronLeft className="w-4 h-4 mr-2" />
           Retour
         </Button>
@@ -369,13 +363,19 @@ export const AnalysisModal = ({
       </div>
 
       <div className="flex justify-between">
-        <Button variant="outline" onClick={() => setCurrentStep('selection')}>
+        <Button variant="outline" onClick={() => setCurrentStep('upload')}>
           <ChevronLeft className="w-4 h-4 mr-2" />
           Retour
         </Button>
-        <Button onClick={handleFinalSubmit}>
-          Lancer l'analyse
-        </Button>
+        <div className="space-x-2">
+          <Button variant="outline" onClick={() => setCurrentStep('demographics')}>
+            Configuration avancée
+          </Button>
+          <Button onClick={() => setCurrentStep('selection')}>
+            Continuer
+            <ChevronRight className="w-4 h-4 ml-2" />
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -517,12 +517,13 @@ export const AnalysisModal = ({
       </div>
 
       <div className="flex justify-between">
-        <Button variant="outline" onClick={() => setCurrentStep('selection')}>
+        <Button variant="outline" onClick={() => setCurrentStep('targeting')}>
           <ChevronLeft className="w-4 h-4 mr-2" />
           Retour
         </Button>
-        <Button onClick={handleFinalSubmit}>
-          Lancer l'analyse
+        <Button onClick={() => setCurrentStep('selection')}>
+          Continuer
+          <ChevronRight className="w-4 h-4 ml-2" />
         </Button>
       </div>
     </div>
