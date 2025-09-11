@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { PlusSignIcon, SparklesIcon, GemIcon, Settings02Icon, Menu01Icon, DashboardSquare01Icon, AiImageIcon, TaskEdit01Icon, InformationCircleIcon, MessageQuestionIcon } from '@hugeicons/core-free-icons';
+import { PlusSignIcon, SparklesIcon, GemIcon, Settings02Icon, Menu01Icon, DashboardSquare01Icon, AiImageIcon, TaskEdit01Icon, InformationCircleIcon } from '@hugeicons/core-free-icons';
 import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState } from "react";
@@ -60,15 +60,8 @@ export const Header = ({
               </div>
               
               <Link to="/credits">
-                <div className="relative w-8 h-8 ml-1 cursor-pointer border border-input bg-background hover:bg-accent-muted hover:text-foreground rounded-xl inline-flex items-center justify-center transition-colors">
-                  <HugeiconsIcon icon={GemIcon} size={20} className="text-accent absolute inset-0 m-auto" />
-                  <HugeiconsIcon icon={PlusSignIcon} size={12} className="text-foreground absolute -top-1 -right-1 bg-background rounded-full border border-border" />
-                </div>
-              </Link>
-              
-              <Link to="/faq">
                 <Button size="sm" variant="outline" className="w-8 h-8 p-0 ml-1">
-                  <HugeiconsIcon icon={MessageQuestionIcon} size={16} />
+                  <HugeiconsIcon icon={PlusSignIcon} size={16} />
                 </Button>
               </Link>
             </div>
