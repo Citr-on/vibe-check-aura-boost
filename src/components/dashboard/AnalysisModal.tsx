@@ -348,34 +348,34 @@ export const AnalysisModal = ({
               } ${!affordable ? 'opacity-60' : ''}`}
               onClick={() => affordable && handleOptionSelect(option.id)}
             >
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex-1">
-                  <h3 className="font-heading font-semibold mb-1">
-                    {option.title}
-                  </h3>
-                  <p className="text-sm group-hover:text-white/80 transition-colors mb-2">
-                    {option.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {option.features.map((feature, index) => (
-                        <div
-                          key={index}
-                          className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1 group-hover:bg-white group-hover:text-black transition-colors"
-                        >
-                          {feature.includes('prioritaire') && <Zap className="w-3 h-3 group-hover:text-black transition-colors" />}
-                          {feature.includes('avis') && <Users className="w-3 h-3 group-hover:text-black transition-colors" />}
-                          {feature.includes('standard') && <Clock className="w-3 h-3 group-hover:text-black transition-colors" />}
-                          <span>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="font-heading font-semibold text-sm">
+                  {option.title}
+                </h3>
+                
+                <div className="flex flex-wrap gap-1">
+                  {option.features.map((feature, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center space-x-1 text-xs bg-muted rounded-full px-2 py-1 group-hover:bg-white group-hover:text-black transition-colors"
+                      >
+                        {feature.includes('prioritaire') && <Zap className="w-3 h-3 group-hover:text-black transition-colors" />}
+                        {feature.includes('avis') && <Users className="w-3 h-3 group-hover:text-black transition-colors" />}
+                        {feature.includes('standard') && <Clock className="w-3 h-3 group-hover:text-black transition-colors" />}
+                        <span>{feature}</span>
+                    </div>
+                  ))}
                 </div>
                 
-                <div className="flex items-center space-x-2 text-sm font-medium group-hover:text-white transition-colors ml-4">
+                <div className="flex items-center space-x-2 text-sm font-medium group-hover:text-white transition-colors">
                   <Gem className="w-4 h-4 group-hover:text-white transition-colors" />
                   <span>{option.cost.amount} Crédits</span>
                 </div>
               </div>
+              
+              <p className="text-sm group-hover:text-white/80 transition-colors mt-2">
+                {option.description}
+              </p>
             </div>
           );
         })}
