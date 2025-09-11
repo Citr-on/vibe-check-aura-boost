@@ -49,10 +49,6 @@ const PhotoRetouchStudio = () => {
     id: "studio-pro",
     label: "Studio Pro",
     description: "Éclairage professionnel et retouches subtiles pour un rendu premium"
-  }, {
-    id: "cinematique",
-    label: "Cinématique",
-    description: "Ambiance dramatique avec des contrastes marqués et une palette de couleurs riche"
   }];
   const handleTransform = async () => {
     setIsProcessing(true);
