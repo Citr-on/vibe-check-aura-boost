@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { HugeiconsIcon } from '@hugeicons/react';
-import { GemIcon, SparklesIcon, Tick01Icon, StarIcon, UserIcon, MessageMultiple02Icon } from '@hugeicons/core-free-icons';
+import { GemIcon, SparklesIcon, Tick01Icon, StarIcon, UserIcon, MessageMultiple02Icon, TimeQuarterPassIcon, Target02Icon, AlbumNotFound02Icon, Profile02Icon, AiEditingIcon } from '@hugeicons/core-free-icons';
 const Credits = () => {
   const [credits] = useState(150);
   const [aura] = useState(3.5);
@@ -53,11 +53,71 @@ const Credits = () => {
         {/* En-tête */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-heading font-bold text-foreground mb-4">
-            Obtenir des Crédits ou des Services
+            Obtenez des Crédits
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Accédez aux analyses premium et aux services d'experts pour maximiser vos chances de succès
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
+            Débloquez la voie rapide vers un profil irrésistible.
           </p>
+          
+          {/* Grille des avantages */}
+          <div className="bg-gradient-to-r from-violet-50/50 to-blue-50/50 dark:from-violet-950/20 dark:to-blue-950/20 rounded-2xl p-8 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {/* Colonne 1 */}
+              <div className="text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <HugeiconsIcon icon={TimeQuarterPassIcon} size={24} className="text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-2">Coupez la file.</h3>
+                <p className="text-sm text-muted-foreground">Votre profil analysé en priorité.</p>
+              </div>
+              
+              {/* Colonne 2 */}
+              <div className="text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <HugeiconsIcon icon={Target02Icon} size={24} className="text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-2">Éliminez le doute.</h3>
+                <p className="text-sm text-muted-foreground">Recevez plus d'avis pour un verdict incontestable.</p>
+              </div>
+              
+              {/* Colonne 3 */}
+              <div className="text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <HugeiconsIcon icon={AlbumNotFound02Icon} size={24} className="text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-2">L'Accès Direct.</h3>
+                <p className="text-sm text-muted-foreground">Obtenez vos analyses sans évaluer les autres.</p>
+              </div>
+              
+              {/* Colonne 4 */}
+              <div className="text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <HugeiconsIcon icon={Profile02Icon} size={24} className="text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-2">La Vue d'Ensemble.</h3>
+                <p className="text-sm text-muted-foreground">Faites analyser vos photos ET votre bio.</p>
+              </div>
+              
+              {/* Colonne 5 */}
+              <div className="text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <HugeiconsIcon icon={AiEditingIcon} size={24} className="text-primary" />
+                  </div>
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-2">Le Boost IA.</h3>
+                <p className="text-sm text-muted-foreground">Améliorez votre profil en un seul clic.</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Packs de Crédits */}
