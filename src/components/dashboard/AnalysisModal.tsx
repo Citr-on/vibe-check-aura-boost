@@ -7,7 +7,9 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Gem, Clock, Users, Zap, Upload, ChevronLeft, ChevronRight, User, UserCheck, X } from "lucide-react";
+import { Sparkles, Gem, Clock, Users, Zap, ChevronLeft, ChevronRight, User, UserCheck, X } from "lucide-react";
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Image01Icon } from '@hugeicons/core-free-icons';
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface AnalysisOption {
@@ -199,7 +201,7 @@ export const AnalysisModal = ({
         <div className="grid grid-cols-4 gap-4">
         {/* Option d'upload */}
         <div className="aspect-square border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
-          <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
+          <HugeiconsIcon icon={Image01Icon} size={32} className="mb-2 text-muted-foreground" />
           <label className="cursor-pointer text-center">
             <span className="text-xs font-medium">Nouvelle image</span>
             <input
