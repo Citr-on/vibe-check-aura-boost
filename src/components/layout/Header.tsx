@@ -47,7 +47,7 @@ export const Header = ({
           </nav>
 
           {/* Balance & Profile */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             <div className="hidden sm:flex items-center space-x-2 text-sm font-medium">
               <div className="flex items-center space-x-1 text-muted-foreground">
                 <HugeiconsIcon icon={SparklesIcon} size={20} className="text-primary" />
@@ -66,13 +66,20 @@ export const Header = ({
               </Link>
             </div>
 
-            <Link to="/parametres" className="hidden lg:block">
-              <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
-                <AvatarFallback>
-                  <HugeiconsIcon icon={Settings02Icon} size={16} />
-                </AvatarFallback>
-              </Avatar>
-            </Link>
+            <div className="hidden lg:flex items-center space-x-2">
+              <Link to="/faq">
+                <Button size="sm" variant="outline" className="w-8 h-8 p-0">
+                  <HugeiconsIcon icon={InformationCircleIcon} size={16} />
+                </Button>
+              </Link>
+              <Link to="/parametres">
+                <Avatar className="w-8 h-8 cursor-pointer hover:ring-2 hover:ring-primary/20 transition-all">
+                  <AvatarFallback>
+                    <HugeiconsIcon icon={Settings02Icon} size={16} />
+                  </AvatarFallback>
+                </Avatar>
+              </Link>
+            </div>
 
             {/* Mobile/Tablet Menu Burger */}
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
