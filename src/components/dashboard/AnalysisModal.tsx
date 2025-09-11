@@ -584,7 +584,7 @@ export const AnalysisModal = ({
       <DialogContent className="max-w-2xl max-h-[95vh] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-2xl font-heading">
-            {currentStep === 'upload' && "Je fais analyser une image"}
+            {currentStep === 'upload' && (analysisType === 'photo' ? "Je fais analyser une photo" : "Je fais analyser un profil complet")}
             {currentStep === 'profile' && "Je fais analyser un profil complet"}
             {currentStep === 'targeting' && "Je choisis mon audience cible"}
             {currentStep === 'selection' && "Je fais analyser mon contenu"}
