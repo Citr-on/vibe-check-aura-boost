@@ -41,6 +41,42 @@ export type Database = {
         }
         Relationships: []
       }
+      photo_batches: {
+        Row: {
+          analysis_results: Json | null
+          batch_name: string | null
+          created_at: string
+          credits_used: number | null
+          id: string
+          photos: string[]
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          analysis_results?: Json | null
+          batch_name?: string | null
+          created_at?: string
+          credits_used?: number | null
+          id?: string
+          photos?: string[]
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          analysis_results?: Json | null
+          batch_name?: string | null
+          created_at?: string
+          credits_used?: number | null
+          id?: string
+          photos?: string[]
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age: number | null
