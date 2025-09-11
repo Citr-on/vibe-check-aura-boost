@@ -36,7 +36,7 @@ const analysisOptions: AnalysisOption[] = [
     title: 'Test Standard',
     description: 'Analyse Standard, vitesse rapide',
     cost: { type: 'credits', amount: 20 },
-    features: ['20 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
+    features: ['20 avis ciblés', 'Traitement prioritaire'],
     isPremium: true
   },
   {
@@ -44,7 +44,7 @@ const analysisOptions: AnalysisOption[] = [
     title: 'Test Précis',
     description: 'Analyse sur une audience large, vitesse rapide',
     cost: { type: 'credits', amount: 50 },
-    features: ['50 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
+    features: ['50 avis ciblés', 'Traitement prioritaire'],
     isPremium: true
   },
   {
@@ -52,7 +52,7 @@ const analysisOptions: AnalysisOption[] = [
     title: 'Test Ultra Précis',
     description: 'Analyse sur une audience très large, vitesse rapide',
     cost: { type: 'credits', amount: 80 },
-    features: ['80 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
+    features: ['80 avis ciblés', 'Traitement prioritaire'],
     isPremium: true
   }
 ];
