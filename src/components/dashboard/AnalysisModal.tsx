@@ -235,7 +235,7 @@ export const AnalysisModal = ({
                 className="w-full h-full object-cover"
               />
               {isSelected && analysisType === 'profile' && (
-                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold" aria-label={`Photo ${selectedIndex + 1}`}>
                   {selectedIndex + 1}
                 </div>
               )}
