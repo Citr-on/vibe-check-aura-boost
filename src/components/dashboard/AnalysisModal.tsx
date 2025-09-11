@@ -276,12 +276,13 @@ export const AnalysisModal = ({
         </h3>
       </div>
 
-      {/* Section Gratuit */}
-      <div className="space-y-3">
-        <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
-          Gratuit
-        </h4>
-        {freeOptions.map((option) => {
+      {/* Section Gratuit - Only show for photo analysis */}
+      {analysisType === 'photo' && (
+        <div className="space-y-3">
+          <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+            Gratuit
+          </h4>
+          {freeOptions.map((option) => {
           const affordable = canAfford(option);
           
           return (
@@ -326,7 +327,8 @@ export const AnalysisModal = ({
             </div>
           );
         })}
-      </div>
+        </div>
+      )}
 
       {/* Section Premium */}
       <div className="space-y-3">
