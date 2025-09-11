@@ -60,7 +60,7 @@ export const Header = ({
               </div>
               
               <Link to="/credits">
-                <div className="relative w-8 h-8 ml-1 cursor-pointer">
+                <div className="relative w-8 h-8 ml-1 cursor-pointer border border-input bg-background hover:bg-accent-muted hover:text-foreground rounded-xl inline-flex items-center justify-center transition-colors">
                   <HugeiconsIcon icon={GemIcon} size={20} className="text-accent absolute inset-0 m-auto" />
                   <HugeiconsIcon icon={PlusSignIcon} size={12} className="text-foreground absolute -top-1 -right-1 bg-background rounded-full border border-border" />
                 </div>
