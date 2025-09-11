@@ -5,13 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { HugeiconsIcon } from '@hugeicons/react';
 import { FlashIcon, Camera01Icon, Edit02Icon, CpuIcon } from '@hugeicons/core-free-icons';
 import { Link } from "react-router-dom";
-
 const StudioIA = () => {
   const [credits] = useState(150);
   const [aura] = useState(3.5);
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <Header credits={credits} aura={aura} />
       
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -78,24 +75,9 @@ const StudioIA = () => {
 
         {/* Quick Stats */}
         <div className="mt-16 text-center">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">+247%</div>
-              <div className="text-muted-foreground">d'amélioration moyenne du taux de match</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">2.4x</div>
-              <div className="text-muted-foreground">plus de conversations engagées</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-primary mb-2">89%</div>
-              <div className="text-muted-foreground">des utilisateurs voient des résultats en 48h</div>
-            </div>
-          </div>
+          
         </div>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default StudioIA;
