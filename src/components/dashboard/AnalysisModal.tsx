@@ -385,8 +385,8 @@ export const AnalysisModal = ({
           <ChevronLeft className="w-4 h-4 mr-2" />
           Retour
         </Button>
-        <Button variant="outline" onClick={() => onOpenChange(false)}>
-          Annuler
+        <Button onClick={handleFinalSubmit} disabled={!selectedOption}>
+          Lancer l'analyse
         </Button>
       </div>
     </div>
