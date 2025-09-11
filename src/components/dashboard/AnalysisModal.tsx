@@ -175,7 +175,7 @@ export const AnalysisModal = ({
     <div className="space-y-3">
       <div className="text-center">
         <Tabs value={analysisType} onValueChange={(value) => setAnalysisType(value as 'photo' | 'profile')} className="mb-6">
-          <TabsList className="grid w-full grid-cols-2 rounded-lg">
+          <TabsList className="grid w-full grid-cols-2 rounded-full">
             <TabsTrigger value="photo">Photo</TabsTrigger>
             <TabsTrigger value="profile">Profil complet</TabsTrigger>
           </TabsList>
