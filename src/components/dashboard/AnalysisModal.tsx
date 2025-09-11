@@ -67,14 +67,11 @@ export const AnalysisModal = ({
   aura, 
   onAnalysisSelect 
 }: AnalysisModalProps) => {
-  const [currentStep, setCurrentStep] = useState<'upload' | 'targeting' | 'demographics' | 'selection'>('upload');
+  const [currentStep, setCurrentStep] = useState<'upload' | 'targeting' | 'selection'>('upload');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | string | null>(null);
   const [targetGender, setTargetGender] = useState<'men' | 'women' | 'both'>('both');
   const [ageRange, setAgeRange] = useState<[number, number]>([18, 65]);
-  const [ethnicity, setEthnicity] = useState<string>('all');
-  const [religion, setReligion] = useState<string>('all');
-  const [heightRange, setHeightRange] = useState<[number, number]>([150, 190]);
 
   const canAfford = (option: AnalysisOption) => {
     if (option.cost.type === 'aura') {
@@ -367,160 +364,6 @@ export const AnalysisModal = ({
           <ChevronLeft className="w-4 h-4 mr-2" />
           Retour
         </Button>
-        <div className="space-x-2">
-          <Button variant="outline" onClick={() => setCurrentStep('demographics')}>
-            Configuration avancée
-          </Button>
-          <Button onClick={() => setCurrentStep('selection')}>
-            Continuer
-            <ChevronRight className="w-4 h-4 ml-2" />
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderDemographicsStep = () => (
-    <div className="space-y-4">
-      <div className="text-center">
-        <h3 className="text-lg font-heading font-semibold mb-2">
-          Configuration démographique premium
-        </h3>
-        <p className="text-muted-foreground">
-          Affinez votre analyse avec des critères démographiques spécifiques
-        </p>
-      </div>
-
-      <div className="space-y-4">
-        <div>
-          <label className="text-sm font-medium mb-3 block">Genre</label>
-          <div className="flex gap-3">
-            <button
-              onClick={() => setTargetGender('men')}
-              className={`flex-1 p-2 border rounded-lg transition-colors ${
-                targetGender === 'men'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
-              }`}
-            >
-              <User className="w-4 h-4 mx-auto mb-1" />
-              <span className="text-xs font-medium">Hommes</span>
-            </button>
-            <button
-              onClick={() => setTargetGender('women')}
-              className={`flex-1 p-2 border rounded-lg transition-colors ${
-                targetGender === 'women'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
-              }`}
-            >
-              <UserCheck className="w-4 h-4 mx-auto mb-1" />
-              <span className="text-xs font-medium">Femmes</span>
-            </button>
-            <button
-              onClick={() => setTargetGender('both')}
-              className={`flex-1 p-2 border rounded-lg transition-colors ${
-                targetGender === 'both'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
-              }`}
-            >
-              <Users className="w-4 h-4 mx-auto mb-1" />
-              <span className="text-xs font-medium">Les deux</span>
-            </button>
-          </div>
-        </div>
-
-        <div>
-          <label className="text-sm font-medium mb-3 block">Origine ethnique</label>
-          <div className="flex flex-wrap gap-2">
-            {[
-              { value: 'all', label: 'Toutes' },
-              { value: 'caucasian', label: 'Caucasien' },
-              { value: 'asian', label: 'Asiatique' },
-              { value: 'african', label: 'Africain' },
-              { value: 'hispanic', label: 'Hispanique' },
-              { value: 'middle-eastern', label: 'Moyen-oriental' },
-              { value: 'mixed', label: 'Métissé' }
-            ].map((option) => (
-              <button
-                key={option.value}
-                onClick={() => setEthnicity(option.value)}
-                className={`px-3 py-1 text-xs rounded-full border transition-colors ${
-                  ethnicity === option.value
-                    ? 'border-primary bg-primary text-white'
-                    : 'border-border hover:border-primary/50 hover:bg-primary/5'
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <label className="text-sm font-medium mb-3 block">Religion</label>
-          <div className="flex flex-wrap gap-2">
-            {[
-              { value: 'all', label: 'Toutes' },
-              { value: 'catholic', label: 'Catholique' },
-              { value: 'protestant', label: 'Protestant' },
-              { value: 'muslim', label: 'Musulman' },
-              { value: 'jewish', label: 'Juif' },
-              { value: 'hindu', label: 'Hindou' },
-              { value: 'buddhist', label: 'Bouddhiste' },
-              { value: 'agnostic', label: 'Agnostique' },
-              { value: 'atheist', label: 'Athée' }
-            ].map((option) => (
-              <button
-                key={option.value}
-                onClick={() => setReligion(option.value)}
-                className={`px-3 py-1 text-xs rounded-full border transition-colors ${
-                  religion === option.value
-                    ? 'border-primary bg-primary text-white'
-                    : 'border-border hover:border-primary/50 hover:bg-primary/5'
-                }`}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <label className="text-sm font-medium mb-3 block">
-            Tranche d'âge: {ageRange[0]} - {ageRange[1]} ans
-          </label>
-          <Slider
-            value={ageRange}
-            onValueChange={(value) => setAgeRange(value as [number, number])}
-            min={18}
-            max={65}
-            step={1}
-            className="w-full"
-          />
-        </div>
-
-        <div>
-          <label className="text-sm font-medium mb-3 block">
-            Taille: {heightRange[0]} - {heightRange[1]} cm
-          </label>
-          <Slider
-            value={heightRange}
-            onValueChange={(value) => setHeightRange(value as [number, number])}
-            min={140}
-            max={210}
-            step={1}
-            className="w-full"
-          />
-        </div>
-      </div>
-
-      <div className="flex justify-between">
-        <Button variant="outline" onClick={() => setCurrentStep('targeting')}>
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          Retour
-        </Button>
         <Button onClick={() => setCurrentStep('selection')}>
           Continuer
           <ChevronRight className="w-4 h-4 ml-2" />
@@ -537,7 +380,6 @@ export const AnalysisModal = ({
             {currentStep === 'upload' && "Sélection d'image"}
             {currentStep === 'selection' && "Type d'analyse"}
             {currentStep === 'targeting' && "Audience cible"}
-            {currentStep === 'demographics' && "Configuration démographique"}
           </DialogTitle>
         </DialogHeader>
 
@@ -545,7 +387,6 @@ export const AnalysisModal = ({
           {currentStep === 'upload' && renderUploadStep()}
           {currentStep === 'selection' && renderSelectionStep()}
           {currentStep === 'targeting' && renderTargetingStep()}
-          {currentStep === 'demographics' && renderDemographicsStep()}
         </div>
       </DialogContent>
     </Dialog>
