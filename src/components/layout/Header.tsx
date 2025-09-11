@@ -66,7 +66,7 @@ export const Header = ({
               </Link>
               
               <Link to="/faq">
-                <Button size="sm" variant="ghost" className="w-8 h-8 p-0 ml-1">
+                <Button size="sm" variant="outline" className="w-8 h-8 p-0 ml-1">
                   <HugeiconsIcon icon={MessageQuestionIcon} size={16} />
                 </Button>
               </Link>
