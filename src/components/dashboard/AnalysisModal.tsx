@@ -295,14 +295,23 @@ export const AnalysisModal = ({
               } ${!affordable ? 'opacity-60' : ''}`}
               onClick={() => affordable && handleOptionSelect(option.id)}
             >
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <h3 className="font-heading font-semibold mb-1">
-                    {option.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {option.description}
-                  </p>
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="font-heading font-semibold text-sm">
+                  {option.title}
+                </h3>
+                
+                <div className="flex flex-wrap gap-1">
+                  {option.features.map((feature, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center space-x-1 text-xs bg-muted rounded-full px-2 py-1"
+                    >
+                      {feature.includes('prioritaire') && <Zap className="w-3 h-3" />}
+                      {feature.includes('avis') && <Users className="w-3 h-3" />}
+                      {feature.includes('standard') && <Clock className="w-3 h-3" />}
+                      <span>{feature}</span>
+                    </div>
+                  ))}
                 </div>
                 
                 <div className="flex items-center space-x-2 text-sm font-medium">
@@ -310,20 +319,10 @@ export const AnalysisModal = ({
                   <span>{option.cost.amount} Aura</span>
                 </div>
               </div>
-
-              <div className="flex flex-wrap gap-2">
-                {option.features.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1"
-                  >
-                    {feature.includes('prioritaire') && <Zap className="w-3 h-3" />}
-                    {feature.includes('avis') && <Users className="w-3 h-3" />}
-                    {feature.includes('standard') && <Clock className="w-3 h-3" />}
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
+              
+              <p className="text-sm text-muted-foreground mt-2">
+                {option.description}
+              </p>
             </div>
           );
         })}
