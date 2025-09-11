@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Gem, Clock, Users, Zap, Upload, ChevronLeft, ChevronRight, User, UserCheck, X } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface AnalysisOption {
   id: string;
@@ -194,7 +195,8 @@ export const AnalysisModal = ({
         </p>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <ScrollArea className="h-48">
+        <div className="grid grid-cols-4 gap-4">
         {/* Option d'upload */}
         <div className="aspect-square border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
           <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
@@ -242,7 +244,8 @@ export const AnalysisModal = ({
             </div>
           );
         })}
-      </div>
+        </div>
+      </ScrollArea>
 
       {analysisType === 'profile' && (
         <p className="text-xs text-muted-foreground text-center">
