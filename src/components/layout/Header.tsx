@@ -59,14 +59,11 @@ export const Header = ({
                 <span>{credits} Crédits</span>
               </div>
               
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button size="sm" variant="outline" className="w-8 h-8 p-0 ml-1">
-                    <HugeiconsIcon icon={PlusSignIcon} size={16} />
-                  </Button>
-                </DropdownMenuTrigger>
-                
-              </DropdownMenu>
+              <Link to="/credits">
+                <Button size="sm" variant="outline" className="w-8 h-8 p-0 ml-1">
+                  <HugeiconsIcon icon={PlusSignIcon} size={16} />
+                </Button>
+              </Link>
             </div>
 
             <Link to="/parametres" className="hidden lg:block">
