@@ -226,7 +226,10 @@ const Profile = () => {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-medium text-foreground mb-4">Quand je vote, je préfère analyser des...</h3>
+                    <h3 className="text-lg font-medium text-foreground mb-4 flex items-center gap-2">
+                      <HugeiconsIcon icon={NoteIcon} size={20} className="text-primary" />
+                      Quand je vote, je préfère analyser des...
+                    </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="text-sm font-medium text-foreground mb-4 block">Sexe</label>
