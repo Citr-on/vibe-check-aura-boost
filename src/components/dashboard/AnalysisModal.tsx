@@ -8,8 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Gem, Clock, Users, Zap, Upload, ChevronLeft, ChevronRight, User, UserCheck, X } from "lucide-react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-
 interface AnalysisOption {
   id: string;
   title: string;
@@ -21,42 +19,47 @@ interface AnalysisOption {
   features: string[];
   isPremium: boolean;
 }
-
-const analysisOptions: AnalysisOption[] = [
-  {
-    id: 'aura-test',
-    title: 'Aura test (gratuit)',
-    description: 'Analyse standard, vitesse standard',
-    cost: { type: 'aura', amount: 2 },
-    features: ['20 avis de la communauté', 'Vitesse standard'],
-    isPremium: false
+const analysisOptions: AnalysisOption[] = [{
+  id: 'aura-test',
+  title: 'Aura test (gratuit)',
+  description: 'Analyse standard, vitesse standard',
+  cost: {
+    type: 'aura',
+    amount: 2
   },
-  {
-    id: 'standard',
-    title: 'Test Standard',
-    description: 'Analyse Standard, vitesse rapide',
-    cost: { type: 'credits', amount: 20 },
-    features: ['20 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
-    isPremium: true
+  features: ['20 avis de la communauté', 'Vitesse standard'],
+  isPremium: false
+}, {
+  id: 'standard',
+  title: 'Test Standard',
+  description: 'Analyse Standard, vitesse rapide',
+  cost: {
+    type: 'credits',
+    amount: 20
   },
-  {
-    id: 'precise',
-    title: 'Test Précis',
-    description: 'Analyse sur une audience large, vitesse rapide',
-    cost: { type: 'credits', amount: 50 },
-    features: ['50 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
-    isPremium: true
+  features: ['20 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
+  isPremium: true
+}, {
+  id: 'precise',
+  title: 'Test Précis',
+  description: 'Analyse sur une audience large, vitesse rapide',
+  cost: {
+    type: 'credits',
+    amount: 50
   },
-  {
-    id: 'ultra-precise',
-    title: 'Test Ultra Précis',
-    description: 'Analyse sur une audience très large, vitesse rapide',
-    cost: { type: 'credits', amount: 80 },
-    features: ['80 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
-    isPremium: true
-  }
-];
-
+  features: ['50 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
+  isPremium: true
+}, {
+  id: 'ultra-precise',
+  title: 'Test Ultra Précis',
+  description: 'Analyse sur une audience très large, vitesse rapide',
+  cost: {
+    type: 'credits',
+    amount: 80
+  },
+  features: ['80 avis ciblés', 'Analyse IA détaillée', 'Traitement prioritaire'],
+  isPremium: true
+}];
 interface AnalysisModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -64,13 +67,12 @@ interface AnalysisModalProps {
   aura: number;
   onAnalysisSelect: (optionId: string) => void;
 }
-
-export const AnalysisModal = ({ 
-  open, 
-  onOpenChange, 
-  credits, 
-  aura, 
-  onAnalysisSelect 
+export const AnalysisModal = ({
+  open,
+  onOpenChange,
+  credits,
+  aura,
+  onAnalysisSelect
 }: AnalysisModalProps) => {
   const [currentStep, setCurrentStep] = useState<'upload' | 'targeting' | 'profile' | 'selection'>('upload');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -78,39 +80,44 @@ export const AnalysisModal = ({
   const [selectedImages, setSelectedImages] = useState<(File | string)[]>([]);
   const [targetGender, setTargetGender] = useState<'men' | 'women' | 'both'>('both');
   const [ageRange, setAgeRange] = useState<[number, number]>([18, 65]);
-  
+
   // Profile step states
   const [currentBio, setCurrentBio] = useState("");
   const [keywordInput, setKeywordInput] = useState("");
   const [keywords, setKeywords] = useState<string[]>([]);
   const [selectedTone, setSelectedTone] = useState("authentique");
   const [selectedLength, setSelectedLength] = useState("courte");
-
-  const tones = [
-    { id: "amusant", label: "Amusant" },
-    { id: "authentique", label: "Authentique" },
-    { id: "intriguant", label: "Intriguant" },
-    { id: "direct", label: "Direct" },
-  ];
-
-  const lengths = [
-    { id: "courte", label: "Courte & Percutante" },
-    { id: "moyenne", label: "Moyenne & Détaillée" },
-  ];
-
+  const tones = [{
+    id: "amusant",
+    label: "Amusant"
+  }, {
+    id: "authentique",
+    label: "Authentique"
+  }, {
+    id: "intriguant",
+    label: "Intriguant"
+  }, {
+    id: "direct",
+    label: "Direct"
+  }];
+  const lengths = [{
+    id: "courte",
+    label: "Courte & Percutante"
+  }, {
+    id: "moyenne",
+    label: "Moyenne & Détaillée"
+  }];
   const canAfford = (option: AnalysisOption) => {
     if (option.cost.type === 'aura') {
       return aura >= option.cost.amount;
     }
     return credits >= option.cost.amount;
   };
-
   const handleOptionSelect = (optionId: string) => {
     setSelectedOption(optionId);
     // Selection is now the final step, so we submit directly
     handleFinalSubmit();
   };
-
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -123,7 +130,6 @@ export const AnalysisModal = ({
       }
     }
   };
-
   const handleImageSelect = (imagePath: string) => {
     if (analysisType === 'photo') {
       setSelectedImages([imagePath]);
@@ -136,7 +142,6 @@ export const AnalysisModal = ({
       }
     }
   };
-
   const handleKeywordAdd = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && keywordInput.trim()) {
       e.preventDefault();
@@ -146,18 +151,15 @@ export const AnalysisModal = ({
       }
     }
   };
-
   const removeKeyword = (index: number) => {
     setKeywords(keywords.filter((_, i) => i !== index));
   };
-
   const handleFinalSubmit = () => {
     if (selectedOption) {
       onAnalysisSelect(selectedOption);
       onOpenChange(false);
     }
   };
-
   const getNextStep = () => {
     if (currentStep === 'upload') {
       return analysisType === 'profile' ? 'profile' : 'targeting';
@@ -167,109 +169,63 @@ export const AnalysisModal = ({
     }
     return 'selection';
   };
-
   const freeOptions = analysisOptions.filter(option => !option.isPremium);
   const premiumOptions = analysisOptions.filter(option => option.isPremium);
-
-  const renderUploadStep = () => (
-    <div className="space-y-3">
+  const renderUploadStep = () => <div className="space-y-3">
       <div className="text-center">
-        <Tabs value={analysisType} onValueChange={(value) => setAnalysisType(value as 'photo' | 'profile')} className="mb-6">
+        <Tabs value={analysisType} onValueChange={value => setAnalysisType(value as 'photo' | 'profile')} className="mb-6">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="photo">Photo</TabsTrigger>
-            <TabsTrigger value="profile">Profil complet</TabsTrigger>
+            <TabsTrigger value="photo" className="rounded-full">Photo</TabsTrigger>
+            <TabsTrigger value="profile" className="rounded-full text-base">Profil complet</TabsTrigger>
           </TabsList>
         </Tabs>
         
         <h3 className="text-lg font-heading font-semibold mb-2">
-          {analysisType === 'photo' 
-            ? 'Sélectionnez une image à analyser' 
-            : 'Sélectionnez jusqu\'à 6 images'
-          }
+          {analysisType === 'photo' ? 'Sélectionnez une image à analyser' : 'Sélectionnez jusqu\'à 6 images'}
         </h3>
         <p className="text-muted-foreground">
-          {analysisType === 'photo'
-            ? 'Uploadez une nouvelle image ou sélectionnez une image existante'
-            : 'Uploadez de nouvelles images ou sélectionnez des images existantes'
-          }
+          {analysisType === 'photo' ? 'Uploadez une nouvelle image ou sélectionnez une image existante' : 'Uploadez de nouvelles images ou sélectionnez des images existantes'}
         </p>
       </div>
 
-      <ScrollArea className="h-48">
-        <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-3 gap-4">
         {/* Option d'upload */}
         <div className="aspect-square border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
           <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
           <label className="cursor-pointer text-center">
             <span className="text-xs font-medium">Nouvelle image</span>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-            />
+            <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
           </label>
         </div>
 
         {/* Images existantes - exemples */}
-        {[
-          "/src/assets/portrait-sample-1.jpg",
-          "/src/assets/portrait-sample-2.jpg",
-          "/src/assets/bio-sample-1.jpg",
-          "/src/assets/bio-sample-2.jpg"
-        ].map((imagePath, index) => {
-          const isSelected = selectedImages.includes(imagePath);
-          const selectedIndex = selectedImages.indexOf(imagePath);
-          
-          return (
-            <div
-              key={index}
-              className={`aspect-square border-2 rounded-lg overflow-hidden cursor-pointer transition-all hover:border-primary/50 relative ${
-                isSelected
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border'
-              }`}
-              onClick={() => handleImageSelect(imagePath)}
-            >
-              <img
-                src={imagePath}
-                alt={`Image ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-              {isSelected && analysisType === 'profile' && (
-                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold" aria-label={`Photo ${selectedIndex + 1}`}>
+        {["/src/assets/portrait-sample-1.jpg", "/src/assets/portrait-sample-2.jpg", "/src/assets/bio-sample-1.jpg", "/src/assets/bio-sample-2.jpg"].map((imagePath, index) => {
+        const isSelected = selectedImages.includes(imagePath);
+        const selectedIndex = selectedImages.indexOf(imagePath);
+        return <div key={index} className={`aspect-square border-2 rounded-lg overflow-hidden cursor-pointer transition-all hover:border-primary/50 relative ${isSelected ? 'border-primary bg-primary/5' : 'border-border'}`} onClick={() => handleImageSelect(imagePath)}>
+              <img src={imagePath} alt={`Image ${index + 1}`} className="w-full h-full object-cover" />
+              {isSelected && analysisType === 'profile' && <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold" aria-label={`Photo ${selectedIndex + 1}`}>
                   {selectedIndex + 1}
-                </div>
-              )}
-            </div>
-          );
-        })}
-        </div>
-      </ScrollArea>
+                </div>}
+            </div>;
+      })}
+      </div>
 
-      {analysisType === 'profile' && (
-        <p className="text-xs text-muted-foreground text-center">
+      {analysisType === 'profile' && <p className="text-xs text-muted-foreground text-center">
           {selectedImages.length}/6 images sélectionnées
-        </p>
-      )}
+        </p>}
 
       <div className="flex justify-between">
         <Button variant="outline" onClick={() => onOpenChange(false)}>
           Annuler
         </Button>
-        <Button 
-          onClick={() => setCurrentStep(getNextStep())}
-          disabled={selectedImages.length === 0}
-        >
+        <Button onClick={() => setCurrentStep(getNextStep())} disabled={selectedImages.length === 0}>
           Continuer
           <ChevronRight className="w-4 h-4 ml-2" />
         </Button>
       </div>
-    </div>
-  );
-
-  const renderSelectionStep = () => (
-    <div className="space-y-4">
+    </div>;
+  const renderSelectionStep = () => <div className="space-y-4">
       <div className="text-center">
         <h3 className="text-lg font-heading font-semibold mb-2">
           Choisissez votre type d'analyse
@@ -281,19 +237,9 @@ export const AnalysisModal = ({
         <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
           Gratuit
         </h4>
-        {freeOptions.map((option) => {
-          const affordable = canAfford(option);
-          
-          return (
-            <div
-              key={option.id}
-              className={`p-4 border rounded-xl transition-all cursor-pointer hover:border-primary/50 hover:bg-primary/5 ${
-                selectedOption === option.id
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border'
-              } ${!affordable ? 'opacity-60' : ''}`}
-              onClick={() => affordable && handleOptionSelect(option.id)}
-            >
+        {freeOptions.map(option => {
+        const affordable = canAfford(option);
+        return <div key={option.id} className={`p-4 border rounded-xl transition-all cursor-pointer hover:border-primary/50 hover:bg-primary/5 ${selectedOption === option.id ? 'border-primary bg-primary/5' : 'border-border'} ${!affordable ? 'opacity-60' : ''}`} onClick={() => affordable && handleOptionSelect(option.id)}>
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="font-heading font-semibold mb-1">
@@ -311,21 +257,15 @@ export const AnalysisModal = ({
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {option.features.map((feature, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1"
-                  >
+                {option.features.map((feature, index) => <div key={index} className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1">
                     {feature.includes('prioritaire') && <Zap className="w-3 h-3" />}
                     {feature.includes('avis') && <Users className="w-3 h-3" />}
                     {feature.includes('standard') && <Clock className="w-3 h-3" />}
                     <span>{feature}</span>
-                  </div>
-                ))}
+                  </div>)}
               </div>
-            </div>
-          );
-        })}
+            </div>;
+      })}
       </div>
 
       {/* Section Premium */}
@@ -333,19 +273,9 @@ export const AnalysisModal = ({
         <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
           Premium
         </h4>
-        {premiumOptions.map((option) => {
-          const affordable = canAfford(option);
-          
-          return (
-            <div
-              key={option.id}
-              className={`p-3 border rounded-xl transition-all cursor-pointer group ${
-                selectedOption === option.id
-                  ? 'border-primary bg-primary text-white'
-                  : 'border-border hover:border-primary hover:bg-primary hover:text-white'
-              } ${!affordable ? 'opacity-60' : ''}`}
-              onClick={() => affordable && handleOptionSelect(option.id)}
-            >
+        {premiumOptions.map(option => {
+        const affordable = canAfford(option);
+        return <div key={option.id} className={`p-3 border rounded-xl transition-all cursor-pointer group ${selectedOption === option.id ? 'border-primary bg-primary text-white' : 'border-border hover:border-primary hover:bg-primary hover:text-white'} ${!affordable ? 'opacity-60' : ''}`} onClick={() => affordable && handleOptionSelect(option.id)}>
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="font-heading font-semibold mb-1">
@@ -363,21 +293,15 @@ export const AnalysisModal = ({
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {option.features.map((feature, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1 group-hover:bg-white group-hover:text-black transition-colors"
-                    >
+                {option.features.map((feature, index) => <div key={index} className="flex items-center space-x-1 text-xs bg-muted rounded-full px-3 py-1 group-hover:bg-white group-hover:text-black transition-colors">
                       {feature.includes('prioritaire') && <Zap className="w-3 h-3 group-hover:text-black transition-colors" />}
                       {feature.includes('avis') && <Users className="w-3 h-3 group-hover:text-black transition-colors" />}
                       {feature.includes('standard') && <Clock className="w-3 h-3 group-hover:text-black transition-colors" />}
                       <span>{feature}</span>
-                  </div>
-                ))}
+                  </div>)}
               </div>
-            </div>
-          );
-        })}
+            </div>;
+      })}
       </div>
 
       <div className="flex justify-between">
@@ -389,11 +313,8 @@ export const AnalysisModal = ({
           Annuler
         </Button>
       </div>
-    </div>
-  );
-
-  const renderTargetingStep = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderTargetingStep = () => <div className="space-y-6">
       <div className="text-center">
         <h3 className="text-lg font-heading font-semibold mb-2">
           Définissez votre audience cible
@@ -407,36 +328,15 @@ export const AnalysisModal = ({
         <div>
           <label className="text-sm font-medium mb-3 block">Genre</label>
           <div className="flex gap-3">
-            <button
-              onClick={() => setTargetGender('men')}
-              className={`flex-1 p-3 border rounded-lg transition-colors ${
-                targetGender === 'men'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
-              }`}
-            >
+            <button onClick={() => setTargetGender('men')} className={`flex-1 p-3 border rounded-lg transition-colors ${targetGender === 'men' ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}>
               <User className="w-5 h-5 mx-auto mb-2" />
               <span className="text-sm font-medium">Hommes</span>
             </button>
-            <button
-              onClick={() => setTargetGender('women')}
-              className={`flex-1 p-3 border rounded-lg transition-colors ${
-                targetGender === 'women'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
-              }`}
-            >
+            <button onClick={() => setTargetGender('women')} className={`flex-1 p-3 border rounded-lg transition-colors ${targetGender === 'women' ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}>
               <UserCheck className="w-5 h-5 mx-auto mb-2" />
               <span className="text-sm font-medium">Femmes</span>
             </button>
-            <button
-              onClick={() => setTargetGender('both')}
-              className={`flex-1 p-3 border rounded-lg transition-colors ${
-                targetGender === 'both'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
-              }`}
-            >
+            <button onClick={() => setTargetGender('both')} className={`flex-1 p-3 border rounded-lg transition-colors ${targetGender === 'both' ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}>
               <Users className="w-5 h-5 mx-auto mb-2" />
               <span className="text-sm font-medium">Les deux</span>
             </button>
@@ -447,14 +347,7 @@ export const AnalysisModal = ({
           <label className="text-sm font-medium mb-3 block">
             Tranche d'âge: {ageRange[0]} - {ageRange[1]} ans
           </label>
-          <Slider
-            value={ageRange}
-            onValueChange={(value) => setAgeRange(value as [number, number])}
-            min={18}
-            max={65}
-            step={1}
-            className="w-full"
-          />
+          <Slider value={ageRange} onValueChange={value => setAgeRange(value as [number, number])} min={18} max={65} step={1} className="w-full" />
         </div>
       </div>
 
@@ -468,11 +361,8 @@ export const AnalysisModal = ({
           <ChevronRight className="w-4 h-4 ml-2" />
         </Button>
       </div>
-    </div>
-  );
-
-  const renderProfileStep = () => (
-    <div className="space-y-6">
+    </div>;
+  const renderProfileStep = () => <div className="space-y-6">
       <div className="text-center">
         <h3 className="text-lg font-heading font-semibold mb-2">
           Complétez votre profil
@@ -486,12 +376,7 @@ export const AnalysisModal = ({
         {/* Current Bio */}
         <div>
           <label className="text-sm font-medium mb-3 block">Bio actuelle (optionnel)</label>
-          <Textarea
-            value={currentBio}
-            onChange={(e) => setCurrentBio(e.target.value)}
-            placeholder="Votre bio existante pour inspiration..."
-            className="min-h-24"
-          />
+          <Textarea value={currentBio} onChange={e => setCurrentBio(e.target.value)} placeholder="Votre bio existante pour inspiration..." className="min-h-24" />
         </div>
 
         {/* Keywords */}
@@ -502,29 +387,16 @@ export const AnalysisModal = ({
           <p className="text-xs text-muted-foreground mb-2">
             Ajoutez jusqu'à 8 mots-clés. Appuyez sur 'Entrée' pour valider chaque mot.
           </p>
-          <Input
-            value={keywordInput}
-            onChange={(e) => setKeywordInput(e.target.value)}
-            onKeyDown={handleKeywordAdd}
-            placeholder="Ex: voyages, cuisine, photographie..."
-            disabled={keywords.length >= 8}
-          />
+          <Input value={keywordInput} onChange={e => setKeywordInput(e.target.value)} onKeyDown={handleKeywordAdd} placeholder="Ex: voyages, cuisine, photographie..." disabled={keywords.length >= 8} />
           
-          {keywords.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              {keywords.map((keyword, index) => (
-                <Badge key={index} variant="secondary" className="px-3 py-1">
+          {keywords.length > 0 && <div className="flex flex-wrap gap-2 mt-3">
+              {keywords.map((keyword, index) => <Badge key={index} variant="secondary" className="px-3 py-1">
                   {keyword}
-                  <button
-                    onClick={() => removeKeyword(index)}
-                    className="ml-2 hover:text-destructive"
-                  >
+                  <button onClick={() => removeKeyword(index)} className="ml-2 hover:text-destructive">
                     <X className="w-3 h-3" />
                   </button>
-                </Badge>
-              ))}
-            </div>
-          )}
+                </Badge>)}
+            </div>}
           
           <p className="text-xs text-muted-foreground mt-2">
             {keywords.length}/8 mots-clés
@@ -535,16 +407,9 @@ export const AnalysisModal = ({
         <div>
           <label className="text-sm font-medium mb-3 block">Ton de votre bio</label>
           <div className="flex flex-wrap gap-2">
-            {tones.map((tone) => (
-              <Button
-                key={tone.id}
-                variant={selectedTone === tone.id ? "default" : "outline"}
-                onClick={() => setSelectedTone(tone.id)}
-                className="rounded-full"
-              >
+            {tones.map(tone => <Button key={tone.id} variant={selectedTone === tone.id ? "default" : "outline"} onClick={() => setSelectedTone(tone.id)} className="rounded-full">
                 {tone.label}
-              </Button>
-            ))}
+              </Button>)}
           </div>
         </div>
 
@@ -552,16 +417,9 @@ export const AnalysisModal = ({
         <div>
           <label className="text-sm font-medium mb-3 block">Longueur de la bio</label>
           <div className="flex flex-wrap gap-2">
-            {lengths.map((length) => (
-              <Button
-                key={length.id}
-                variant={selectedLength === length.id ? "default" : "outline"}
-                onClick={() => setSelectedLength(length.id)}
-                className="rounded-full"
-              >
+            {lengths.map(length => <Button key={length.id} variant={selectedLength === length.id ? "default" : "outline"} onClick={() => setSelectedLength(length.id)} className="rounded-full">
                 {length.label}
-              </Button>
-            ))}
+              </Button>)}
           </div>
         </div>
       </div>
@@ -576,11 +434,8 @@ export const AnalysisModal = ({
           <ChevronRight className="w-4 h-4 ml-2" />
         </Button>
       </div>
-    </div>
-  );
-
-  return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    </div>;
+  return <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-2xl font-heading">
@@ -598,6 +453,5 @@ export const AnalysisModal = ({
           {currentStep === 'selection' && renderSelectionStep()}
         </div>
       </DialogContent>
-    </Dialog>
-  );
+    </Dialog>;
 };
