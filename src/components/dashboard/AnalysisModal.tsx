@@ -530,40 +530,6 @@ export const AnalysisModal = ({
             {keywords.length}/8 mots-clés
           </p>
         </div>
-
-        {/* Tone Selection */}
-        <div>
-          <label className="text-sm font-medium mb-3 block">Ton de votre bio</label>
-          <div className="flex flex-wrap gap-2">
-            {tones.map((tone) => (
-              <Button
-                key={tone.id}
-                variant={selectedTone === tone.id ? "default" : "outline"}
-                onClick={() => setSelectedTone(tone.id)}
-                className="rounded-full"
-              >
-                {tone.label}
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        {/* Length Selection */}
-        <div>
-          <label className="text-sm font-medium mb-3 block">Longueur de la bio</label>
-          <div className="flex flex-wrap gap-2">
-            {lengths.map((length) => (
-              <Button
-                key={length.id}
-                variant={selectedLength === length.id ? "default" : "outline"}
-                onClick={() => setSelectedLength(length.id)}
-                className="rounded-full"
-              >
-                {length.label}
-              </Button>
-            ))}
-          </div>
-        </div>
       </div>
 
       <div className="flex justify-between">
