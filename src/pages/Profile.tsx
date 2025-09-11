@@ -18,9 +18,6 @@ import { Loading01Icon, Settings02Icon, UserIcon, MailIcon, LockIcon, NoteIcon }
 const profileSchema = z.object({
   gender: z.enum(['homme', 'femme', 'non-binaire', 'préfère-ne-pas-dire']).optional(),
   age: z.number().min(18, "L'âge minimum est de 18 ans").max(99, "L'âge maximum est de 99 ans").optional(),
-  height: z.number().min(100, "La taille minimum est de 100 cm").max(250, "La taille maximum est de 250 cm").optional(),
-  ethnic_origin: z.enum(['européenne', 'africaine', 'asiatique', 'hispanique', 'moyen-orientale', 'métisse', 'autre', 'préfère-ne-pas-dire']).optional(),
-  religious_confession: z.enum(['christianisme', 'islam', 'judaisme', 'bouddhisme', 'hinduisme', 'athéisme', 'agnosticisme', 'autre', 'préfère-ne-pas-dire']).optional(),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -40,9 +37,6 @@ const Profile = () => {
     defaultValues: {
       gender: undefined,
       age: undefined,
-      height: undefined,
-      ethnic_origin: undefined,
-      religious_confession: undefined,
     },
   });
 
@@ -67,9 +61,6 @@ const Profile = () => {
           form.reset({
             gender: data.gender || undefined,
             age: data.age || undefined,
-            height: data.height || undefined,
-            ethnic_origin: data.ethnic_origin || undefined,
-            religious_confession: data.religious_confession || undefined,
           });
         }
       } catch (error) {
@@ -92,14 +83,10 @@ const Profile = () => {
     
     setIsSaving(true);
     try {
-      // Convert string values to numbers for age and height
       const profileData = {
         user_id: user.id,
         gender: data.gender,
         age: data.age,
-        height: data.height,
-        ethnic_origin: data.ethnic_origin,
-        religious_confession: data.religious_confession,
       };
 
       const { error } = await supabase
@@ -167,14 +154,14 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-soft mb-8">
+        <Card className="shadow-soft">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <HugeiconsIcon icon={UserIcon} size={28} className="text-primary" />
-              À propos de moi
+              Mes préférences
             </CardTitle>
             <CardDescription>
-              Ces informations nous aident à personnaliser vos analyses et à vous fournir des résultats plus pertinents
+              Renseignez vos informations pour personnaliser votre expérience et vos préférences d'analyse
             </CardDescription>
           </CardHeader>
           
@@ -186,132 +173,91 @@ const Profile = () => {
               </div>
             ) : (
               <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="gender"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Sexe</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                  <div>
+                    <h3 className="text-lg font-medium text-foreground mb-4">À propos de moi</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="gender"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Sexe</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Sélectionnez votre sexe" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem value="homme">Homme</SelectItem>
+                                <SelectItem value="femme">Femme</SelectItem>
+                                <SelectItem value="non-binaire">Non-binaire</SelectItem>
+                                <SelectItem value="préfère-ne-pas-dire">Préfère ne pas dire</SelectItem>
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="age"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Âge</FormLabel>
                             <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Sélectionnez votre sexe" />
-                              </SelectTrigger>
+                               <Input
+                                 type="number"
+                                 min="18"
+                                 max="99"
+                                placeholder="Votre âge"
+                                {...field}
+                                value={field.value || ''}
+                                onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
+                              />
                             </FormControl>
-                            <SelectContent>
-                              <SelectItem value="homme">Homme</SelectItem>
-                              <SelectItem value="femme">Femme</SelectItem>
-                              <SelectItem value="non-binaire">Non-binaire</SelectItem>
-                              <SelectItem value="préfère-ne-pas-dire">Préfère ne pas dire</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
 
-                    <FormField
-                      control={form.control}
-                      name="age"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Âge</FormLabel>
-                          <FormControl>
-                             <Input
-                               type="number"
-                               min="18"
-                               max="99"
-                              placeholder="Votre âge"
-                              {...field}
-                              value={field.value || ''}
-                              onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                  <div>
+                    <h3 className="text-lg font-medium text-foreground mb-4">Quand je vote, je préfère analyser des...</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-sm font-medium text-foreground mb-4 block">Sexe</label>
+                        <Select>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Sélectionnez le sexe à analyser" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="homme">Homme</SelectItem>
+                            <SelectItem value="femme">Femme</SelectItem>
+                            <SelectItem value="non-binaire">Non-binaire</SelectItem>
+                            <SelectItem value="tous">Tous</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
 
-                    <FormField
-                      control={form.control}
-                      name="height"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Taille (cm)</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="number"
-                              min="100"
-                              max="250"
-                              placeholder="Votre taille en cm"
-                              {...field}
-                              value={field.value || ''}
-                              onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : undefined)}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="ethnic_origin"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Origine ethnique</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Sélectionnez votre origine" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="européenne">Européenne</SelectItem>
-                              <SelectItem value="africaine">Africaine</SelectItem>
-                              <SelectItem value="asiatique">Asiatique</SelectItem>
-                              <SelectItem value="hispanique">Hispanique</SelectItem>
-                              <SelectItem value="moyen-orientale">Moyen-orientale</SelectItem>
-                              <SelectItem value="métisse">Métisse</SelectItem>
-                              <SelectItem value="autre">Autre</SelectItem>
-                              <SelectItem value="préfère-ne-pas-dire">Préfère ne pas dire</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="religious_confession"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Confession religieuse</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Sélectionnez votre confession" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="christianisme">Christianisme</SelectItem>
-                              <SelectItem value="islam">Islam</SelectItem>
-                              <SelectItem value="judaisme">Judaïsme</SelectItem>
-                              <SelectItem value="bouddhisme">Bouddhisme</SelectItem>
-                              <SelectItem value="hinduisme">Hindouisme</SelectItem>
-                              <SelectItem value="athéisme">Athéisme</SelectItem>
-                              <SelectItem value="agnosticisme">Agnosticisme</SelectItem>
-                              <SelectItem value="autre">Autre</SelectItem>
-                              <SelectItem value="préfère-ne-pas-dire">Préfère ne pas dire</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                      <div>
+                        <label className="text-sm font-medium text-foreground mb-4 block">
+                          Âge: 18 - 99 ans
+                        </label>
+                        <div className="px-2">
+                          <Slider
+                            defaultValue={[18, 99]}
+                            max={99}
+                            min={18}
+                            step={1}
+                            className="w-full"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="flex justify-end pt-6">
@@ -333,112 +279,6 @@ const Profile = () => {
                 </form>
               </Form>
             )}
-          </CardContent>
-        </Card>
-
-        {/* Voting Preferences Section */}
-        <Card className="shadow-soft">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-3">
-              <HugeiconsIcon icon={NoteIcon} size={28} className="text-primary flex-shrink-0" />
-              Quand je vote, je préfère analyser des...
-            </CardTitle>
-            <CardDescription>
-              Définissez vos préférences pour les analyses que vous souhaitez effectuer
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-4 block">Sexe</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Sélectionnez le sexe à analyser" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="homme">Homme</SelectItem>
-                      <SelectItem value="femme">Femme</SelectItem>
-                      <SelectItem value="non-binaire">Non-binaire</SelectItem>
-                      <SelectItem value="tous">Tous</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-4 block">Origine ethnique</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Sélectionnez l'origine à analyser" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="européenne">Européenne</SelectItem>
-                      <SelectItem value="africaine">Africaine</SelectItem>
-                      <SelectItem value="asiatique">Asiatique</SelectItem>
-                      <SelectItem value="hispanique">Hispanique</SelectItem>
-                      <SelectItem value="moyen-orientale">Moyen-orientale</SelectItem>
-                      <SelectItem value="métisse">Métisse</SelectItem>
-                      <SelectItem value="toutes">Toutes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-4 block">
-                    Âge: 18 - 99 ans
-                  </label>
-                  <div className="px-2">
-                    <Slider
-                      defaultValue={[18, 99]}
-                      max={99}
-                      min={18}
-                      step={1}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-4 block">
-                    Taille: 100 - 250 cm
-                  </label>
-                  <div className="px-2">
-                    <Slider
-                      defaultValue={[100, 250]}
-                      max={250}
-                      min={100}
-                      step={1}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-foreground mb-4 block">Confession religieuse</label>
-                  <Select>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Sélectionnez la confession à analyser" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="christianisme">Christianisme</SelectItem>
-                      <SelectItem value="islam">Islam</SelectItem>
-                      <SelectItem value="judaisme">Judaïsme</SelectItem>
-                      <SelectItem value="bouddhisme">Bouddhisme</SelectItem>
-                      <SelectItem value="hinduisme">Hindouisme</SelectItem>
-                      <SelectItem value="athéisme">Athéisme</SelectItem>
-                      <SelectItem value="agnosticisme">Agnosticisme</SelectItem>
-                      <SelectItem value="toutes">Toutes</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <div className="flex justify-end pt-6">
-                <Button className="bg-primary hover:bg-primary/90">
-                  Sauvegarder
-                </Button>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </main>

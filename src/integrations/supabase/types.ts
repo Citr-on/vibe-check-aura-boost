@@ -81,45 +81,24 @@ export type Database = {
         Row: {
           age: number | null
           created_at: string
-          ethnic_origin:
-            | Database["public"]["Enums"]["ethnic_origin_type"]
-            | null
           gender: Database["public"]["Enums"]["gender_type"] | null
-          height: number | null
           id: string
-          religious_confession:
-            | Database["public"]["Enums"]["religious_confession_type"]
-            | null
           updated_at: string
           user_id: string
         }
         Insert: {
           age?: number | null
           created_at?: string
-          ethnic_origin?:
-            | Database["public"]["Enums"]["ethnic_origin_type"]
-            | null
           gender?: Database["public"]["Enums"]["gender_type"] | null
-          height?: number | null
           id?: string
-          religious_confession?:
-            | Database["public"]["Enums"]["religious_confession_type"]
-            | null
           updated_at?: string
           user_id: string
         }
         Update: {
           age?: number | null
           created_at?: string
-          ethnic_origin?:
-            | Database["public"]["Enums"]["ethnic_origin_type"]
-            | null
           gender?: Database["public"]["Enums"]["gender_type"] | null
-          height?: number | null
           id?: string
-          religious_confession?:
-            | Database["public"]["Enums"]["religious_confession_type"]
-            | null
           updated_at?: string
           user_id?: string
         }
