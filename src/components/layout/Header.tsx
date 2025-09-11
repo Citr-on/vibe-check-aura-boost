@@ -7,21 +7,19 @@ import { PlusSignIcon, SparklesIcon, GemIcon, Settings02Icon, Menu01Icon, Dashbo
 import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState } from "react";
-
 interface HeaderProps {
   credits: number;
   aura: number;
 }
-
-export const Header = ({ credits, aura }: HeaderProps) => {
+export const Header = ({
+  credits,
+  aura
+}: HeaderProps) => {
   const location = useLocation();
   const isMobile = useIsMobile();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const isActive = (path: string) => location.pathname === path;
-
-  return (
-    <header className="border-b bg-card shadow-soft">
+  return <header className="border-b bg-card shadow-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -34,30 +32,15 @@ export const Header = ({ credits, aura }: HeaderProps) => {
 
           {/* Navigation - Desktop */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <Link 
-              to="/dashboard" 
-              className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${
-                isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground'
-              }`}
-            >
+            <Link to="/dashboard" className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
               <HugeiconsIcon icon={DashboardSquare01Icon} size={16} />
               Mes Analyses
             </Link>
-            <Link 
-              to="/studio-ia" 
-              className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${
-                isActive('/studio-ia') ? 'text-primary font-medium' : 'text-muted-foreground'
-              }`}
-            >
+            <Link to="/studio-ia" className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${isActive('/studio-ia') ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
               <HugeiconsIcon icon={AiImageIcon} size={16} />
               Studio IA
             </Link>
-            <Link 
-              to="/review" 
-              className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${
-                isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'
-              }`}
-            >
+            <Link to="/review" className={`font-body transition-colors hover:text-primary flex items-center gap-2 ${isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
               <HugeiconsIcon icon={TaskEdit01Icon} size={16} />
               Évaluer des profils
             </Link>
@@ -82,32 +65,7 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                     <HugeiconsIcon icon={PlusSignIcon} size={16} />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem asChild>
-                    <Link to="/credits?pack=5" className="flex items-center justify-between w-full">
-                      <span>5 Crédits</span>
-                      <span className="text-muted-foreground">2,99€</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/credits?pack=20" className="flex items-center justify-between w-full">
-                      <span>20 Crédits</span>
-                      <span className="text-muted-foreground">9,99€</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/credits?pack=50" className="flex items-center justify-between w-full">
-                      <span>50 Crédits</span>
-                      <span className="text-muted-foreground">19,99€</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/credits?pack=100" className="flex items-center justify-between w-full">
-                      <span>100 Crédits</span>
-                      <span className="text-muted-foreground">34,99€</span>
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
+                
               </DropdownMenu>
             </div>
 
@@ -128,43 +86,19 @@ export const Header = ({ credits, aura }: HeaderProps) => {
               </SheetTrigger>
               <SheetContent side="right" className="w-80">
                 <div className="flex flex-col space-y-6 mt-8">
-                  <Link 
-                    to="/dashboard" 
-                    className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${
-                      isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
+                  <Link to="/dashboard" className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${isActive('/dashboard') ? 'text-primary font-medium' : 'text-muted-foreground'}`} onClick={() => setIsMenuOpen(false)}>
                     <HugeiconsIcon icon={DashboardSquare01Icon} size={20} />
                     <span>Mes Analyses</span>
                   </Link>
-                  <Link 
-                    to="/studio-ia" 
-                    className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${
-                      isActive('/studio-ia') ? 'text-primary font-medium' : 'text-muted-foreground'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
+                  <Link to="/studio-ia" className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${isActive('/studio-ia') ? 'text-primary font-medium' : 'text-muted-foreground'}`} onClick={() => setIsMenuOpen(false)}>
                     <HugeiconsIcon icon={AiImageIcon} size={20} />
                     <span>Studio IA</span>
                   </Link>
-                  <Link 
-                    to="/review" 
-                    className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${
-                      isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
+                  <Link to="/review" className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${isActive('/review') ? 'text-primary font-medium' : 'text-muted-foreground'}`} onClick={() => setIsMenuOpen(false)}>
                     <HugeiconsIcon icon={TaskEdit01Icon} size={20} />
-<span>Évaluer des profils</span>
+                  <span>Évaluer des profils</span>
                   </Link>
-                  <Link 
-                    to="/parametres" 
-                    className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${
-                      isActive('/parametres') ? 'text-primary font-medium' : 'text-muted-foreground'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
+                  <Link to="/parametres" className={`flex items-center space-x-3 font-body transition-colors hover:text-primary ${isActive('/parametres') ? 'text-primary font-medium' : 'text-muted-foreground'}`} onClick={() => setIsMenuOpen(false)}>
                     <HugeiconsIcon icon={Settings02Icon} size={20} />
                     <span>Paramètres</span>
                   </Link>
@@ -194,41 +128,25 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="start" className="w-48">
                         <DropdownMenuItem asChild>
-                          <Link 
-                            to="/credits?pack=5" 
-                            className="flex items-center justify-between w-full"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
+                          <Link to="/credits?pack=5" className="flex items-center justify-between w-full" onClick={() => setIsMenuOpen(false)}>
                             <span>5 Crédits</span>
                             <span className="text-muted-foreground">2,99€</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <Link 
-                            to="/credits?pack=20" 
-                            className="flex items-center justify-between w-full"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
+                          <Link to="/credits?pack=20" className="flex items-center justify-between w-full" onClick={() => setIsMenuOpen(false)}>
                             <span>20 Crédits</span>
                             <span className="text-muted-foreground">9,99€</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <Link 
-                            to="/credits?pack=50" 
-                            className="flex items-center justify-between w-full"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
+                          <Link to="/credits?pack=50" className="flex items-center justify-between w-full" onClick={() => setIsMenuOpen(false)}>
                             <span>50 Crédits</span>
                             <span className="text-muted-foreground">19,99€</span>
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
-                          <Link 
-                            to="/credits?pack=100" 
-                            className="flex items-center justify-between w-full"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
+                          <Link to="/credits?pack=100" className="flex items-center justify-between w-full" onClick={() => setIsMenuOpen(false)}>
                             <span>100 Crédits</span>
                             <span className="text-muted-foreground">34,99€</span>
                           </Link>
@@ -238,11 +156,7 @@ export const Header = ({ credits, aura }: HeaderProps) => {
                   </div>
                   
                   <hr className="border-border" />
-                  <Link 
-                    to="/faq" 
-                    className="flex items-center space-x-3 font-body transition-colors hover:text-primary text-muted-foreground"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
+                  <Link to="/faq" className="flex items-center space-x-3 font-body transition-colors hover:text-primary text-muted-foreground" onClick={() => setIsMenuOpen(false)}>
                     <HugeiconsIcon icon={InformationCircleIcon} size={20} />
                     <span>Feedback & FAQ</span>
                   </Link>
@@ -252,6 +166,5 @@ export const Header = ({ credits, aura }: HeaderProps) => {
           </div>
         </div>
       </div>
-    </header>
-  );
+    </header>;
 };
