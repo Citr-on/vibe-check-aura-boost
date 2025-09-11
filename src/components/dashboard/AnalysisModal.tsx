@@ -584,10 +584,10 @@ export const AnalysisModal = ({
       <DialogContent className="max-w-2xl max-h-[95vh] overflow-hidden flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-2xl font-heading">
-            {currentStep === 'upload' && "Sélection d'image"}
-            {currentStep === 'profile' && "Profil complet"}
-            {currentStep === 'targeting' && "Audience cible"}
-            {currentStep === 'selection' && "Type d'analyse"}
+            {currentStep === 'upload' && "Je fais analyser une image"}
+            {currentStep === 'profile' && "Je fais analyser un profil complet"}
+            {currentStep === 'targeting' && "Je choisis mon audience cible"}
+            {currentStep === 'selection' && "Je fais analyser mon contenu"}
           </DialogTitle>
         </DialogHeader>
 
