@@ -60,9 +60,10 @@ export const Header = ({
               </div>
               
               <Link to="/credits">
-                <Button size="sm" variant="outline" className="w-8 h-8 p-0 ml-1">
-                  <HugeiconsIcon icon={PlusSignIcon} size={16} />
-                </Button>
+                <div className="relative w-8 h-8 ml-1 cursor-pointer">
+                  <HugeiconsIcon icon={GemIcon} size={20} className="text-accent absolute inset-0 m-auto" />
+                  <HugeiconsIcon icon={PlusSignIcon} size={12} className="text-foreground absolute -top-1 -right-1 bg-background rounded-full border border-border" />
+                </div>
               </Link>
               
               <Link to="/faq">
