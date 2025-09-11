@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Header } from "@/components/layout/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,6 +13,7 @@ const AnalysisReport = () => {
   const {
     id
   } = useParams();
+  const navigate = useNavigate();
   const [credits] = useState(150);
   const [aura] = useState(3.5);
 
@@ -137,7 +138,7 @@ const AnalysisReport = () => {
                     Pour optimiser encore votre profil, nous recommandons d'ajuster légèrement l'angle de prise de vue 
                     pour éviter la contre-plongée et de choisir un arrière-plan plus neutre qui mettra davantage en valeur votre visage.
                   </p>
-              <Button className="w-full mt-4 rounded-xl">
+              <Button className="w-full mt-4 rounded-xl" onClick={() => navigate('/studio-ia')}>
                 Améliorer ta photo avec notre IA
               </Button>
                 </div>}
