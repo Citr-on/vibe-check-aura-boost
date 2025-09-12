@@ -65,9 +65,7 @@ const Credits = () => {
               {/* Colonne 1 */}
               <div className="text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <HugeiconsIcon icon={TimeQuarterPassIcon} size={24} className="text-primary" />
-                  </div>
+                  <HugeiconsIcon icon={TimeQuarterPassIcon} size={48} className="text-primary" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-2">Coupez la file.</h3>
                 <p className="text-sm text-muted-foreground">Votre profil analysé en priorité.</p>
@@ -76,9 +74,7 @@ const Credits = () => {
               {/* Colonne 2 */}
               <div className="text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <HugeiconsIcon icon={Target02Icon} size={24} className="text-primary" />
-                  </div>
+                  <HugeiconsIcon icon={Target02Icon} size={48} className="text-primary" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-2">Éliminez le doute.</h3>
                 <p className="text-sm text-muted-foreground">Recevez plus d'avis pour un verdict incontestable.</p>
@@ -87,9 +83,7 @@ const Credits = () => {
               {/* Colonne 3 */}
               <div className="text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <HugeiconsIcon icon={AlbumNotFound02Icon} size={24} className="text-primary" />
-                  </div>
+                  <HugeiconsIcon icon={AlbumNotFound02Icon} size={48} className="text-primary" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-2">L'Accès Direct.</h3>
                 <p className="text-sm text-muted-foreground">Obtenez vos analyses sans évaluer les autres.</p>
@@ -98,9 +92,7 @@ const Credits = () => {
               {/* Colonne 4 */}
               <div className="text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <HugeiconsIcon icon={Profile02Icon} size={24} className="text-primary" />
-                  </div>
+                  <HugeiconsIcon icon={Profile02Icon} size={48} className="text-primary" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-2">La Vue d'Ensemble.</h3>
                 <p className="text-sm text-muted-foreground">Faites analyser vos photos ET votre bio.</p>
@@ -109,9 +101,7 @@ const Credits = () => {
               {/* Colonne 5 */}
               <div className="text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <HugeiconsIcon icon={AiEditingIcon} size={24} className="text-primary" />
-                  </div>
+                  <HugeiconsIcon icon={AiEditingIcon} size={48} className="text-primary" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-2">Le Boost IA.</h3>
                 <p className="text-sm text-muted-foreground">Améliorez votre profil en un seul clic.</p>
