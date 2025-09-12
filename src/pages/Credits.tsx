@@ -60,7 +60,7 @@ const Credits = () => {
           </p>
           
           {/* Grille des avantages */}
-          <div className="bg-gradient-to-r from-violet-50/50 to-blue-50/50 dark:from-violet-950/20 dark:to-blue-950/20 rounded-2xl p-8 mb-8">
+          <div className="bg-primary/10 rounded-2xl p-8 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {/* Colonne 1 */}
               <div className="text-center">
