@@ -68,7 +68,7 @@ const Credits = () => {
                   <HugeiconsIcon icon={TimeQuarterPassIcon} size={48} className="text-primary" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-2">Coupez la file.</h3>
-                <p className="text-sm text-muted-foreground">Votre profil analysé en priorité.</p>
+                <p className="text-sm text-muted-foreground">Votre contenu est analysé en priorité.</p>
               </div>
               
               {/* Colonne 2 */}
