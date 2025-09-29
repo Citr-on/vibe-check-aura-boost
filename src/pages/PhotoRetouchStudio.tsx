@@ -127,7 +127,7 @@ const PhotoRetouchStudio = () => {
                 </div>
                 
                 {/* Selected Photo Preview */}
-                <div className="rounded-lg overflow-hidden border">
+                <div className="rounded-2xl overflow-hidden border">
                   
                 </div>
               </CardContent>
@@ -189,9 +189,9 @@ const PhotoRetouchStudio = () => {
                         Le résultat de votre transformation apparaîtra ici.
                       </p>
                     </div>
-                  </div> : <div className="space-y-6">
+                   </div> : <div className="space-y-6">
                     {/* Before/After Comparison */}
-                    <div className="relative overflow-hidden rounded-lg border">
+                    <div className="relative overflow-hidden rounded-2xl border">
                       <div className="flex">
                         <div className="transition-all duration-300 overflow-hidden" style={{
                       width: `${sliderValue}%`
