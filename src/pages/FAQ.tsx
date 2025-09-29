@@ -110,8 +110,7 @@ const FAQ = () => {
           </div>
 
           {/* Feedback Section */}
-          <div>
-            <Card>
+            <Card className="rounded-2xl h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <HugeiconsIcon icon={SparklesIcon} size={24} className="text-accent" />
@@ -223,7 +222,6 @@ const FAQ = () => {
                 </div>
               </CardContent>
             </Card>
-          </div>
         </div>
       </main>
     </div>
