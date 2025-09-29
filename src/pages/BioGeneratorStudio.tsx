@@ -177,7 +177,7 @@ const BioGeneratorStudio = () => {
             </Card>
 
             {/* Length Selection */}
-            <Card>
+            <Card className="rounded-2xl">
               <CardHeader>
                 <CardTitle>Longueur de la bio</CardTitle>
               </CardHeader>
