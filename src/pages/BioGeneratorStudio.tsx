@@ -99,7 +99,7 @@ const BioGeneratorStudio = () => {
           {/* Left Column - Controls */}
           <div className="space-y-6">
             {/* Current Bio */}
-            <Card>
+            <Card className="rounded-2xl">
               <CardHeader>
                 <CardTitle>Bio actuelle (optionnel)</CardTitle>
                 <p className="text-sm text-muted-foreground">
