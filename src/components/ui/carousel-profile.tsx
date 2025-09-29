@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Flag } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
+import { ReportModal } from '@/components/ui/report-modal';
 
 interface CarouselProfileProps {
   images: string[];
@@ -14,7 +14,7 @@ interface CarouselProfileProps {
 export function CarouselProfile({ images, className, profileId, profileName }: CarouselProfileProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
-  const { toast } = useToast();
+  const [reportModalOpen, setReportModalOpen] = useState(false);
   
   console.log("CarouselProfile rendered with images:", images?.length || 0);
 
@@ -52,26 +52,7 @@ export function CarouselProfile({ images, className, profileId, profileName }: C
   };
 
   const handleReport = () => {
-    // Logique de signalement
-    const reportData = {
-      profileId: profileId,
-      profileName: profileName,
-      imageIndex: currentImageIndex,
-      imageUrl: images[currentImageIndex],
-      timestamp: new Date().toISOString(),
-      reason: 'Contenu inapproprié'
-    };
-    
-    console.log('Signalement envoyé:', reportData);
-    
-    // Simuler l'envoi du signalement
-    toast({
-      title: "Signalement envoyé",
-      description: `Le contenu de ${profileName || 'ce profil'} a été signalé avec succès.`,
-    });
-    
-    // TODO: Ici vous pourriez envoyer les données vers votre backend
-    // fetch('/api/reports', { method: 'POST', body: JSON.stringify(reportData) })
+    setReportModalOpen(true);
   };
 
   if (!images.length) return null;
@@ -137,6 +118,15 @@ export function CarouselProfile({ images, className, profileId, profileName }: C
           </div>
         )}
       </div>
+      
+      <ReportModal
+        open={reportModalOpen}
+        onOpenChange={setReportModalOpen}
+        profileId={profileId}
+        profileName={profileName}
+        imageIndex={currentImageIndex}
+        imageUrl={images[currentImageIndex]}
+      />
     </div>
   );
 }
