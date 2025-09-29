@@ -94,7 +94,7 @@ const PhotoRetouchStudio = () => {
           {/* Left Column - Controls */}
           <div className="space-y-6">
             {/* Photo Gallery */}
-            <Card>
+            <Card className="rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center">
                   <HugeiconsIcon icon={Image01Icon} size={32} className="mr-2" />
