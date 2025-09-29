@@ -155,7 +155,7 @@ export function ReportModal({
                       className="space-y-2"
                     >
                       <Accordion type="multiple" className="w-full">
-                        {reportMotifs.map((category, categoryIndex) => (
+                        {reportMotifs.filter(category => category.category !== "Autre").map((category, categoryIndex) => (
                           <AccordionItem key={categoryIndex} value={`category-${categoryIndex}`}>
                             <AccordionTrigger className="text-sm font-medium text-left">
                               <div className="flex flex-col items-start">
@@ -183,6 +183,22 @@ export function ReportModal({
                           </AccordionItem>
                         ))}
                       </Accordion>
+                      
+                      {/* Option "Autre" en dehors de l'accordéon */}
+                      <div className="border-t pt-4 mt-4">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="other" id="other" />
+                          <FormLabel
+                            htmlFor="other"
+                            className="text-sm font-normal cursor-pointer"
+                          >
+                            Autre chose
+                          </FormLabel>
+                        </div>
+                        <p className="text-xs text-muted-foreground ml-6 mt-1">
+                          Problème non listé ci-dessus
+                        </p>
+                      </div>
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />
