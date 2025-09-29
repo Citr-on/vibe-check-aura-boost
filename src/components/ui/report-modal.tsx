@@ -215,7 +215,7 @@ export function ReportModal({
                     <Textarea
                       placeholder={
                         selectedReason === 'other'
-                          ? "Veuillez décrire le problème"
+                          ? "Expliquez-nous quel est le problème"
                           : "Voulez-vous nous en dire plus ? (facultatif)"
                       }
                       className="resize-none"
