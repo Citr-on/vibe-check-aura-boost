@@ -231,11 +231,12 @@ export function ReportModal({
               <Button
                 type="button"
                 variant="outline"
+                className="w-full"
                 onClick={() => onOpenChange(false)}
               >
                 Annuler
               </Button>
-              <Button type="submit" disabled={!form.watch('reason')}>
+              <Button type="submit" className="w-full" disabled={!form.watch('reason')}>
                 Envoyer le signalement
               </Button>
             </DialogFooter>
