@@ -127,7 +127,7 @@ const Profile = () => {
         </div>
 
         {/* Account Section */}
-        <Card className="shadow-soft mb-8">
+        <Card className="shadow-soft mb-8 rounded-2xl">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <HugeiconsIcon icon={MailIcon} size={24} className="text-primary" />
