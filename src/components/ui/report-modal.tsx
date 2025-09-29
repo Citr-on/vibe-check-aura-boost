@@ -31,6 +31,7 @@ import { useToast } from '@/hooks/use-toast';
 const reportMotifs = [
   {
     category: "Contenu Inapproprié ou Dangereux",
+    description: "Contenu à caractère sexuel, violent ou préjudiciable",
     items: [
       { value: "explicit", label: "Contenu sexuellement explicite ou nudité" },
       { value: "hate", label: "Discours haineux ou harcèlement" },
@@ -40,6 +41,7 @@ const reportMotifs = [
   },
   {
     category: "Spam et Authenticité",
+    description: "Profils frauduleux ou tentatives de manipulation",
     items: [
       { value: "spam", label: "Spam, publicité ou arnaque" },
       { value: "fake", label: "Usurpation d'identité ou faux profil" },
@@ -47,12 +49,14 @@ const reportMotifs = [
   },
   {
     category: "Qualité et Pertinence",
+    description: "Photos inappropriées pour un profil de rencontre",
     items: [
       { value: "irrelevant", label: "Contenu non pertinent" },
     ]
   },
   {
     category: "Autre",
+    description: "Problème non listé ci-dessus",
     items: [
       { value: "other", label: "Autre chose" },
     ]
@@ -153,8 +157,13 @@ export function ReportModal({
                       <Accordion type="multiple" className="w-full">
                         {reportMotifs.map((category, categoryIndex) => (
                           <AccordionItem key={categoryIndex} value={`category-${categoryIndex}`}>
-                            <AccordionTrigger className="text-sm font-medium">
-                              {category.category}
+                            <AccordionTrigger className="text-sm font-medium text-left">
+                              <div className="flex flex-col items-start">
+                                <span>{category.category}</span>
+                                <span className="text-xs font-normal text-muted-foreground">
+                                  {category.description}
+                                </span>
+                              </div>
                             </AccordionTrigger>
                             <AccordionContent>
                               <div className="space-y-2 pl-2">
