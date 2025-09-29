@@ -254,19 +254,6 @@ export const AnalysisModal = ({
           {selectedImages.length}/6 images sélectionnées
         </p>
       )}
-
-      <div className="sticky bottom-0 bg-background pt-4 flex justify-between border-t mt-4">
-        <Button variant="outline" onClick={() => onOpenChange(false)}>
-          Annuler
-        </Button>
-        <Button 
-          onClick={() => setCurrentStep(getNextStep())}
-          disabled={selectedImages.length === 0}
-        >
-          Continuer
-          <ChevronRight className="w-4 h-4 ml-2" />
-        </Button>
-      </div>
     </div>
   );
 
@@ -381,16 +368,6 @@ export const AnalysisModal = ({
           );
         })}
       </div>
-
-      <div className="sticky bottom-0 bg-background pt-4 flex justify-between border-t mt-4">
-        <Button variant="outline" onClick={() => setCurrentStep('targeting')}>
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          Retour
-        </Button>
-        <Button onClick={handleFinalSubmit} disabled={!selectedOption}>
-          Lancer l'analyse
-        </Button>
-      </div>
     </div>
   );
 
@@ -459,17 +436,6 @@ export const AnalysisModal = ({
           />
         </div>
       </div>
-
-      <div className="sticky bottom-0 bg-background pt-4 flex justify-between border-t mt-4">
-        <Button variant="outline" onClick={() => setCurrentStep('upload')}>
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          Retour
-        </Button>
-        <Button onClick={() => setCurrentStep('selection')}>
-          Continuer
-          <ChevronRight className="w-4 h-4 ml-2" />
-        </Button>
-      </div>
     </div>
   );
 
@@ -533,37 +499,82 @@ export const AnalysisModal = ({
           </p>
         </div>
       </div>
-
-      <div className="sticky bottom-0 bg-background pt-4 flex justify-between border-t mt-4">
-        <Button variant="outline" onClick={() => setCurrentStep('upload')}>
-          <ChevronLeft className="w-4 h-4 mr-2" />
-          Retour
-        </Button>
-        <Button onClick={() => setCurrentStep('targeting')}>
-          Continuer
-          <ChevronRight className="w-4 h-4 ml-2" />
-        </Button>
-      </div>
     </div>
   );
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl h-[600px] overflow-hidden flex flex-col">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-heading">
-            {currentStep === 'upload' && (analysisType === 'photo' ? "Je veux faire évaluer une photo" : "Je veux faire évaluer un profil complet")}
-            {currentStep === 'profile' && "Je veux faire évaluer un profil complet"}
-            {currentStep === 'targeting' && "Je veux être évalué par..."}
-            {currentStep === 'selection' && "Je veux faire évaluer mon contenu"}
-          </DialogTitle>
-        </DialogHeader>
+      <DialogContent className="max-w-2xl h-[600px] flex flex-col p-0">
+        <div className="p-6 pb-0">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-heading">
+              {currentStep === 'upload' && (analysisType === 'photo' ? "Je veux faire évaluer une photo" : "Je veux faire évaluer un profil complet")}
+              {currentStep === 'profile' && "Je veux faire évaluer un profil complet"}
+              {currentStep === 'targeting' && "Je veux être évalué par..."}
+              {currentStep === 'selection' && "Je veux faire évaluer mon contenu"}
+            </DialogTitle>
+          </DialogHeader>
+        </div>
 
-        <div className="flex-1 overflow-y-auto pr-2">
+        <div className="flex-1 overflow-y-auto px-6">
           {currentStep === 'upload' && renderUploadStep()}
           {currentStep === 'profile' && renderProfileStep()}
           {currentStep === 'targeting' && renderTargetingStep()}
           {currentStep === 'selection' && renderSelectionStep()}
+        </div>
+
+        <div className="p-6 pt-4 border-t bg-background">
+          <div className="flex justify-between">
+            {currentStep === 'upload' && (
+              <>
+                <Button variant="outline" onClick={() => onOpenChange(false)}>
+                  Annuler
+                </Button>
+                <Button 
+                  onClick={() => setCurrentStep(getNextStep())}
+                  disabled={selectedImages.length === 0}
+                >
+                  Continuer
+                  <ChevronRight className="w-4 h-4 ml-2" />
+                </Button>
+              </>
+            )}
+            {currentStep === 'profile' && (
+              <>
+                <Button variant="outline" onClick={() => setCurrentStep('upload')}>
+                  <ChevronLeft className="w-4 h-4 mr-2" />
+                  Retour
+                </Button>
+                <Button onClick={() => setCurrentStep('targeting')}>
+                  Continuer
+                  <ChevronRight className="w-4 h-4 ml-2" />
+                </Button>
+              </>
+            )}
+            {currentStep === 'targeting' && (
+              <>
+                <Button variant="outline" onClick={() => setCurrentStep(analysisType === 'profile' ? 'profile' : 'upload')}>
+                  <ChevronLeft className="w-4 h-4 mr-2" />
+                  Retour
+                </Button>
+                <Button onClick={() => setCurrentStep('selection')}>
+                  Continuer
+                  <ChevronRight className="w-4 h-4 ml-2" />
+                </Button>
+              </>
+            )}
+            {currentStep === 'selection' && (
+              <>
+                <Button variant="outline" onClick={() => setCurrentStep('targeting')}>
+                  <ChevronLeft className="w-4 h-4 mr-2" />
+                  Retour
+                </Button>
+                <Button onClick={handleFinalSubmit} disabled={!selectedOption}>
+                  Lancer l'analyse
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
