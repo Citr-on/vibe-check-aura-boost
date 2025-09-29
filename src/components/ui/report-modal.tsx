@@ -185,7 +185,7 @@ export function ReportModal({
                       </Accordion>
                       
                       {/* Option "Autre" en dehors de l'accordéon */}
-                      <div className="border-t pt-4 mt-4">
+                      <div className="pt-4 mt-4">
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="other" id="other" />
                           <FormLabel
