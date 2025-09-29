@@ -147,7 +147,7 @@ const PhotoRetouchStudio = () => {
             </Card>
 
             {/* Style Selection */}
-            <Card>
+            <Card className="rounded-2xl">
               <CardHeader>
                 <CardTitle>Style de retouche</CardTitle>
               </CardHeader>
