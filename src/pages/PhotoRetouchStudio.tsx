@@ -134,7 +134,7 @@ const PhotoRetouchStudio = () => {
             </Card>
 
             {/* AI Briefing */}
-            <Card>
+            <Card className="rounded-2xl">
               <CardHeader>
                 <CardTitle>Briefing IA</CardTitle>
                 <p className="text-sm text-muted-foreground">
