@@ -200,7 +200,7 @@ export function ReportModal({
               >
                 Annuler
               </Button>
-              <Button type="submit">
+              <Button type="submit" disabled={!form.watch('reason')}>
                 Envoyer le signalement
               </Button>
             </DialogFooter>
