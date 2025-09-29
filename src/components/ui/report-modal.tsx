@@ -10,6 +10,12 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import {
   Form,
   FormControl,
   FormField,
@@ -142,28 +148,32 @@ export function ReportModal({
                         setSelectedReason(value);
                       }}
                       value={field.value}
-                      className="space-y-4"
+                      className="space-y-2"
                     >
-                      {reportMotifs.map((category, categoryIndex) => (
-                        <div key={categoryIndex} className="space-y-2">
-                          <h4 className="text-sm font-medium text-muted-foreground">
-                            {category.category}
-                          </h4>
-                          <div className="space-y-2 ml-2">
-                            {category.items.map((item) => (
-                              <div key={item.value} className="flex items-center space-x-2">
-                                <RadioGroupItem value={item.value} id={item.value} />
-                                <FormLabel
-                                  htmlFor={item.value}
-                                  className="text-sm font-normal cursor-pointer"
-                                >
-                                  {item.label}
-                                </FormLabel>
+                      <Accordion type="multiple" className="w-full">
+                        {reportMotifs.map((category, categoryIndex) => (
+                          <AccordionItem key={categoryIndex} value={`category-${categoryIndex}`}>
+                            <AccordionTrigger className="text-sm font-medium">
+                              {category.category}
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <div className="space-y-2 pl-2">
+                                {category.items.map((item) => (
+                                  <div key={item.value} className="flex items-center space-x-2">
+                                    <RadioGroupItem value={item.value} id={item.value} />
+                                    <FormLabel
+                                      htmlFor={item.value}
+                                      className="text-sm font-normal cursor-pointer"
+                                    >
+                                      {item.label}
+                                    </FormLabel>
+                                  </div>
+                                ))}
                               </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />
