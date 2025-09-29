@@ -114,7 +114,7 @@ export function CarouselProfile({ images, className, profileId, profileName }: C
           onClick={handleReport}
           variant="ghost"
           size="icon"
-          className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute top-2 right-2 bg-black/30 hover:bg-black/70 text-white/70 hover:text-white rounded-full transition-all"
         >
           <Flag className="w-4 h-4" />
         </Button>
