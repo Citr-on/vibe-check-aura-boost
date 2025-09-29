@@ -129,7 +129,7 @@ export function ReportModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md rounded-lg">
+      <DialogContent className="sm:max-w-md" style={{ borderRadius: 'var(--radius)' }}>
         <DialogHeader>
           <DialogTitle className="text-xl">Signaler ce contenu</DialogTitle>
           <p className="text-sm text-muted-foreground">
