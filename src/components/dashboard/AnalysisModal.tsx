@@ -174,7 +174,7 @@ export const AnalysisModal = ({
   const premiumOptions = analysisOptions.filter(option => option.isPremium);
 
   const renderUploadStep = () => (
-    <div className="space-y-3">
+    <div className="flex flex-col h-full space-y-3">
       <div className="text-center">
         <Tabs value={analysisType} onValueChange={(value) => setAnalysisType(value as 'photo' | 'profile')} className="mb-6">
           <TabsList className="grid w-full grid-cols-2 rounded-full">
@@ -197,7 +197,7 @@ export const AnalysisModal = ({
         </p>
       </div>
 
-      <ScrollArea className="h-48">
+      <ScrollArea className="flex-1">
         <div className="grid grid-cols-4 gap-4 h-full">
         {/* Option d'upload */}
         <div className="aspect-square border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
