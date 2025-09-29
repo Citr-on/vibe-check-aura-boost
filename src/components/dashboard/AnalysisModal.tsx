@@ -523,7 +523,7 @@ export const AnalysisModal = ({
           {currentStep === 'selection' && renderSelectionStep()}
         </div>
 
-        <div className="p-6 pt-4 border-t bg-background">
+        <div className="p-6 pt-4">
           <div className="flex justify-between">
             {currentStep === 'upload' && (
               <>
