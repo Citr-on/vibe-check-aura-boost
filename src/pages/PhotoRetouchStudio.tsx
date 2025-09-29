@@ -177,7 +177,7 @@ const PhotoRetouchStudio = () => {
 
           {/* Right Column - Results */}
           <div className="space-y-6">
-            <Card className="h-full">
+            <Card className="h-full rounded-2xl">
               <CardHeader>
                 <CardTitle>Résultat</CardTitle>
               </CardHeader>
