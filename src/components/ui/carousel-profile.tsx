@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Flag } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 interface CarouselProfileProps {
   images: string[];
   className?: string;
+  profileId?: number;
+  profileName?: string;
 }
 
-export function CarouselProfile({ images, className }: CarouselProfileProps) {
+export function CarouselProfile({ images, className, profileId, profileName }: CarouselProfileProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
+  const { toast } = useToast();
   
   console.log("CarouselProfile rendered with images:", images?.length || 0);
 
@@ -46,6 +51,29 @@ export function CarouselProfile({ images, className }: CarouselProfileProps) {
     setTouchStart(null);
   };
 
+  const handleReport = () => {
+    // Logique de signalement
+    const reportData = {
+      profileId: profileId,
+      profileName: profileName,
+      imageIndex: currentImageIndex,
+      imageUrl: images[currentImageIndex],
+      timestamp: new Date().toISOString(),
+      reason: 'Contenu inapproprié'
+    };
+    
+    console.log('Signalement envoyé:', reportData);
+    
+    // Simuler l'envoi du signalement
+    toast({
+      title: "Signalement envoyé",
+      description: `Le contenu de ${profileName || 'ce profil'} a été signalé avec succès.`,
+    });
+    
+    // TODO: Ici vous pourriez envoyer les données vers votre backend
+    // fetch('/api/reports', { method: 'POST', body: JSON.stringify(reportData) })
+  };
+
   if (!images.length) return null;
 
   return (
@@ -80,6 +108,16 @@ export function CarouselProfile({ images, className }: CarouselProfileProps) {
             </button>
           </>
         )}
+        
+        {/* Bouton de signalement */}
+        <Button
+          onClick={handleReport}
+          variant="ghost"
+          size="icon"
+          className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <Flag className="w-4 h-4" />
+        </Button>
         
         {/* Barres de pagination */}
         {images.length > 1 && (

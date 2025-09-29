@@ -10,6 +10,7 @@ import { CarouselProfile } from "@/components/ui/carousel-profile";
 import { CommentSection } from "@/components/ui/comment-section";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { SparklesIcon, FavouriteIcon, ZapIcon, TaskEdit01Icon, ArrowRight02Icon, InformationCircleIcon, StarIcon, ArrowLeft02Icon } from '@hugeicons/core-free-icons';
+import { Flag } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -291,7 +292,11 @@ const Review = () => {
                 <div className="h-full flex flex-col">
                   {/* Carrousel de photos - 70% de la hauteur */}
                   <div className="h-[70%]">
-                    <CarouselProfile images={currentProfile.images} />
+                    <CarouselProfile 
+                      images={currentProfile.images} 
+                      profileId={currentProfile.id}
+                      profileName={currentProfile.name}
+                    />
                   </div>
                   
                   {/* Informations utilisateur - 30% de la hauteur */}
@@ -316,12 +321,31 @@ const Review = () => {
                   </div>
                 </div>
               ) : (
-                <div className="h-full bg-muted rounded-xl overflow-hidden flex items-center justify-center">
+                <div className="h-full bg-muted rounded-xl overflow-hidden relative group">
                   <img 
                     src={currentProfile?.images?.[0]} 
                     alt={`Photo de ${currentProfile?.name}`}
                     className="w-full h-full object-cover"
                   />
+                  {/* Bouton de signalement pour les photos simples */}
+                  <Button
+                    onClick={() => {
+                      const reportData = {
+                        profileId: currentProfile.id,
+                        profileName: currentProfile.name,
+                        imageUrl: currentProfile?.images?.[0],
+                        timestamp: new Date().toISOString(),
+                        reason: 'Contenu inapproprié'
+                      };
+                      console.log('Signalement envoyé:', reportData);
+                      // TODO: Ajouter une notification toast ici si nécessaire
+                    }}
+                    variant="ghost"
+                    size="icon"
+                    className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                  >
+                    <Flag className="w-4 h-4" />
+                  </Button>
                 </div>
               )}
             </CardContent>
