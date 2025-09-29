@@ -131,7 +131,7 @@ export function ReportModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Signaler ce contenu</DialogTitle>
+          <DialogTitle className="text-xl">Signaler ce contenu</DialogTitle>
           <p className="text-sm text-muted-foreground">
             Aidez-nous à maintenir une communauté sûre et respectueuse. Votre signalement est confidentiel.
           </p>
