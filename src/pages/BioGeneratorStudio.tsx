@@ -117,7 +117,7 @@ const BioGeneratorStudio = () => {
             </Card>
 
             {/* Keywords */}
-            <Card>
+            <Card className="rounded-2xl">
               <CardHeader>
                 <CardTitle>Vos passions et votre personnalité</CardTitle>
                 <p className="text-sm text-muted-foreground">
