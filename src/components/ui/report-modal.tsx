@@ -227,7 +227,7 @@ export function ReportModal({
               )}
             />
 
-            <DialogFooter className="gap-2">
+            <DialogFooter className="flex flex-col gap-2">
               <Button
                 type="button"
                 variant="outline"
