@@ -255,7 +255,7 @@ export const AnalysisModal = ({
         </p>
       )}
 
-      <div className="flex justify-between">
+      <div className="sticky bottom-0 bg-background pt-4 flex justify-between border-t mt-4">
         <Button variant="outline" onClick={() => onOpenChange(false)}>
           Annuler
         </Button>
@@ -382,7 +382,7 @@ export const AnalysisModal = ({
         })}
       </div>
 
-      <div className="flex justify-between">
+      <div className="sticky bottom-0 bg-background pt-4 flex justify-between border-t mt-4">
         <Button variant="outline" onClick={() => setCurrentStep('targeting')}>
           <ChevronLeft className="w-4 h-4 mr-2" />
           Retour
@@ -460,7 +460,7 @@ export const AnalysisModal = ({
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="sticky bottom-0 bg-background pt-4 flex justify-between border-t mt-4">
         <Button variant="outline" onClick={() => setCurrentStep('upload')}>
           <ChevronLeft className="w-4 h-4 mr-2" />
           Retour
@@ -534,7 +534,7 @@ export const AnalysisModal = ({
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="sticky bottom-0 bg-background pt-4 flex justify-between border-t mt-4">
         <Button variant="outline" onClick={() => setCurrentStep('upload')}>
           <ChevronLeft className="w-4 h-4 mr-2" />
           Retour
@@ -559,7 +559,7 @@ export const AnalysisModal = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto pr-2">
           {currentStep === 'upload' && renderUploadStep()}
           {currentStep === 'profile' && renderProfileStep()}
           {currentStep === 'targeting' && renderTargetingStep()}
