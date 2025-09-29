@@ -200,7 +200,7 @@ export const AnalysisModal = ({
       <ScrollArea className="flex-1">
         <div className="grid grid-cols-4 gap-4 h-full">
         {/* Option d'upload */}
-        <div className="aspect-square border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
+        <div className="aspect-square border-2 border-dashed border-border rounded-2xl flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
           <HugeiconsIcon icon={Image01Icon} size={32} className="mb-2 text-muted-foreground" />
           <label className="cursor-pointer text-center">
             <span className="text-xs font-medium">Nouvelle image</span>
@@ -226,7 +226,7 @@ export const AnalysisModal = ({
           return (
             <div
               key={index}
-              className={`aspect-square border-2 rounded-lg overflow-hidden cursor-pointer transition-all hover:border-primary/50 relative ${
+              className={`aspect-square border-2 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-primary/50 relative ${
                 isSelected
                   ? 'border-primary bg-primary/5'
                   : 'border-border'
