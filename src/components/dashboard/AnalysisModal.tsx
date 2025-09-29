@@ -198,7 +198,7 @@ export const AnalysisModal = ({
       </div>
 
       <ScrollArea className="h-48">
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4 h-full">
         {/* Option d'upload */}
         <div className="aspect-square border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
           <HugeiconsIcon icon={Image01Icon} size={32} className="mb-2 text-muted-foreground" />
