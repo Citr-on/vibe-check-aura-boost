@@ -156,7 +156,7 @@ const BioGeneratorStudio = () => {
             </Card>
 
             {/* Tone Selection */}
-            <Card>
+            <Card className="rounded-2xl">
               <CardHeader>
                 <CardTitle>Ton de votre bio</CardTitle>
               </CardHeader>
