@@ -86,7 +86,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
   };
   
   return (
-    <Card className="w-full hover:shadow-card transition-all duration-300 rounded-2xl overflow-hidden">
+    <Card className="w-full hover:shadow-card transition-all duration-300 rounded-2xl-smooth overflow-hidden">
       {/* Image d'aperçu ou grille d'images pour profil complet */}
       <div className="relative h-48 overflow-hidden">
         {analysis.type === 'profil-complet' ? (
@@ -165,13 +165,13 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => {
         <div>
           {isCompleted ? (
             <Link to={`/analysis/${analysis.id}`}>
-              <Button className="w-full rounded-xl" variant="outline">
+              <Button className="w-full rounded-xl-smooth" variant="outline">
                 <Eye className="w-4 h-4 mr-2" />
                 Voir le rapport
               </Button>
             </Link>
           ) : (
-            <Button className="w-full rounded-xl" variant="outline" disabled>
+            <Button className="w-full rounded-xl-smooth" variant="outline" disabled>
               <Clock className="w-4 h-4 mr-2" />
               <span className="md:hidden">En cours</span>
               <span className="hidden md:inline">En cours d'analyse</span>

@@ -118,7 +118,7 @@ export const StudioAnalysisModal = ({
           return (
             <div
               key={option.id}
-              className={`p-4 border rounded-xl transition-all cursor-pointer hover:border-primary/50 hover:bg-primary/5 ${
+              className={`p-4 border rounded-xl-smooth transition-all cursor-pointer hover:border-primary/50 hover:bg-primary/5 ${
                 selectedOption === option.id
                   ? 'border-primary bg-primary/5'
                   : 'border-border'
@@ -174,7 +174,7 @@ export const StudioAnalysisModal = ({
           return (
             <div
               key={option.id}
-              className={`p-3 border rounded-xl transition-all cursor-pointer group ${
+              className={`p-3 border rounded-xl-smooth transition-all cursor-pointer group ${
                 selectedOption === option.id
                   ? 'border-primary bg-primary text-white'
                   : 'border-border hover:border-primary hover:bg-primary hover:text-white'
@@ -259,7 +259,7 @@ export const StudioAnalysisModal = ({
           <div className="flex gap-3">
             <button
               onClick={() => setTargetGender('men')}
-              className={`flex-1 p-3 border rounded-lg transition-colors ${
+              className={`flex-1 p-3 border rounded-lg-smooth transition-colors ${
                 targetGender === 'men'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'
@@ -270,7 +270,7 @@ export const StudioAnalysisModal = ({
             </button>
             <button
               onClick={() => setTargetGender('women')}
-              className={`flex-1 p-3 border rounded-lg transition-colors ${
+              className={`flex-1 p-3 border rounded-lg-smooth transition-colors ${
                 targetGender === 'women'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'
@@ -281,7 +281,7 @@ export const StudioAnalysisModal = ({
             </button>
             <button
               onClick={() => setTargetGender('both')}
-              className={`flex-1 p-3 border rounded-lg transition-colors ${
+              className={`flex-1 p-3 border rounded-lg-smooth transition-colors ${
                 targetGender === 'both'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'
@@ -337,7 +337,7 @@ export const StudioAnalysisModal = ({
           <div className="flex gap-3">
             <button
               onClick={() => setTargetGender('men')}
-              className={`flex-1 p-2 border rounded-lg transition-colors ${
+              className={`flex-1 p-2 border rounded-lg-smooth transition-colors ${
                 targetGender === 'men'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'
@@ -348,7 +348,7 @@ export const StudioAnalysisModal = ({
             </button>
             <button
               onClick={() => setTargetGender('women')}
-              className={`flex-1 p-2 border rounded-lg transition-colors ${
+              className={`flex-1 p-2 border rounded-lg-smooth transition-colors ${
                 targetGender === 'women'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'
@@ -359,7 +359,7 @@ export const StudioAnalysisModal = ({
             </button>
             <button
               onClick={() => setTargetGender('both')}
-              className={`flex-1 p-2 border rounded-lg transition-colors ${
+              className={`flex-1 p-2 border rounded-lg-smooth transition-colors ${
                 targetGender === 'both'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'

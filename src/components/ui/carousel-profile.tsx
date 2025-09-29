@@ -61,7 +61,7 @@ export function CarouselProfile({ images, className, profileId, profileName }: C
     <div className={cn("relative group h-full", className)}>
       {/* Image principale */}
       <div 
-        className="h-full bg-muted rounded-xl overflow-hidden relative"
+        className="h-full bg-muted rounded-xl-smooth overflow-hidden relative"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
