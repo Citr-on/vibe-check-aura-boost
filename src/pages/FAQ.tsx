@@ -82,7 +82,7 @@ const FAQ = () => {
         <div className="grid gap-8 lg:grid-cols-3">
           {/* FAQ Section */}
           <div className="lg:col-span-2">
-            <Card>
+            <Card className="rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <HugeiconsIcon icon={BubbleChatQuestionIcon} size={24} className="text-primary" />
