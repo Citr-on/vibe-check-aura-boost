@@ -252,7 +252,7 @@ const BioGeneratorStudio = () => {
 
                     {/* Selected Bio Display */}
                     <div className="space-y-4">
-                      <div className="p-4 rounded-lg border bg-muted/50">
+                      <div className="p-4 rounded-2xl border bg-muted/50">
                         <p className="text-foreground leading-relaxed">
                           {generatedBios[selectedBio]}
                         </p>
