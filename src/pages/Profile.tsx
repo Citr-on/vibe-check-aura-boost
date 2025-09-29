@@ -154,7 +154,7 @@ const Profile = () => {
           </CardContent>
         </Card>
 
-        <Card className="shadow-soft">
+        <Card className="shadow-soft rounded-2xl">
           <CardHeader>
             <CardTitle className="flex items-center gap-3">
               <HugeiconsIcon icon={UserIcon} size={28} className="text-primary" />
