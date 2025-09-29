@@ -27,7 +27,7 @@ export const CommentSection = ({
       <h4 className="text-sm font-medium">Commentaire <span className="font-normal text-muted-foreground">(facultatif)</span></h4>
       
       {/* Section J'aime */}
-      <div className="border border-border rounded-xl-smooth overflow-hidden">
+      <div className="border border-border rounded-xl overflow-hidden">
         <button
           onClick={() => setActiveSection(activeSection === "positive" ? null : "positive")}
           className="w-full flex items-center gap-3 p-3 text-left hover:bg-muted/50 transition-colors"
@@ -45,7 +45,7 @@ export const CommentSection = ({
               value={positiveComment}
               onChange={(e) => setPositiveComment(e.target.value)}
               placeholder="Ce que j'aime le plus..."
-              className="resize-none rounded-lg-smooth mb-2"
+              className="resize-none rounded-lg mb-2"
               rows={2}
             />
             <div className="flex flex-wrap gap-1">
@@ -64,7 +64,7 @@ export const CommentSection = ({
       </div>
 
       {/* Section Conseil */}
-      <div className="border border-border rounded-xl-smooth overflow-hidden">
+      <div className="border border-border rounded-xl overflow-hidden">
         <button
           onClick={() => setActiveSection(activeSection === "improvement" ? null : "improvement")}
           className="w-full flex items-center gap-3 p-3 text-left hover:bg-muted/50 transition-colors"
@@ -82,7 +82,7 @@ export const CommentSection = ({
               value={improvementComment}
               onChange={(e) => setImprovementComment(e.target.value)}
               placeholder="Un conseil pour améliorer..."
-              className="resize-none rounded-lg-smooth mb-2"
+              className="resize-none rounded-lg mb-2"
               rows={2}
             />
             <div className="flex flex-wrap gap-1">

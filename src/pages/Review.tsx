@@ -286,7 +286,7 @@ const Review = () => {
 
         {/* Contenu principal - Photo/Profil */}
         <div className="flex-1 px-4 relative overflow-hidden">
-          <Card className="rounded-2xl-smooth shadow-card h-full">
+          <Card className="rounded-2xl shadow-card h-full">
             <CardContent className="p-4 h-full flex flex-col">
               {currentProfile?.type === "profile" ? (
                 <div className="h-full flex flex-col">
@@ -321,7 +321,7 @@ const Review = () => {
                   </div>
                 </div>
               ) : (
-                <div className="h-full bg-muted rounded-xl-smooth overflow-hidden relative group">
+                <div className="h-full bg-muted rounded-xl overflow-hidden relative group">
                   <img 
                     src={currentProfile?.images?.[0]} 
                     alt={`Photo de ${currentProfile?.name}`}
@@ -564,7 +564,7 @@ const Review = () => {
         <div className="flex flex-col lg:flex-row gap-8 lg:items-stretch">
           {/* Élément à analyser */}
           <div className="lg:w-1/2">
-            <Card className="rounded-2xl-smooth shadow-card h-full">
+            <Card className="rounded-2xl shadow-card h-full">
               <CardHeader className="sr-only">
                 <CardTitle>{currentProfile?.type === "profile" ? "Profil à analyser" : "Photo à analyser"}</CardTitle>
               </CardHeader>
@@ -612,7 +612,7 @@ const Review = () => {
 
           {/* Panneau de notation */}
           <div className="lg:w-1/2">
-            <Card className="rounded-2xl-smooth shadow-card h-full">
+            <Card className="rounded-2xl shadow-card h-full">
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>Votre évaluation</span>

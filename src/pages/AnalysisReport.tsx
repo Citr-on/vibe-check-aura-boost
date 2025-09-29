@@ -73,19 +73,19 @@ const AnalysisReport = () => {
         {/* Photo analysée et Synthèse IA */}
         <div className="grid lg:grid-cols-2 gap-8 mb-8">
           {/* Photo analysée */}
-          <Card className="rounded-2xl-smooth shadow-card">
+          <Card className="rounded-2xl shadow-card">
             <CardHeader>
               <CardTitle>Photo analysée</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="aspect-[4/3] bg-muted rounded-xl-smooth overflow-hidden">
+              <div className="aspect-[4/3] bg-muted rounded-xl overflow-hidden">
                 <img src={portraitSample1} alt="Photo de profil analysée" className="w-full h-full object-cover" />
               </div>
             </CardContent>
           </Card>
 
           {/* Synthèse IA */}
-          <Card className="rounded-2xl-smooth shadow-card">
+          <Card className="rounded-2xl shadow-card">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <span>Synthèse par IA</span>
@@ -112,7 +112,7 @@ const AnalysisReport = () => {
                     </p>
                   </div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="bg-card border rounded-xl-smooth p-6 text-center max-w-sm">
+                    <div className="bg-card border rounded-xl p-6 text-center max-w-sm">
                       <HugeiconsIcon icon={LockIcon} size={32} className="mx-auto mb-3 text-muted-foreground" />
                       <h3 className="font-semibold mb-2">Synthèse verrouillée</h3>
                       <p className="text-sm text-muted-foreground mb-4">
@@ -138,7 +138,7 @@ const AnalysisReport = () => {
                     Pour optimiser encore votre profil, nous recommandons d'ajuster légèrement l'angle de prise de vue 
                     pour éviter la contre-plongée et de choisir un arrière-plan plus neutre qui mettra davantage en valeur votre visage.
                   </p>
-              <Button className="w-full mt-4 rounded-xl-smooth" onClick={() => navigate('/studio-ia')}>
+              <Button className="w-full mt-4 rounded-xl" onClick={() => navigate('/studio-ia')}>
                 Améliorer ta photo avec notre IA
               </Button>
                 </div>}
@@ -150,7 +150,7 @@ const AnalysisReport = () => {
           {/* Graphique Radar et Points forts/amélioration */}
           <div className="grid lg:grid-cols-2 gap-8">
             {/* Graphique Radar */}
-            <Card className="rounded-2xl-smooth shadow-card">
+            <Card className="rounded-2xl shadow-card">
               <CardHeader>
                 <CardTitle>Analyse Radar</CardTitle>
               </CardHeader>
@@ -222,7 +222,7 @@ const AnalysisReport = () => {
 
             {/* Points forts et faibles combinés */}
             {!isStandardAnalysis && <div className="space-y-6 h-full flex flex-col justify-between">
-                <Card className="rounded-2xl-smooth shadow-card">
+                <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-green-600">
                       <HugeiconsIcon icon={ArrowUpIcon} size={32} />
@@ -241,7 +241,7 @@ const AnalysisReport = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="rounded-2xl-smooth shadow-card">
+                <Card className="rounded-2xl shadow-card">
                   <CardHeader>
                     <CardTitle className="flex items-center space-x-2 text-orange-600">
                       <HugeiconsIcon icon={ArrowDownIcon} size={32} />
@@ -263,7 +263,7 @@ const AnalysisReport = () => {
           </div>
 
             {/* Mots-clés */}
-            <Card className="rounded-2xl-smooth shadow-card">
+            <Card className="rounded-2xl shadow-card">
               <CardHeader>
                 <CardTitle>Mots-clés récurrents</CardTitle>
               </CardHeader>
@@ -278,7 +278,7 @@ const AnalysisReport = () => {
 
 
             {/* CTA Services Experts */}
-            {!isStandardAnalysis && <Card className="rounded-2xl-smooth shadow-card bg-gradient-hero text-white">
+            {!isStandardAnalysis && <Card className="rounded-2xl shadow-card bg-gradient-hero text-white">
                 
               </Card>}
           </div>

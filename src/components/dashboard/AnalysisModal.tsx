@@ -200,7 +200,7 @@ export const AnalysisModal = ({
       <ScrollArea className="flex-1">
         <div className="grid grid-cols-4 gap-4 h-full">
         {/* Option d'upload */}
-        <div className="aspect-square border-2 border-dashed border-border rounded-2xl-smooth flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
+        <div className="aspect-square border-2 border-dashed border-border rounded-2xl flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
           <HugeiconsIcon icon={Image01Icon} size={32} className="mb-2 text-muted-foreground" />
           <label className="cursor-pointer text-center">
             <span className="text-xs font-medium">Nouvelle image</span>
@@ -226,7 +226,7 @@ export const AnalysisModal = ({
           return (
             <div
               key={index}
-              className={`aspect-square border-2 rounded-2xl-smooth overflow-hidden cursor-pointer transition-all hover:border-primary/50 relative ${
+              className={`aspect-square border-2 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-primary/50 relative ${
                 isSelected
                   ? 'border-primary bg-primary/5'
                   : 'border-border'
@@ -277,7 +277,7 @@ export const AnalysisModal = ({
           return (
             <div
               key={option.id}
-              className={`p-4 border rounded-xl-smooth transition-all cursor-pointer hover:border-primary/50 hover:bg-primary/5 ${
+              className={`p-4 border rounded-xl transition-all cursor-pointer hover:border-primary/50 hover:bg-primary/5 ${
                 selectedOption === option.id
                   ? 'border-primary bg-primary/5'
                   : 'border-border'
@@ -329,7 +329,7 @@ export const AnalysisModal = ({
           return (
             <div
               key={option.id}
-              className={`p-3 border rounded-xl-smooth transition-all cursor-pointer group ${
+              className={`p-3 border rounded-xl transition-all cursor-pointer group ${
                 selectedOption === option.id
                   ? 'border-primary bg-primary text-white'
                   : 'border-border hover:border-primary hover:bg-primary hover:text-white'
@@ -388,7 +388,7 @@ export const AnalysisModal = ({
           <div className="flex gap-3">
             <button
               onClick={() => setTargetGender('men')}
-              className={`flex-1 p-3 border rounded-lg-smooth transition-colors ${
+              className={`flex-1 p-3 border rounded-lg transition-colors ${
                 targetGender === 'men'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'
@@ -399,7 +399,7 @@ export const AnalysisModal = ({
             </button>
             <button
               onClick={() => setTargetGender('women')}
-              className={`flex-1 p-3 border rounded-lg-smooth transition-colors ${
+              className={`flex-1 p-3 border rounded-lg transition-colors ${
                 targetGender === 'women'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'
@@ -410,7 +410,7 @@ export const AnalysisModal = ({
             </button>
             <button
               onClick={() => setTargetGender('both')}
-              className={`flex-1 p-3 border rounded-lg-smooth transition-colors ${
+              className={`flex-1 p-3 border rounded-lg transition-colors ${
                 targetGender === 'both'
                   ? 'border-primary bg-primary/5'
                   : 'border-border hover:border-primary/50'

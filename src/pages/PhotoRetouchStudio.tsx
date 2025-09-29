@@ -105,7 +105,7 @@ const PhotoRetouchStudio = () => {
                 <div className="overflow-x-auto">
                   <div className="grid grid-cols-3 gap-4 mb-4 min-w-max">
                     {/* Upload button - First slot */}
-                    <label className="relative rounded-lg-smooth overflow-hidden border-2 border-dashed border-border hover:border-primary/50 transition-all cursor-pointer bg-muted/50 hover:bg-muted">
+                    <label className="relative rounded-lg overflow-hidden border-2 border-dashed border-border hover:border-primary/50 transition-all cursor-pointer bg-muted/50 hover:bg-muted">
                       <input type="file" accept="image/*" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" onChange={e => {
                       // Handle file upload
                       console.log('File uploaded:', e.target.files?.[0]);
@@ -117,7 +117,7 @@ const PhotoRetouchStudio = () => {
                     </label>
                     
                     {/* Existing photos */}
-                    {photos.map(photo => <button key={photo.id} onClick={() => setSelectedPhoto(photo.id)} className={`relative rounded-lg-smooth overflow-hidden border-2 transition-all ${selectedPhoto === photo.id ? "border-primary shadow-lg" : "border-border hover:border-primary/50"}`}>
+                    {photos.map(photo => <button key={photo.id} onClick={() => setSelectedPhoto(photo.id)} className={`relative rounded-lg overflow-hidden border-2 transition-all ${selectedPhoto === photo.id ? "border-primary shadow-lg" : "border-border hover:border-primary/50"}`}>
                         <img src={photo.src} alt={photo.alt} className="w-full h-32 object-cover" />
                         {selectedPhoto === photo.id && <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full p-1">
                             <HugeiconsIcon icon={Tick01Icon} size={16} />
@@ -127,7 +127,7 @@ const PhotoRetouchStudio = () => {
                 </div>
                 
                 {/* Selected Photo Preview */}
-                <div className="rounded-lg-smooth overflow-hidden border">
+                <div className="rounded-lg overflow-hidden border">
                   
                 </div>
               </CardContent>
@@ -191,7 +191,7 @@ const PhotoRetouchStudio = () => {
                     </div>
                   </div> : <div className="space-y-6">
                     {/* Before/After Comparison */}
-                    <div className="relative overflow-hidden rounded-lg-smooth border">
+                    <div className="relative overflow-hidden rounded-lg border">
                       <div className="flex">
                         <div className="transition-all duration-300 overflow-hidden" style={{
                       width: `${sliderValue}%`

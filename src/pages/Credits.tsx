@@ -60,7 +60,7 @@ const Credits = () => {
           </p>
           
           {/* Grille des avantages */}
-          <div className="bg-primary/10 rounded-2xl-smooth p-8 mb-8">
+          <div className="bg-primary/10 rounded-2xl p-8 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
               {/* Colonne 1 */}
               <div className="text-center">
@@ -122,7 +122,7 @@ const Credits = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mb-6">
-            {creditPacks.map(pack => <Card key={pack.id} className={`rounded-2xl-smooth shadow-card relative ${pack.popular ? 'border-primary shadow-soft' : ''}`}>
+            {creditPacks.map(pack => <Card key={pack.id} className={`rounded-2xl shadow-card relative ${pack.popular ? 'border-primary shadow-soft' : ''}`}>
                 {pack.popular && <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                     <Badge className="bg-accent text-accent-foreground rounded-full px-4 py-1">
                       Le plus populaire
@@ -145,7 +145,7 @@ const Credits = () => {
                 </CardHeader>
                 
                 <CardContent className="pt-0">
-                  <Button className={`w-full rounded-xl-smooth ${pack.popular ? 'bg-primary hover:bg-primary/90' : ''}`} variant={pack.popular ? 'default' : 'outline'}>
+                  <Button className={`w-full rounded-xl ${pack.popular ? 'bg-primary hover:bg-primary/90' : ''}`} variant={pack.popular ? 'default' : 'outline'}>
                     Acheter maintenant
                   </Button>
                   
@@ -156,7 +156,7 @@ const Credits = () => {
               </Card>)}
           </div>
 
-          <div className="bg-muted/50 rounded-xl-smooth p-4 text-center">
+          <div className="bg-muted/50 rounded-xl p-4 text-center">
             <div className="flex items-center justify-center space-x-2 text-sm text-muted-foreground">
               <HugeiconsIcon icon={SparklesIcon} size={16} className="text-accent" />
               <span>

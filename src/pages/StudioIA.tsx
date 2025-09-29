@@ -25,7 +25,7 @@ const StudioIA = () => {
         {/* Workshop Cards */}
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Photo Retouching Workshop */}
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20 flex flex-col rounded-2xl-smooth">
+          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20 flex flex-col rounded-2xl">
             <CardHeader className="text-center pb-6">
               <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors">
                 <div className="relative">
@@ -41,7 +41,7 @@ const StudioIA = () => {
             </CardHeader>
             <CardContent className="pt-0 mt-auto">
               <Link to="/studio-ia/retouche-photo">
-                <Button className="w-full rounded-2xl-smooth" size="lg">
+                <Button className="w-full rounded-2xl" size="lg">
                   Ouvrir l'atelier
                 </Button>
               </Link>
@@ -49,7 +49,7 @@ const StudioIA = () => {
           </Card>
 
           {/* Bio Generator Workshop */}
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20 flex flex-col rounded-2xl-smooth">
+          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/20 flex flex-col rounded-2xl">
             <CardHeader className="text-center pb-6">
               <div className="mx-auto mb-4 p-4 rounded-full bg-primary/10 w-fit group-hover:bg-primary/20 transition-colors">
                 <div className="relative">
@@ -65,7 +65,7 @@ const StudioIA = () => {
             </CardHeader>
             <CardContent className="pt-0 mt-auto">
               <Link to="/studio-ia/generateur-bio">
-                <Button className="w-full rounded-2xl-smooth" size="lg">
+                <Button className="w-full rounded-2xl" size="lg">
                   Ouvrir l'atelier
                 </Button>
               </Link>

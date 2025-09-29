@@ -143,7 +143,7 @@ const Dashboard = () => {
           <Button 
             onClick={() => setIsModalOpen(true)}
             size="lg"
-            className="bg-primary hover:bg-primary/90 rounded-xl-smooth"
+            className="bg-primary hover:bg-primary/90 rounded-xl"
           >
             <HugeiconsIcon icon={PlusSignIcon} size={20} className="mr-2" />
             Lancer une nouvelle analyse
@@ -154,7 +154,7 @@ const Dashboard = () => {
               <Button 
                 variant="outline"
                 size="lg"
-                className="rounded-xl-smooth"
+                className="rounded-xl"
               >
                 {sortBy ? (
                   <>
