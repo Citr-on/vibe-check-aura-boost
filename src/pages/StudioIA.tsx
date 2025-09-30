@@ -5,8 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { HugeiconsIcon } from '@hugeicons/react';
 import { FlashIcon, Camera01Icon, Edit02Icon, CpuIcon } from '@hugeicons/core-free-icons';
 import { Link } from "react-router-dom";
+import { useCredits } from "@/hooks/useCredits";
 const StudioIA = () => {
-  const [credits] = useState(150);
+  const { credits } = useCredits();
   const [aura] = useState(3.5);
   return <div className="min-h-screen bg-background">
       <Header credits={credits} aura={aura} />

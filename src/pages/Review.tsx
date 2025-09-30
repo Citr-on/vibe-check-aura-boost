@@ -13,9 +13,10 @@ import { SparklesIcon, FavouriteIcon, ZapIcon, TaskEdit01Icon, ArrowRight02Icon,
 import { Flag } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useCredits } from "@/hooks/useCredits";
 
 const Review = () => {
-  const [credits] = useState(150);
+  const { credits } = useCredits();
   const [aura] = useState(3.5);
   
   // État pour le type de contenu sélectionné

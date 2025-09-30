@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { HugeiconsIcon } from '@hugeicons/react';
 import { MessageMultiple02Icon, BugIcon, SparklesIcon, BubbleChatQuestionIcon } from '@hugeicons/core-free-icons';
 import { useToast } from "@/hooks/use-toast";
+import { useCredits } from "@/hooks/useCredits";
 
 const FAQ = () => {
   const [feedbackType, setFeedbackType] = useState("");
@@ -19,6 +20,8 @@ const FAQ = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const { credits } = useCredits();
+  const [aura] = useState(2340);
 
   const handleSubmitFeedback = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +70,7 @@ const FAQ = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header credits={150} aura={2340} />
+      <Header credits={credits} aura={aura} />
       
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">

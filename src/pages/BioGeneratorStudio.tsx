@@ -8,9 +8,10 @@ import { Badge } from "@/components/ui/badge";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowLeft01Icon, FeatherIcon, Cancel01Icon, Copy01Icon, Tick01Icon } from '@hugeicons/core-free-icons';
 import { Link } from "react-router-dom";
+import { useCredits } from "@/hooks/useCredits";
 
 const BioGeneratorStudio = () => {
-  const [credits] = useState(150);
+  const { credits } = useCredits();
   const [aura] = useState(3.5);
   const [currentBio, setCurrentBio] = useState("");
   const [keywordInput, setKeywordInput] = useState("");

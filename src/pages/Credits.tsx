@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { GemIcon, SparklesIcon, Tick01Icon, StarIcon, UserIcon, MessageMultiple02Icon, TimeQuarterPassIcon, Target02Icon, AlbumNotFound02Icon, Profile02Icon, AiEditingIcon } from '@hugeicons/core-free-icons';
+import { useCredits } from "@/hooks/useCredits";
 const Credits = () => {
-  const [credits] = useState(150);
+  const { credits } = useCredits();
   const [aura] = useState(3.5);
   const creditPacks = [{
     id: 'starter',

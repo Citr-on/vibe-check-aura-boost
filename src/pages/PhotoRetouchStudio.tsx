@@ -12,8 +12,9 @@ import bioSample1 from "@/assets/bio-sample-1.jpg";
 import bioSample2 from "@/assets/bio-sample-2.jpg";
 import portraitSample1 from "@/assets/portrait-sample-1.jpg";
 import portraitSample2 from "@/assets/portrait-sample-2.jpg";
+import { useCredits } from "@/hooks/useCredits";
 const PhotoRetouchStudio = () => {
-  const [credits] = useState(150);
+  const { credits } = useCredits();
   const [aura] = useState(3.5);
   const [selectedPhoto, setSelectedPhoto] = useState(0);
   const [selectedStyle, setSelectedStyle] = useState("authentique");

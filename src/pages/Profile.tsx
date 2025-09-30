@@ -14,6 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Loading01Icon, Settings02Icon, UserIcon, MailIcon, LockIcon, NoteIcon } from '@hugeicons/core-free-icons';
+import { useCredits } from "@/hooks/useCredits";
 
 const profileSchema = z.object({
   gender: z.enum(['homme', 'femme', 'non-binaire', 'préfère-ne-pas-dire']).optional(),
@@ -28,8 +29,8 @@ const Profile = () => {
   const { toast } = useToast();
   const { user } = useAuth();
   
-  // Mock data for now - in a real app this would come from authentication
-  const [credits] = useState(150);
+  // Récupérer les crédits depuis la base de données
+  const { credits } = useCredits();
   const [aura] = useState(3.5);
   
   const form = useForm<ProfileFormData>({

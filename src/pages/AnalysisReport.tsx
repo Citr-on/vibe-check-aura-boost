@@ -9,12 +9,13 @@ import { ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, Pola
 import { HugeiconsIcon } from '@hugeicons/react';
 import { FavouriteIcon, ZapIcon, MessageMultiple02Icon, LockIcon, GemIcon, ArrowUpIcon, ArrowDownIcon, SparklesIcon } from '@hugeicons/core-free-icons';
 import portraitSample1 from "@/assets/portrait-sample-1.jpg";
+import { useCredits } from "@/hooks/useCredits";
 const AnalysisReport = () => {
   const {
     id
   } = useParams();
   const navigate = useNavigate();
-  const [credits] = useState(150);
+  const { credits } = useCredits();
   const [aura] = useState(3.5);
 
   // Simulation des données selon le type d'analyse

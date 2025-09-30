@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { PlusSignIcon, FilterIcon, ArrowUp01Icon, ArrowDown01Icon, Calendar03Icon, FavouriteIcon, Layers01Icon, Clock01Icon } from '@hugeicons/core-free-icons';
+import { useCredits } from "@/hooks/useCredits";
 
 // Données d'exemple
 const mockAnalyses: Analysis[] = [
@@ -56,7 +57,7 @@ const Dashboard = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   
   // États pour les monnaies
-  const [credits] = useState(150);
+  const { credits } = useCredits();
   const [aura] = useState(3.5);
 
   const handleSort = (newSortBy: SortBy) => {
