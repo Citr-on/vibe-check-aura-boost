@@ -15,11 +15,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCredits } from "@/hooks/useCredits";
 import { useProfilesToReview } from "@/hooks/useProfilesToReview";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Review = () => {
   const { credits } = useCredits();
   const [aura] = useState(3.5);
   const { profiles: dbProfiles, loading } = useProfilesToReview();
+  const { toast } = useToast();
   
   // État pour le type de contenu sélectionné
   const [contentType, setContentType] = useState<"photos" | "profils" | "tout">("tout");
@@ -81,17 +84,68 @@ const Review = () => {
     );
   }
 
-  const handleSubmit = () => {
-    console.log({
-      profile: currentProfile.name,
-      feelingScore,
-      vibeScore,
-      intrigueScore,
-      positiveComment,
-      improvementComment
-    });
-    // Passer au profil suivant
-    nextProfile();
+
+  const handleSubmit = async () => {
+    try {
+      // Vérifier que l'utilisateur est connecté
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        toast({
+          title: "Erreur",
+          description: "Vous devez être connecté pour soumettre une évaluation",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Valider que tous les scores sont renseignés
+      if (feelingScore === 0 || vibeScore === 0 || intrigueScore === 0) {
+        toast({
+          title: "Erreur",
+          description: "Veuillez renseigner tous les scores avant de soumettre",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Enregistrer la review dans la base de données
+      const { error } = await supabase
+        .from('reviews')
+        .insert({
+          reviewer_id: user.id,
+          analysis_id: currentProfile.id,
+          feeling_score: feelingScore,
+          vibe_score: vibeScore,
+          intrigue_score: intrigueScore,
+          positive_comment: positiveComment || null,
+          improvement_comment: improvementComment || null,
+        });
+
+      if (error) {
+        console.error('Error submitting review:', error);
+        toast({
+          title: "Erreur",
+          description: "Une erreur est survenue lors de l'enregistrement de votre évaluation",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Évaluation envoyée !",
+        description: "Vous avez gagné 0.1 Aura ✨",
+      });
+
+      // Passer au profil suivant
+      nextProfile();
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleSkip = () => {

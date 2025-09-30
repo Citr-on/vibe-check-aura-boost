@@ -29,6 +29,7 @@ export type Database = {
           images: string[] | null
           is_premium: boolean
           keywords: string[] | null
+          review_count: number
           score: number | null
           status: string
           target_gender: string | null
@@ -54,6 +55,7 @@ export type Database = {
           images?: string[] | null
           is_premium?: boolean
           keywords?: string[] | null
+          review_count?: number
           score?: number | null
           status?: string
           target_gender?: string | null
@@ -79,6 +81,7 @@ export type Database = {
           images?: string[] | null
           is_premium?: boolean
           keywords?: string[] | null
+          review_count?: number
           score?: number | null
           status?: string
           target_gender?: string | null
@@ -184,6 +187,53 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      reviews: {
+        Row: {
+          analysis_id: string
+          created_at: string
+          feeling_score: number
+          id: string
+          improvement_comment: string | null
+          intrigue_score: number
+          positive_comment: string | null
+          reviewer_id: string
+          updated_at: string
+          vibe_score: number
+        }
+        Insert: {
+          analysis_id: string
+          created_at?: string
+          feeling_score: number
+          id?: string
+          improvement_comment?: string | null
+          intrigue_score: number
+          positive_comment?: string | null
+          reviewer_id: string
+          updated_at?: string
+          vibe_score: number
+        }
+        Update: {
+          analysis_id?: string
+          created_at?: string
+          feeling_score?: number
+          id?: string
+          improvement_comment?: string | null
+          intrigue_score?: number
+          positive_comment?: string | null
+          reviewer_id?: string
+          updated_at?: string
+          vibe_score?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_analysis_id_fkey"
+            columns: ["analysis_id"]
+            isOneToOne: false
+            referencedRelation: "analyses"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
