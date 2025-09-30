@@ -12,6 +12,10 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { Image01Icon } from '@hugeicons/core-free-icons';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
+import portraitSample1 from "@/assets/portrait-sample-1.jpg";
+import portraitSample2 from "@/assets/portrait-sample-2.jpg";
+import bioSample1 from "@/assets/bio-sample-1.jpg";
+import bioSample2 from "@/assets/bio-sample-2.jpg";
 
 interface AnalysisOption {
   id: string;
@@ -299,10 +303,10 @@ export const AnalysisModal = ({
 
         {/* Images existantes - exemples */}
         {[
-          "/src/assets/portrait-sample-1.jpg",
-          "/src/assets/portrait-sample-2.jpg",
-          "/src/assets/bio-sample-1.jpg",
-          "/src/assets/bio-sample-2.jpg"
+          portraitSample1,
+          portraitSample2,
+          bioSample1,
+          bioSample2
         ].map((imagePath, index) => {
           const isSelected = selectedImages.includes(imagePath);
           
