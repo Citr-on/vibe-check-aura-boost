@@ -121,8 +121,6 @@ export const AnalysisModal = ({
 
   const handleOptionSelect = (optionId: string) => {
     setSelectedOption(optionId);
-    // Selection is now the final step, so we submit directly
-    handleFinalSubmit();
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
