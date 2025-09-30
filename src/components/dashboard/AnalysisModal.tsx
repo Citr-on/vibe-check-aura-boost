@@ -253,7 +253,7 @@ export const AnalysisModal = ({
       // Préparer les données d'analyse
       const analysisData = {
         user_id: user.id,
-        type: analysisType,
+        type: analysisType === 'profile' ? 'profil-complet' : 'photo',
         title: analysisType === 'photo' ? 'Analyse de photo' : 'Analyse de profil complet',
         analysis_option_id: option.id,
         cost_type: option.cost.type,
