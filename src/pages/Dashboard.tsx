@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/layout/Header";
 import { AnalysisModal } from "@/components/dashboard/AnalysisModal";
-import { AnalysisCard } from "@/components/dashboard/AnalysisCard";
+import { AnalysisCard, type Analysis } from "@/components/dashboard/AnalysisCard";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { PlusSignIcon, FilterIcon, ArrowUp01Icon, ArrowDown01Icon, Calendar03Icon, FavouriteIcon, Layers01Icon, Clock01Icon } from '@hugeicons/core-free-icons';
 import { useCredits } from "@/hooks/useCredits";
-import { useAnalyses } from "@/hooks/useAnalyses";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 
 type SortBy = 'createdAt' | 'score' | 'type' | 'status' | null;
 type SortOrder = 'asc' | 'desc';
@@ -18,10 +20,79 @@ const Dashboard = () => {
   const [typeFilter, setTypeFilter] = useState('tous');
   const [sortBy, setSortBy] = useState<SortBy>(null);
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
+  const [analyses, setAnalyses] = useState<Analysis[]>([]);
+  const [loading, setLoading] = useState(true);
   
+  // États pour les monnaies
   const { credits } = useCredits();
-  const { analyses, loading, refetch } = useAnalyses();
   const [aura] = useState(3.5);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (!user) {
+      setAnalyses([]);
+      setLoading(false);
+      return;
+    }
+
+    fetchAnalyses();
+
+    // Subscribe to real-time updates
+    const channel = supabase
+      .channel('analyses-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'analyses',
+          filter: `user_id=eq.${user.id}`,
+        },
+        () => {
+          fetchAnalyses();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user]);
+
+  const fetchAnalyses = async () => {
+    if (!user) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('analyses')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      const formattedAnalyses: Analysis[] = (data || []).map(analysis => ({
+        id: analysis.id,
+        type: analysis.type as 'photo' | 'profil-complet',
+        title: analysis.title,
+        status: analysis.status as 'en-cours' | 'terminé' | 'échoué',
+        isPremium: analysis.is_premium,
+        createdAt: analysis.created_at,
+        score: analysis.score ? Number(analysis.score) : undefined,
+        votesReceived: analysis.votes_received || 0,
+        totalVotes: analysis.total_votes || 0,
+        progress: analysis.status === 'en-cours' 
+          ? Math.round((analysis.votes_received / analysis.total_votes) * 100)
+          : undefined,
+      }));
+
+      setAnalyses(formattedAnalyses);
+    } catch (error) {
+      console.error('Error fetching analyses:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSort = (newSortBy: SortBy) => {
     if (sortBy === newSortBy) {
@@ -79,6 +150,10 @@ const Dashboard = () => {
       
       return sortOrder === 'asc' ? comparison : -comparison;
     });
+
+  const handleAnalysisCreated = () => {
+    fetchAnalyses();
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -202,7 +277,7 @@ const Dashboard = () => {
         {/* Grille d'analyses */}
         {loading ? (
           <div className="text-center py-12">
-            <div className="text-muted-foreground text-lg">Chargement des analyses...</div>
+            <div className="text-muted-foreground text-lg">Chargement...</div>
           </div>
         ) : (
           <>
@@ -212,13 +287,12 @@ const Dashboard = () => {
               ))}
             </div>
 
-            {filteredAndSortedAnalyses.length === 0 && (
+            {filteredAndSortedAnalyses.length === 0 && !loading && (
               <div className="text-center py-12">
                 <div className="text-muted-foreground text-lg mb-4">
                   {analyses.length === 0 
-                    ? "Aucune analyse pour le moment. Lancez votre première analyse !"
-                    : "Aucune analyse trouvée avec ces filtres"
-                  }
+                    ? "Aucune analyse pour le moment. Lancez votre première analyse !" 
+                    : "Aucune analyse trouvée avec ces filtres"}
                 </div>
                 {analyses.length > 0 && (
                   <Button variant="outline" onClick={() => {
@@ -239,7 +313,7 @@ const Dashboard = () => {
         onOpenChange={setIsModalOpen}
         credits={credits}
         aura={aura}
-        onAnalysisCreated={refetch}
+        onAnalysisCreated={handleAnalysisCreated}
       />
     </div>
   );
