@@ -6,9 +6,20 @@ import { Badge } from "@/components/ui/badge";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { GemIcon, SparklesIcon, Tick01Icon, StarIcon, UserIcon, MessageMultiple02Icon, TimeQuarterPassIcon, Target02Icon, AlbumNotFound02Icon, Profile02Icon, AiEditingIcon } from '@hugeicons/core-free-icons';
 import { useCredits } from "@/hooks/useCredits";
+import { toast } from "sonner";
 const Credits = () => {
-  const { credits } = useCredits();
+  const { credits, addCredits } = useCredits();
   const [aura] = useState(3.5);
+
+  const handlePurchase = async (packCredits: number) => {
+    try {
+      await addCredits(packCredits);
+      toast.success(`${packCredits} crédits ajoutés avec succès!`);
+    } catch (error) {
+      toast.error("Erreur lors de l'ajout des crédits");
+      console.error(error);
+    }
+  };
   const creditPacks = [{
     id: 'starter',
     credits: 500,
@@ -146,7 +157,11 @@ const Credits = () => {
                 </CardHeader>
                 
                 <CardContent className="pt-0">
-                  <Button className={`w-full rounded-xl ${pack.popular ? 'bg-primary hover:bg-primary/90' : ''}`} variant={pack.popular ? 'default' : 'outline'}>
+                  <Button 
+                    onClick={() => handlePurchase(pack.credits)}
+                    className={`w-full rounded-xl ${pack.popular ? 'bg-primary hover:bg-primary/90' : ''}`} 
+                    variant={pack.popular ? 'default' : 'outline'}
+                  >
                     Acheter maintenant
                   </Button>
                   
