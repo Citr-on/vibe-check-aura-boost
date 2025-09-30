@@ -307,18 +307,14 @@ export const AnalysisModal = ({
           portraitSample2,
           bioSample1,
           bioSample2
-        ].map((imagePath, index) => {
-          const isSelected = selectedImages.includes(imagePath);
-          
+        ]
+          .filter((imagePath) => !selectedImages.includes(imagePath))
+          .map((imagePath, index) => {
           return (
             <div
               key={`existing-${index}`}
-              className={`aspect-square border-2 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-primary/50 relative ${
-                isSelected
-                  ? 'border-primary bg-primary/5 opacity-50'
-                  : 'border-border'
-              }`}
-              onClick={() => !isSelected && handleImageSelect(imagePath)}
+              className="aspect-square border-2 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-primary/50 border-border"
+              onClick={() => handleImageSelect(imagePath)}
             >
               <img
                 src={imagePath}
