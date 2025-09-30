@@ -10,135 +10,20 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.12 (cd3cf9e)"
+    PostgrestVersion: "13.0.5"
   }
   public: {
     Tables: {
-      dev_accounts: {
-        Row: {
-          created_at: string
-          email: string
-          id: string
-          name: string
-          password_hash: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          email: string
-          id?: string
-          name: string
-          password_hash: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          email?: string
-          id?: string
-          name?: string
-          password_hash?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      photo_batches: {
-        Row: {
-          analysis_results: Json | null
-          batch_name: string | null
-          created_at: string
-          credits_used: number | null
-          id: string
-          photos: string[]
-          status: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          analysis_results?: Json | null
-          batch_name?: string | null
-          created_at?: string
-          credits_used?: number | null
-          id?: string
-          photos?: string[]
-          status?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          analysis_results?: Json | null
-          batch_name?: string | null
-          created_at?: string
-          credits_used?: number | null
-          id?: string
-          photos?: string[]
-          status?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
-      profiles: {
-        Row: {
-          age: number | null
-          created_at: string
-          gender: Database["public"]["Enums"]["gender_type"] | null
-          id: string
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          age?: number | null
-          created_at?: string
-          gender?: Database["public"]["Enums"]["gender_type"] | null
-          id?: string
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          age?: number | null
-          created_at?: string
-          gender?: Database["public"]["Enums"]["gender_type"] | null
-          id?: string
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      authenticate_dev_account: {
-        Args: { p_email: string; p_password: string }
-        Returns: {
-          account_email: string
-          account_id: string
-          account_name: string
-        }[]
-      }
+      [_ in never]: never
     }
     Enums: {
-      ethnic_origin_type:
-        | "européenne"
-        | "africaine"
-        | "asiatique"
-        | "hispanique"
-        | "moyen-orientale"
-        | "métisse"
-        | "autre"
-        | "préfère-ne-pas-dire"
-      gender_type: "homme" | "femme" | "non-binaire" | "préfère-ne-pas-dire"
-      religious_confession_type:
-        | "christianisme"
-        | "islam"
-        | "judaisme"
-        | "bouddhisme"
-        | "hinduisme"
-        | "athéisme"
-        | "agnosticisme"
-        | "autre"
-        | "préfère-ne-pas-dire"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
@@ -265,29 +150,6 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {
-      ethnic_origin_type: [
-        "européenne",
-        "africaine",
-        "asiatique",
-        "hispanique",
-        "moyen-orientale",
-        "métisse",
-        "autre",
-        "préfère-ne-pas-dire",
-      ],
-      gender_type: ["homme", "femme", "non-binaire", "préfère-ne-pas-dire"],
-      religious_confession_type: [
-        "christianisme",
-        "islam",
-        "judaisme",
-        "bouddhisme",
-        "hinduisme",
-        "athéisme",
-        "agnosticisme",
-        "autre",
-        "préfère-ne-pas-dire",
-      ],
-    },
+    Enums: {},
   },
 } as const
