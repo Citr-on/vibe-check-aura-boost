@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent } from "react";
+import { useState, KeyboardEvent, DragEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
@@ -7,10 +7,11 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Gem, Clock, Users, Zap, ChevronLeft, ChevronRight, User, UserCheck, X } from "lucide-react";
+import { Sparkles, Gem, Clock, Users, Zap, ChevronLeft, ChevronRight, User, UserCheck, X, Trash2 } from "lucide-react";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Image01Icon } from '@hugeicons/core-free-icons';
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { toast } from "sonner";
 
 interface AnalysisOption {
   id: string;
@@ -80,6 +81,7 @@ export const AnalysisModal = ({
   const [selectedImages, setSelectedImages] = useState<(File | string)[]>([]);
   const [targetGender, setTargetGender] = useState<'men' | 'women' | 'both'>('both');
   const [ageRange, setAgeRange] = useState<[number, number]>([18, 65]);
+  const [isDragging, setIsDragging] = useState(false);
   
   // Profile step states
   const [currentBio, setCurrentBio] = useState("");
@@ -114,16 +116,58 @@ export const AnalysisModal = ({
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      if (analysisType === 'photo') {
-        setSelectedImages([file]);
-      } else {
-        if (selectedImages.length < 6) {
-          setSelectedImages([...selectedImages, file]);
-        }
-      }
+    const files = event.target.files;
+    if (files) {
+      handleFiles(Array.from(files));
     }
+  };
+
+  const handleFiles = (files: File[]) => {
+    if (analysisType === 'photo') {
+      setSelectedImages([files[0]]);
+      toast.success("Photo ajoutée");
+    } else {
+      const remainingSlots = 6 - selectedImages.length;
+      const filesToAdd = files.slice(0, remainingSlots);
+      
+      if (files.length > remainingSlots) {
+        toast.error(`Vous ne pouvez ajouter que ${remainingSlots} photo(s) supplémentaire(s)`);
+      }
+      
+      setSelectedImages([...selectedImages, ...filesToAdd]);
+      toast.success(`${filesToAdd.length} photo(s) ajoutée(s)`);
+    }
+  };
+
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+    
+    const files = Array.from(e.dataTransfer.files).filter(file => 
+      file.type.startsWith('image/')
+    );
+    
+    if (files.length === 0) {
+      toast.error("Veuillez déposer des fichiers image");
+      return;
+    }
+    
+    handleFiles(files);
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setSelectedImages(selectedImages.filter((_, i) => i !== index));
+    toast.success("Photo supprimée");
   };
 
   const handleImageSelect = (imagePath: string) => {
@@ -191,14 +235,21 @@ export const AnalysisModal = ({
         </h3>
         <p className="text-muted-foreground">
           {analysisType === 'photo'
-            ? 'Uploadez une nouvelle image ou sélectionnez une image existante'
-            : 'Uploadez de nouvelles images ou sélectionnez des images existantes'
+            ? 'Glissez-déposez une image ou sélectionnez une image existante'
+            : 'Glissez-déposez des images ou sélectionnez des images existantes'
           }
         </p>
       </div>
 
       <ScrollArea className="flex-1">
-        <div className="grid grid-cols-4 gap-4 h-full">
+        <div 
+          className={`grid grid-cols-4 gap-4 h-full p-4 rounded-2xl transition-colors ${
+            isDragging ? 'bg-primary/10 border-2 border-dashed border-primary' : ''
+          }`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
         {/* Option d'upload */}
         <div className="aspect-square border-2 border-dashed border-border rounded-2xl flex flex-col items-center justify-center hover:border-primary/50 transition-colors cursor-pointer">
           <HugeiconsIcon icon={Image01Icon} size={32} className="mb-2 text-muted-foreground" />
@@ -207,11 +258,44 @@ export const AnalysisModal = ({
             <input
               type="file"
               accept="image/*"
+              multiple={analysisType === 'profile'}
               onChange={handleImageUpload}
               className="hidden"
             />
           </label>
         </div>
+
+        {/* Images sélectionnées avec possibilité de suppression */}
+        {selectedImages.map((image, index) => {
+          const imageUrl = typeof image === 'string' ? image : URL.createObjectURL(image);
+          
+          return (
+            <div
+              key={index}
+              className="aspect-square border-2 border-primary bg-primary/5 rounded-2xl overflow-hidden relative group"
+            >
+              <img
+                src={imageUrl}
+                alt={`Image sélectionnée ${index + 1}`}
+                className="w-full h-full object-cover"
+              />
+              {analysisType === 'profile' && (
+                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                  {index + 1}
+                </div>
+              )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleRemoveImage(index);
+                }}
+                className="absolute top-2 left-2 bg-destructive text-destructive-foreground rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          );
+        })}
 
         {/* Images existantes - exemples */}
         {[
@@ -221,28 +305,22 @@ export const AnalysisModal = ({
           "/src/assets/bio-sample-2.jpg"
         ].map((imagePath, index) => {
           const isSelected = selectedImages.includes(imagePath);
-          const selectedIndex = selectedImages.indexOf(imagePath);
           
           return (
             <div
-              key={index}
+              key={`existing-${index}`}
               className={`aspect-square border-2 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-primary/50 relative ${
                 isSelected
-                  ? 'border-primary bg-primary/5'
+                  ? 'border-primary bg-primary/5 opacity-50'
                   : 'border-border'
               }`}
-              onClick={() => handleImageSelect(imagePath)}
+              onClick={() => !isSelected && handleImageSelect(imagePath)}
             >
               <img
                 src={imagePath}
                 alt={`Image ${index + 1}`}
                 className="w-full h-full object-cover"
               />
-              {isSelected && analysisType === 'profile' && (
-                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold" aria-label={`Photo ${selectedIndex + 1}`}>
-                  {selectedIndex + 1}
-                </div>
-              )}
             </div>
           );
         })}
