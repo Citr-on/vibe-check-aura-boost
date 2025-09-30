@@ -1,50 +1,13 @@
 import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { AnalysisModal } from "@/components/dashboard/AnalysisModal";
-import { AnalysisCard, type Analysis } from "@/components/dashboard/AnalysisCard";
+import { AnalysisCard } from "@/components/dashboard/AnalysisCard";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { PlusSignIcon, FilterIcon, ArrowUp01Icon, ArrowDown01Icon, Calendar03Icon, FavouriteIcon, Layers01Icon, Clock01Icon } from '@hugeicons/core-free-icons';
 import { useCredits } from "@/hooks/useCredits";
-
-// Données d'exemple
-const mockAnalyses: Analysis[] = [
-  {
-    id: '1',
-    type: 'photo',
-    title: 'Photo de profil principal',
-    status: 'terminé',
-    isPremium: true,
-    createdAt: '2024-01-15T10:30:00Z',
-    score: 8.2,
-    votesReceived: 50,
-    totalVotes: 50
-  },
-  {
-    id: '3',
-    type: 'photo',
-    title: 'Photo en pied',
-    status: 'terminé',
-    isPremium: false,
-    createdAt: '2024-01-18T09:45:00Z',
-    score: 6.8,
-    votesReceived: 20,
-    totalVotes: 20
-  },
-  {
-    id: '4',
-    type: 'profil-complet',
-    title: 'Analyse complète de profil',
-    status: 'en-cours',
-    isPremium: true,
-    createdAt: '2024-01-22T16:30:00Z',
-    progress: 45,
-    votesReceived: 18,
-    totalVotes: 40
-  }
-];
+import { useAnalyses } from "@/hooks/useAnalyses";
 
 type SortBy = 'createdAt' | 'score' | 'type' | 'status' | null;
 type SortOrder = 'asc' | 'desc';
@@ -56,8 +19,8 @@ const Dashboard = () => {
   const [sortBy, setSortBy] = useState<SortBy>(null);
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   
-  // États pour les monnaies
   const { credits } = useCredits();
+  const { analyses, loading, refetch } = useAnalyses();
   const [aura] = useState(3.5);
 
   const handleSort = (newSortBy: SortBy) => {
@@ -91,7 +54,7 @@ const Dashboard = () => {
     }
   };
 
-  const filteredAndSortedAnalyses = mockAnalyses
+  const filteredAndSortedAnalyses = analyses
     .filter(analysis => {
       if (statusFilter !== 'tous' && analysis.status !== statusFilter) return false;
       if (typeFilter !== 'tous' && analysis.type !== typeFilter) return false;
@@ -116,11 +79,6 @@ const Dashboard = () => {
       
       return sortOrder === 'asc' ? comparison : -comparison;
     });
-
-  const handleAnalysisSelect = (optionId: string) => {
-    console.log('Analysis selected:', optionId);
-    // Ici on ajouterait la logique pour créer une nouvelle analyse
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -242,24 +200,37 @@ const Dashboard = () => {
         </div>
 
         {/* Grille d'analyses */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredAndSortedAnalyses.map((analysis) => (
-            <AnalysisCard key={analysis.id} analysis={analysis} />
-          ))}
-        </div>
-
-        {filteredAndSortedAnalyses.length === 0 && (
+        {loading ? (
           <div className="text-center py-12">
-            <div className="text-muted-foreground text-lg mb-4">
-              Aucune analyse trouvée avec ces filtres
-            </div>
-            <Button variant="outline" onClick={() => {
-              setStatusFilter('tous');
-              setTypeFilter('tous');
-            }}>
-              Réinitialiser les filtres
-            </Button>
+            <div className="text-muted-foreground text-lg">Chargement des analyses...</div>
           </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {filteredAndSortedAnalyses.map((analysis) => (
+                <AnalysisCard key={analysis.id} analysis={analysis} />
+              ))}
+            </div>
+
+            {filteredAndSortedAnalyses.length === 0 && (
+              <div className="text-center py-12">
+                <div className="text-muted-foreground text-lg mb-4">
+                  {analyses.length === 0 
+                    ? "Aucune analyse pour le moment. Lancez votre première analyse !"
+                    : "Aucune analyse trouvée avec ces filtres"
+                  }
+                </div>
+                {analyses.length > 0 && (
+                  <Button variant="outline" onClick={() => {
+                    setStatusFilter('tous');
+                    setTypeFilter('tous');
+                  }}>
+                    Réinitialiser les filtres
+                  </Button>
+                )}
+              </div>
+            )}
+          </>
         )}
       </main>
 
@@ -268,7 +239,7 @@ const Dashboard = () => {
         onOpenChange={setIsModalOpen}
         credits={credits}
         aura={aura}
-        onAnalysisSelect={handleAnalysisSelect}
+        onAnalysisCreated={refetch}
       />
     </div>
   );

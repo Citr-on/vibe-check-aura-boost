@@ -14,6 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
+      analyses: {
+        Row: {
+          age_range_max: number | null
+          age_range_min: number | null
+          analysis_option_id: string
+          analysis_results: Json | null
+          bio_length: string | null
+          bio_text: string | null
+          cost_amount: number
+          cost_type: string
+          created_at: string
+          id: string
+          images: string[] | null
+          is_premium: boolean
+          keywords: string[] | null
+          score: number | null
+          status: string
+          target_gender: string | null
+          title: string
+          tone: string | null
+          total_votes: number | null
+          type: string
+          updated_at: string
+          user_id: string
+          votes_received: number | null
+        }
+        Insert: {
+          age_range_max?: number | null
+          age_range_min?: number | null
+          analysis_option_id: string
+          analysis_results?: Json | null
+          bio_length?: string | null
+          bio_text?: string | null
+          cost_amount: number
+          cost_type: string
+          created_at?: string
+          id?: string
+          images?: string[] | null
+          is_premium?: boolean
+          keywords?: string[] | null
+          score?: number | null
+          status?: string
+          target_gender?: string | null
+          title: string
+          tone?: string | null
+          total_votes?: number | null
+          type: string
+          updated_at?: string
+          user_id: string
+          votes_received?: number | null
+        }
+        Update: {
+          age_range_max?: number | null
+          age_range_min?: number | null
+          analysis_option_id?: string
+          analysis_results?: Json | null
+          bio_length?: string | null
+          bio_text?: string | null
+          cost_amount?: number
+          cost_type?: string
+          created_at?: string
+          id?: string
+          images?: string[] | null
+          is_premium?: boolean
+          keywords?: string[] | null
+          score?: number | null
+          status?: string
+          target_gender?: string | null
+          title?: string
+          tone?: string | null
+          total_votes?: number | null
+          type?: string
+          updated_at?: string
+          user_id?: string
+          votes_received?: number | null
+        }
+        Relationships: []
+      }
       dev_accounts: {
         Row: {
           created_at: string

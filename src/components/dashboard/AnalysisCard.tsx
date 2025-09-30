@@ -14,7 +14,7 @@ export interface Analysis {
   id: string;
   type: 'photo' | 'profil-complet';
   title: string;
-  status: 'en-cours' | 'terminé';
+  status: 'en-cours' | 'terminé' | 'échoué';
   isPremium: boolean;
   createdAt: string;
   progress?: number;

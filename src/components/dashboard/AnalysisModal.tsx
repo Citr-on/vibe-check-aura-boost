@@ -16,6 +16,9 @@ import portraitSample1 from "@/assets/portrait-sample-1.jpg";
 import portraitSample2 from "@/assets/portrait-sample-2.jpg";
 import bioSample1 from "@/assets/bio-sample-1.jpg";
 import bioSample2 from "@/assets/bio-sample-2.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { useCredits } from "@/hooks/useCredits";
 
 interface AnalysisOption {
   id: string;
@@ -69,7 +72,7 @@ interface AnalysisModalProps {
   onOpenChange: (open: boolean) => void;
   credits: number;
   aura: number;
-  onAnalysisSelect: (optionId: string) => void;
+  onAnalysisCreated: () => void;
 }
 
 export const AnalysisModal = ({ 
@@ -77,8 +80,10 @@ export const AnalysisModal = ({
   onOpenChange, 
   credits, 
   aura, 
-  onAnalysisSelect 
+  onAnalysisCreated 
 }: AnalysisModalProps) => {
+  const { user } = useAuth();
+  const { deductCredits } = useCredits();
   const [currentStep, setCurrentStep] = useState<'upload' | 'targeting' | 'profile' | 'selection'>('upload');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [analysisType, setAnalysisType] = useState<'photo' | 'profile'>('profile');
@@ -201,10 +206,74 @@ export const AnalysisModal = ({
     setKeywords(keywords.filter((_, i) => i !== index));
   };
 
-  const handleFinalSubmit = () => {
-    if (selectedOption) {
-      onAnalysisSelect(selectedOption);
+  const handleFinalSubmit = async () => {
+    if (!selectedOption || !user) return;
+
+    const option = analysisOptions.find(opt => opt.id === selectedOption);
+    if (!option) return;
+
+    // Vérifier si l'utilisateur a assez de crédits ou d'aura
+    if (option.cost.type === 'credits' && credits < option.cost.amount) {
+      toast.error("Crédits insuffisants");
+      return;
+    }
+
+    if (option.cost.type === 'aura' && aura < option.cost.amount) {
+      toast.error("Aura insuffisante");
+      return;
+    }
+
+    try {
+      // Déduire les crédits si nécessaire
+      if (option.cost.type === 'credits') {
+        const success = await deductCredits(option.cost.amount);
+        if (!success) {
+          toast.error("Échec de la déduction des crédits");
+          return;
+        }
+      }
+
+      // Préparer les données d'analyse
+      const analysisData = {
+        user_id: user.id,
+        type: analysisType,
+        title: analysisType === 'photo' ? 'Analyse de photo' : 'Analyse de profil complet',
+        analysis_option_id: option.id,
+        cost_type: option.cost.type,
+        cost_amount: option.cost.amount,
+        is_premium: option.isPremium,
+        status: 'en-cours',
+        images: selectedImages.map(img => typeof img === 'string' ? img : img.name),
+        target_gender: targetGender,
+        age_range_min: ageRange[0],
+        age_range_max: ageRange[1],
+        bio_text: analysisType === 'profile' ? currentBio : null,
+        keywords: analysisType === 'profile' ? keywords : null,
+        tone: analysisType === 'profile' ? selectedTone : null,
+        bio_length: analysisType === 'profile' ? selectedLength : null,
+        total_votes: option.cost.amount, // Nombre de votes correspond au coût
+      };
+
+      // Créer l'analyse dans la base de données
+      const { error } = await supabase
+        .from('analyses')
+        .insert(analysisData);
+
+      if (error) throw error;
+
+      toast.success("Analyse lancée avec succès!");
+      onAnalysisCreated();
       onOpenChange(false);
+      
+      // Réinitialiser le formulaire
+      setCurrentStep('upload');
+      setSelectedOption(null);
+      setSelectedImages([]);
+      setCurrentBio("");
+      setKeywords([]);
+    } catch (error) {
+      console.error('Error creating analysis:', error);
+      toast.error("Erreur lors du lancement de l'analyse");
     }
   };
 
