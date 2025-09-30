@@ -87,7 +87,8 @@ export const AnalysisModal = ({
   const [currentStep, setCurrentStep] = useState<'upload' | 'targeting' | 'profile' | 'selection'>('upload');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [analysisType, setAnalysisType] = useState<'photo' | 'profile'>('profile');
-  const [selectedImages, setSelectedImages] = useState<(File | string)[]>([]);
+  const [uploadedImages, setUploadedImages] = useState<File[]>([]); // Images uploadées par l'utilisateur
+  const [selectedImages, setSelectedImages] = useState<(File | string)[]>([]); // Images sélectionnées pour l'analyse
   const [targetGender, setTargetGender] = useState<'men' | 'women' | 'both'>('both');
   const [ageRange, setAgeRange] = useState<[number, number]>([18, 65]);
   const [isDragging, setIsDragging] = useState(false);
@@ -132,6 +133,10 @@ export const AnalysisModal = ({
   };
 
   const handleFiles = (files: File[]) => {
+    // Ajouter aux images uploadées
+    setUploadedImages(prev => [...prev, ...files]);
+    
+    // Auto-sélectionner les nouvelles images
     if (analysisType === 'photo') {
       setSelectedImages([files[0]]);
       toast.success("Photo ajoutée");
@@ -174,20 +179,34 @@ export const AnalysisModal = ({
     handleFiles(files);
   };
 
-  const handleRemoveImage = (index: number) => {
-    setSelectedImages(selectedImages.filter((_, i) => i !== index));
-    toast.success("Photo supprimée");
+  const handleDeleteUploadedImage = (image: File) => {
+    // Supprimer définitivement de la liste des images uploadées
+    setUploadedImages(prev => prev.filter(img => img !== image));
+    // Retirer aussi de la sélection si elle y était
+    setSelectedImages(prev => prev.filter(img => img !== image));
+    toast.success("Photo supprimée définitivement");
   };
 
-  const handleImageSelect = (imagePath: string) => {
-    if (analysisType === 'photo') {
-      setSelectedImages([imagePath]);
+  const handleToggleImageSelection = (image: File | string) => {
+    const isSelected = selectedImages.some(img => 
+      typeof img === 'string' && typeof image === 'string' ? img === image : img === image
+    );
+    
+    if (isSelected) {
+      // Désélectionner
+      setSelectedImages(prev => prev.filter(img => 
+        typeof img === 'string' && typeof image === 'string' ? img !== image : img !== image
+      ));
     } else {
-      const isSelected = selectedImages.includes(imagePath);
-      if (isSelected) {
-        setSelectedImages(selectedImages.filter(img => img !== imagePath));
-      } else if (selectedImages.length < 6) {
-        setSelectedImages([...selectedImages, imagePath]);
+      // Sélectionner
+      if (analysisType === 'photo') {
+        setSelectedImages([image]);
+      } else {
+        if (selectedImages.length < 6) {
+          setSelectedImages([...selectedImages, image]);
+        } else {
+          toast.error("Vous avez atteint le nombre maximum de 6 photos.");
+        }
       }
     }
   };
@@ -268,6 +287,7 @@ export const AnalysisModal = ({
       // Réinitialiser le formulaire
       setCurrentStep('upload');
       setSelectedOption(null);
+      setUploadedImages([]);
       setSelectedImages([]);
       setCurrentBio("");
       setKeywords([]);
@@ -338,31 +358,37 @@ export const AnalysisModal = ({
           </label>
         </div>
 
-        {/* Images sélectionnées avec possibilité de suppression */}
-        {selectedImages.map((image, index) => {
-          const imageUrl = typeof image === 'string' ? image : URL.createObjectURL(image);
+        {/* Images uploadées */}
+        {uploadedImages.map((image, index) => {
+          const imageUrl = URL.createObjectURL(image);
+          const isSelected = selectedImages.includes(image);
+          const selectedIndex = selectedImages.indexOf(image);
           
           return (
             <div
-              key={index}
-              className="aspect-square border-2 border-primary bg-primary/5 rounded-2xl overflow-hidden relative group"
+              key={`uploaded-${index}`}
+              className={`aspect-square border-2 rounded-2xl overflow-hidden relative group cursor-pointer transition-all ${
+                isSelected ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'
+              }`}
+              onClick={() => handleToggleImageSelection(image)}
             >
               <img
                 src={imageUrl}
-                alt={`Image sélectionnée ${index + 1}`}
+                alt={`Image uploadée ${index + 1}`}
                 className="w-full h-full object-cover"
               />
-              {analysisType === 'profile' && (
-                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
-                  {index + 1}
+              {isSelected && analysisType === 'profile' && (
+                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold z-10">
+                  {selectedIndex + 1}
                 </div>
               )}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleRemoveImage(index);
+                  handleDeleteUploadedImage(image);
                 }}
-                className="absolute top-2 left-2 bg-destructive text-destructive-foreground rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110"
+                className="absolute top-2 left-2 bg-destructive text-destructive-foreground rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110 z-10"
+                title="Supprimer définitivement"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -376,20 +402,28 @@ export const AnalysisModal = ({
           portraitSample2,
           bioSample1,
           bioSample2
-        ]
-          .filter((imagePath) => !selectedImages.includes(imagePath))
-          .map((imagePath, index) => {
+        ].map((imagePath, index) => {
+          const isSelected = selectedImages.includes(imagePath);
+          const selectedIndex = selectedImages.indexOf(imagePath);
+          
           return (
             <div
               key={`existing-${index}`}
-              className="aspect-square border-2 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-primary/50 border-border"
-              onClick={() => handleImageSelect(imagePath)}
+              className={`aspect-square border-2 rounded-2xl overflow-hidden cursor-pointer transition-all relative ${
+                isSelected ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'
+              }`}
+              onClick={() => handleToggleImageSelection(imagePath)}
             >
               <img
                 src={imagePath}
                 alt={`Image ${index + 1}`}
                 className="w-full h-full object-cover"
               />
+              {isSelected && analysisType === 'profile' && (
+                <div className="absolute top-2 right-2 bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
+                  {selectedIndex + 1}
+                </div>
+              )}
             </div>
           );
         })}
