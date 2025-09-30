@@ -198,6 +198,10 @@ export type Database = {
           intrigue_score: number
           photo_index: number | null
           positive_comment: string | null
+          profile_bio: string | null
+          profile_images: string[] | null
+          profile_keywords: string[] | null
+          profile_metadata: Json | null
           reviewer_id: string
           updated_at: string
           vibe_score: number
@@ -211,6 +215,10 @@ export type Database = {
           intrigue_score: number
           photo_index?: number | null
           positive_comment?: string | null
+          profile_bio?: string | null
+          profile_images?: string[] | null
+          profile_keywords?: string[] | null
+          profile_metadata?: Json | null
           reviewer_id: string
           updated_at?: string
           vibe_score: number
@@ -224,6 +232,10 @@ export type Database = {
           intrigue_score?: number
           photo_index?: number | null
           positive_comment?: string | null
+          profile_bio?: string | null
+          profile_images?: string[] | null
+          profile_keywords?: string[] | null
+          profile_metadata?: Json | null
           reviewer_id?: string
           updated_at?: string
           vibe_score?: number

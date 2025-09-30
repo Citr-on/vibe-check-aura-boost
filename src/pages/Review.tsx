@@ -121,6 +121,15 @@ const Review = () => {
           positive_comment: positiveComment || null,
           improvement_comment: improvementComment || null,
           photo_index: currentPhotoIndex,
+          profile_images: currentProfile.images || [],
+          profile_bio: currentProfile.bio || null,
+          profile_keywords: currentProfile.tags || [],
+          profile_metadata: {
+            type: currentProfile.type,
+            name: currentProfile.name,
+            age: currentProfile.age,
+            gender: currentProfile.gender,
+          },
         });
 
       if (error) {
