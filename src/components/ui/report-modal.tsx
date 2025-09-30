@@ -73,7 +73,7 @@ const createReportSchema = (selectedReason: string) => z.object({
 interface ReportModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  profileId?: number;
+  profileId?: string | number;
   profileName?: string;
   imageIndex?: number;
   imageUrl?: string;

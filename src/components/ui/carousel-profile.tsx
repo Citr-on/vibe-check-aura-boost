@@ -7,7 +7,7 @@ import { ReportModal } from '@/components/ui/report-modal';
 interface CarouselProfileProps {
   images: string[];
   className?: string;
-  profileId?: number;
+  profileId?: string | number;
   profileName?: string;
 }
 

@@ -10,14 +10,16 @@ import { CarouselProfile } from "@/components/ui/carousel-profile";
 import { CommentSection } from "@/components/ui/comment-section";
 import { HugeiconsIcon } from '@hugeicons/react';
 import { SparklesIcon, FavouriteIcon, ZapIcon, TaskEdit01Icon, ArrowRight02Icon, InformationCircleIcon, StarIcon, ArrowLeft02Icon } from '@hugeicons/core-free-icons';
-import { Flag } from 'lucide-react';
+import { Flag, Loader2 } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCredits } from "@/hooks/useCredits";
+import { useProfilesToReview } from "@/hooks/useProfilesToReview";
 
 const Review = () => {
   const { credits } = useCredits();
   const [aura] = useState(3.5);
+  const { profiles: dbProfiles, loading } = useProfilesToReview();
   
   // État pour le type de contenu sélectionné
   const [contentType, setContentType] = useState<"photos" | "profils" | "tout">("tout");
@@ -37,72 +39,8 @@ const Review = () => {
   const [currentStep, setCurrentStep] = useState<"ratings" | "comments">("ratings");
   const [showOverlay, setShowOverlay] = useState(false);
 
-  // Profils à reviewer
-  const profiles = [
-    {
-      id: 1,
-      name: "Emma",
-      age: 25,
-      gender: "Femme",
-      searchType: "Relation sérieuse",
-      type: "profile" as const,
-      images: [
-        "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400&h=500&fit=crop&crop=face",
-        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=500&fit=crop&crop=face",
-        "https://images.unsplash.com/photo-1493666438817-866a91353ca9?w=400&h=500&fit=crop&crop=face"
-      ],
-      tags: ["Voyage", "Cuisine", "Yoga", "Lecture"],
-      bio: "Passionnée de voyages et de découvertes culinaires. J'aime les moments simples et authentiques. Toujours prête pour une nouvelle aventure !"
-    },
-    {
-      id: 2,
-      name: "Lucas",
-      age: 28,
-      gender: "Homme",
-      searchType: "Relation décontractée",
-      type: "photo" as const,
-      images: ["https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?w=400&h=500&fit=crop&crop=face"]
-    },
-    {
-      id: 3,
-      name: "Sophie",
-      age: 32,
-      gender: "Femme",
-      searchType: "Amitié",
-      type: "profile" as const,
-      images: [
-        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=500&fit=crop&crop=face",
-        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=500&fit=crop&crop=face"
-      ],
-      tags: ["Sport", "Musique", "Café", "Cinéma"],
-      bio: "Sportive dans l'âme, mélomane et grande amatrice de cafés cosy. Cherche des personnes avec qui partager de bons moments."
-    },
-    {
-      id: 4,
-      name: "Thomas",
-      age: 26,
-      gender: "Homme",
-      searchType: "Relation sérieuse",
-      type: "photo" as const,
-      images: ["https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face"]
-    },
-    {
-      id: 5,
-      name: "Clara",
-      age: 24,
-      gender: "Femme",
-      searchType: "Rencontres",
-      type: "profile" as const,
-      images: [
-        "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=500&fit=crop&crop=face",
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=500&fit=crop&crop=face",
-        "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=500&fit=crop&crop=face",
-        "https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=500&fit=crop&crop=face"
-      ],
-      tags: ["Art", "Photographie", "Nature", "Méditation"],
-      bio: "Artiste photographe qui trouve l'inspiration dans la nature. J'aime capturer les petits détails de la vie quotidienne."
-    }
-  ];
+  // Utiliser les profils de la base de données
+  const profiles = dbProfiles;
 
   // Filtrage des profils selon le type sélectionné
   const filteredProfiles = profiles.filter(profile => {
@@ -112,6 +50,36 @@ const Review = () => {
   });
 
   const currentProfile = filteredProfiles[currentProfileIndex] || profiles[0];
+  
+  // Afficher un loader pendant le chargement
+  if (loading) {
+    return (
+      <div className="h-screen bg-background flex flex-col">
+        <Header credits={credits} aura={aura} />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <p className="text-muted-foreground">Chargement des profils...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Afficher un message si aucun profil
+  if (profiles.length === 0) {
+    return (
+      <div className="h-screen bg-background flex flex-col">
+        <Header credits={credits} aura={aura} />
+        <div className="flex-1 flex items-center justify-center p-4">
+          <div className="text-center">
+            <p className="text-muted-foreground mb-2">Aucun profil à évaluer pour le moment</p>
+            <p className="text-sm text-muted-foreground">Revenez plus tard !</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = () => {
     console.log({
