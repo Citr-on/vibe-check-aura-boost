@@ -196,6 +196,7 @@ export type Database = {
           id: string
           improvement_comment: string | null
           intrigue_score: number
+          photo_index: number | null
           positive_comment: string | null
           reviewer_id: string
           updated_at: string
@@ -208,6 +209,7 @@ export type Database = {
           id?: string
           improvement_comment?: string | null
           intrigue_score: number
+          photo_index?: number | null
           positive_comment?: string | null
           reviewer_id: string
           updated_at?: string
@@ -220,6 +222,7 @@ export type Database = {
           id?: string
           improvement_comment?: string | null
           intrigue_score?: number
+          photo_index?: number | null
           positive_comment?: string | null
           reviewer_id?: string
           updated_at?: string

@@ -9,9 +9,10 @@ interface CarouselProfileProps {
   className?: string;
   profileId?: string | number;
   profileName?: string;
+  onImageChange?: (index: number) => void;
 }
 
-export function CarouselProfile({ images, className, profileId, profileName }: CarouselProfileProps) {
+export function CarouselProfile({ images, className, profileId, profileName, onImageChange }: CarouselProfileProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [reportModalOpen, setReportModalOpen] = useState(false);
@@ -19,15 +20,19 @@ export function CarouselProfile({ images, className, profileId, profileName }: C
   console.log("CarouselProfile rendered with images:", images?.length || 0);
 
   const goToPrevious = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
+    setCurrentImageIndex((prevIndex) => {
+      const newIndex = prevIndex === 0 ? images.length - 1 : prevIndex - 1;
+      onImageChange?.(newIndex);
+      return newIndex;
+    });
   };
 
   const goToNext = () => {
-    setCurrentImageIndex((prevIndex) => 
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
+    setCurrentImageIndex((prevIndex) => {
+      const newIndex = prevIndex === images.length - 1 ? 0 : prevIndex + 1;
+      onImageChange?.(newIndex);
+      return newIndex;
+    });
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -106,7 +111,10 @@ export function CarouselProfile({ images, className, profileId, profileName }: C
             {images.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentImageIndex(index)}
+                onClick={() => {
+                  setCurrentImageIndex(index);
+                  onImageChange?.(index);
+                }}
                 className={cn(
                   "flex-1 h-2 rounded-full transition-colors shadow-sm",
                   index === currentImageIndex 

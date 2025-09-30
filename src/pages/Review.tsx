@@ -29,6 +29,7 @@ const Review = () => {
   
   const isMobile = useIsMobile();
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [feelingScore, setFeelingScore] = useState(0);
   const [vibeScore, setVibeScore] = useState(0);
   const [intrigueScore, setIntrigueScore] = useState(0);
@@ -119,6 +120,7 @@ const Review = () => {
           intrigue_score: intrigueScore,
           positive_comment: positiveComment || null,
           improvement_comment: improvementComment || null,
+          photo_index: currentPhotoIndex,
         });
 
       if (error) {
@@ -179,6 +181,7 @@ const Review = () => {
       setFeelingScore(0);
       setVibeScore(0);
       setIntrigueScore(0);
+      setCurrentPhotoIndex(0);
       setCurrentStep("ratings");
     } else {
       // Fin des profils, retourner au premier
@@ -193,6 +196,7 @@ const Review = () => {
       setFeelingScore(0);
       setVibeScore(0);
       setIntrigueScore(0);
+      setCurrentPhotoIndex(0);
       setCurrentStep("ratings");
       console.log("Tous les profils ont été reviewés !");
     }
@@ -319,6 +323,7 @@ const Review = () => {
                       images={currentProfile.images} 
                       profileId={currentProfile.id}
                       profileName={currentProfile.name}
+                      onImageChange={setCurrentPhotoIndex}
                     />
                   </div>
                   
@@ -596,7 +601,12 @@ const Review = () => {
                   <div className="h-full flex flex-col">
                     {/* Carrousel de photos - 70% de la hauteur */}
                     <div className="h-[70%]">
-                      <CarouselProfile images={currentProfile.images} />
+                      <CarouselProfile 
+                        images={currentProfile.images}
+                        profileId={currentProfile.id}
+                        profileName={currentProfile.name}
+                        onImageChange={setCurrentPhotoIndex}
+                      />
                     </div>
                     
                     {/* Informations utilisateur - 30% de la hauteur */}
