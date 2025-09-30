@@ -367,7 +367,7 @@ export const AnalysisModal = ({
           return (
             <div
               key={`uploaded-${index}`}
-              className={`aspect-square border-2 rounded-2xl overflow-hidden relative group cursor-pointer transition-all ${
+              className={`aspect-square border-2 rounded-2xl overflow-hidden relative cursor-pointer transition-all ${
                 isSelected ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'
               }`}
               onClick={() => handleToggleImageSelection(image)}
@@ -387,7 +387,7 @@ export const AnalysisModal = ({
                   e.stopPropagation();
                   handleDeleteUploadedImage(image);
                 }}
-                className="absolute top-2 left-2 bg-destructive text-destructive-foreground rounded-full w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110 z-10"
+                className="absolute top-2 left-2 bg-destructive text-destructive-foreground rounded-full w-8 h-8 flex items-center justify-center transition-all hover:scale-110 z-20 shadow-lg"
                 title="Supprimer définitivement"
               >
                 <Trash2 className="w-4 h-4" />
