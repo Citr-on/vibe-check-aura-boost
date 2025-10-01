@@ -82,15 +82,21 @@ export const useCredits = () => {
     const newAmount = credits - amount;
     if (newAmount < 0) return false;
 
+    // Mise à jour optimiste de l'interface
+    setCredits(newAmount);
+
     try {
       const { error } = await supabase
         .from('profiles')
         .update({ coins: newAmount })
         .eq('user_id', user.id);
 
-      if (error) throw error;
+      if (error) {
+        // Rollback en cas d'erreur
+        setCredits(credits);
+        throw error;
+      }
       
-      setCredits(newAmount);
       return true;
     } catch (error) {
       console.error('Error deducting credits:', error);
@@ -102,7 +108,24 @@ export const useCredits = () => {
     if (!user) return;
 
     const newAmount = credits + amount;
-    await updateCredits(newAmount);
+    
+    // Mise à jour optimiste de l'interface
+    setCredits(newAmount);
+    
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ coins: newAmount })
+        .eq('user_id', user.id);
+
+      if (error) {
+        // Rollback en cas d'erreur
+        setCredits(credits);
+        throw error;
+      }
+    } catch (error) {
+      console.error('Error adding credits:', error);
+    }
   };
 
   return {
