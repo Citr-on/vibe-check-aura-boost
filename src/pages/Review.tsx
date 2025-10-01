@@ -19,7 +19,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 const Review = () => {
-  const { credits } = useCredits();
+  const { credits, deductCredits } = useCredits();
   const [aura] = useState(3.5);
   const { profiles: dbProfiles, loading } = useProfilesToReview();
   const { toast } = useToast();
@@ -104,6 +104,17 @@ const Review = () => {
         toast({
           title: "Erreur",
           description: "Veuillez renseigner tous les scores avant de soumettre",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Déduire 1 crédit pour cette évaluation
+      const creditDeducted = await deductCredits(1);
+      if (!creditDeducted) {
+        toast({
+          title: "Crédits insuffisants",
+          description: "Vous n'avez pas assez de crédits pour soumettre cette évaluation",
           variant: "destructive",
         });
         return;
