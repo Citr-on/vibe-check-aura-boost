@@ -109,12 +109,13 @@ const Review = () => {
         return;
       }
 
-      // Déduire 1 crédit pour cette évaluation
-      const creditDeducted = await deductCredits(1);
+      // Déduire les crédits selon le coût de l'analyse
+      const costAmount = currentProfile.cost_amount || 1;
+      const creditDeducted = await deductCredits(costAmount);
       if (!creditDeducted) {
         toast({
           title: "Crédits insuffisants",
-          description: "Vous n'avez pas assez de crédits pour soumettre cette évaluation",
+          description: `Vous n'avez pas assez de crédits pour soumettre cette évaluation (${costAmount} crédits requis)`,
           variant: "destructive",
         });
         return;

@@ -10,6 +10,7 @@ export interface ProfileToReview {
   images: string[];
   tags?: string[];
   bio?: string;
+  cost_amount: number;
 }
 
 export const useProfilesToReview = () => {
@@ -38,6 +39,7 @@ export const useProfilesToReview = () => {
             images: analysis.images || [],
             tags: analysis.keywords || [],
             bio: analysis.bio_text || undefined,
+            cost_amount: analysis.cost_amount || 1,
           }));
 
           setProfiles(formattedProfiles);
