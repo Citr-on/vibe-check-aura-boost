@@ -40,26 +40,35 @@ export const useProfilesToReview = () => {
 
         const reviewedIds = reviewedAnalyses?.map(r => r.analysis_id) || [];
 
-        // Récupérer les analyses depuis la base de données, en excluant celles déjà évaluées
-        const { data: analyses, error } = await supabase
+        // Construire la requête
+        let query = supabase
           .from('analyses')
           .select('*')
           .in('status', ['terminée', 'en-cours'])
-          .not('id', 'in', `(${reviewedIds.length > 0 ? reviewedIds.join(',') : 'null'})`)
           .order('created_at', { ascending: false })
           .limit(20);
+
+        // Exclure les analyses déjà évaluées si il y en a
+        if (reviewedIds.length > 0) {
+          query = query.not('id', 'in', `(${reviewedIds.join(',')})`);
+        }
+
+        const { data: analyses, error } = await query;
 
         if (error) throw error;
 
         if (analyses) {
-          const formattedProfiles: ProfileToReview[] = analyses.map(analysis => ({
-            id: analysis.id,
-            type: analysis.type === 'photo' ? 'photo' : 'profile',
-            images: analysis.images || [],
-            tags: analysis.keywords || [],
-            bio: analysis.bio_text || undefined,
-            cost_amount: analysis.cost_amount || 1,
-          }));
+          // Filtrer les analyses qui ont au moins une image valide
+          const formattedProfiles: ProfileToReview[] = analyses
+            .filter(analysis => analysis.images && analysis.images.length > 0)
+            .map(analysis => ({
+              id: analysis.id,
+              type: analysis.type === 'photo' ? 'photo' : 'profile',
+              images: analysis.images || [],
+              tags: analysis.keywords || [],
+              bio: analysis.bio_text || undefined,
+              cost_amount: analysis.cost_amount || 1,
+            }));
 
           setProfiles(formattedProfiles);
         }

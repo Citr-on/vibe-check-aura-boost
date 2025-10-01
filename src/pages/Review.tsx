@@ -108,9 +108,17 @@ const Review = () => {
       <div className="h-screen bg-background flex flex-col">
         <Header credits={credits} aura={aura} />
         <div className="flex-1 flex items-center justify-center p-4">
-          <div className="text-center">
-            <p className="text-muted-foreground mb-2">Aucun profil à évaluer pour le moment</p>
-            <p className="text-sm text-muted-foreground">Revenez plus tard !</p>
+          <div className="text-center max-w-md">
+            <div className="mb-4 text-6xl">✨</div>
+            <h2 className="text-2xl font-heading font-bold text-foreground mb-2">
+              Excellent travail !
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              Vous avez consulté tous les profils disponibles pour vous.
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Revenez plus tard pour découvrir de nouveaux profils à évaluer !
+            </p>
           </div>
         </div>
       </div>
