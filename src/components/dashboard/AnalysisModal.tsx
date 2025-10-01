@@ -19,6 +19,7 @@ import bioSample2 from "@/assets/bio-sample-2.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useCredits } from "@/hooks/useCredits";
+import { useAura } from "@/hooks/useAura";
 
 interface AnalysisOption {
   id: string;
@@ -84,6 +85,7 @@ export const AnalysisModal = ({
 }: AnalysisModalProps) => {
   const { user } = useAuth();
   const { deductCredits } = useCredits();
+  const { addAura } = useAura();
   const [currentStep, setCurrentStep] = useState<'upload' | 'targeting' | 'profile' | 'selection'>('upload');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [analysisType, setAnalysisType] = useState<'photo' | 'profile'>('profile');
@@ -241,13 +243,15 @@ export const AnalysisModal = ({
     }
 
     try {
-      // Déduire les crédits si nécessaire
+      // Déduire les crédits ou auras selon le type
       if (option.cost.type === 'credits') {
         const success = await deductCredits(option.cost.amount);
         if (!success) {
           toast.error("Échec de la déduction des crédits");
           return;
         }
+      } else if (option.cost.type === 'aura') {
+        await addAura(-option.cost.amount); // Déduction d'aura (montant négatif)
       }
 
       // Préparer les données d'analyse
