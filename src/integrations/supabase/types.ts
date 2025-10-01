@@ -161,6 +161,7 @@ export type Database = {
       profiles: {
         Row: {
           age: number | null
+          aura: number
           coins: number
           created_at: string
           gender: Database["public"]["Enums"]["gender_type"] | null
@@ -170,6 +171,7 @@ export type Database = {
         }
         Insert: {
           age?: number | null
+          aura?: number
           coins?: number
           created_at?: string
           gender?: Database["public"]["Enums"]["gender_type"] | null
@@ -179,6 +181,7 @@ export type Database = {
         }
         Update: {
           age?: number | null
+          aura?: number
           coins?: number
           created_at?: string
           gender?: Database["public"]["Enums"]["gender_type"] | null

@@ -14,13 +14,14 @@ import { Flag, Loader2 } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCredits } from "@/hooks/useCredits";
+import { useAura } from "@/hooks/useAura";
 import { useProfilesToReview } from "@/hooks/useProfilesToReview";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 const Review = () => {
   const { credits, deductCredits } = useCredits();
-  const [aura] = useState(3.5);
+  const { aura, addAura } = useAura();
   const { profiles: dbProfiles, loading } = useProfilesToReview();
   const { toast } = useToast();
   
@@ -153,6 +154,9 @@ const Review = () => {
         });
         return;
       }
+
+      // Ajouter 0.1 Aura pour cette évaluation
+      await addAura(0.1);
 
       toast({
         title: "Évaluation envoyée !",
