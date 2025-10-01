@@ -141,6 +141,24 @@ const Review = () => {
         return;
       }
 
+      // Vérifier si l'utilisateur a déjà évalué ce profil
+      const { data: existingReview } = await supabase
+        .from('reviews')
+        .select('id')
+        .eq('reviewer_id', user.id)
+        .eq('analysis_id', currentProfile.id)
+        .maybeSingle();
+
+      if (existingReview) {
+        toast({
+          title: "Déjà évalué",
+          description: "Vous avez déjà évalué ce profil",
+          variant: "destructive",
+        });
+        nextProfile();
+        return;
+      }
+
       // Déduire les crédits selon le coût de l'analyse
       const costAmount = currentProfile.cost_amount || 1;
       const creditDeducted = await deductCredits(costAmount);
