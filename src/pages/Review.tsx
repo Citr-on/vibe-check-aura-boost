@@ -18,6 +18,37 @@ import { useAura } from "@/hooks/useAura";
 import { useProfilesToReview } from "@/hooks/useProfilesToReview";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import bioSample1 from "@/assets/bio-sample-1.jpg";
+import bioSample2 from "@/assets/bio-sample-2.jpg";
+import portraitSample1 from "@/assets/portrait-sample-1.jpg";
+import portraitSample2 from "@/assets/portrait-sample-2.jpg";
+
+// Helper pour résoudre les chemins d'images
+const resolveImagePath = (path: string): string => {
+  if (!path) return '';
+  
+  // Mapper les chemins vers les images importées
+  const imageMap: { [key: string]: string } = {
+    '/src/assets/bio-sample-1.jpg': bioSample1,
+    '/src/assets/bio-sample-2.jpg': bioSample2,
+    '/src/assets/portrait-sample-1.jpg': portraitSample1,
+    '/src/assets/portrait-sample-2.jpg': portraitSample2,
+    'bio-sample-1.jpg': bioSample1,
+    'bio-sample-2.jpg': bioSample2,
+    'portrait-sample-1.jpg': portraitSample1,
+    'portrait-sample-2.jpg': portraitSample2,
+  };
+  
+  // Vérifier si le chemin correspond à une image connue
+  if (imageMap[path]) return imageMap[path];
+  
+  // Vérifier si c'est un nom de fichier dans le chemin
+  const fileName = path.split('/').pop();
+  if (fileName && imageMap[fileName]) return imageMap[fileName];
+  
+  // Retourner le chemin tel quel pour les images buildées
+  return path;
+};
 
 const Review = () => {
   const { credits, deductCredits } = useCredits();
@@ -345,7 +376,7 @@ const Review = () => {
                   {/* Carrousel de photos - 70% de la hauteur */}
                   <div className="h-[70%]">
                     <CarouselProfile 
-                      images={currentProfile.images} 
+                      images={currentProfile.images.map(resolveImagePath)} 
                       profileId={currentProfile.id}
                       profileName={currentProfile.name}
                       onImageChange={setCurrentPhotoIndex}
@@ -376,7 +407,7 @@ const Review = () => {
               ) : (
                 <div className="h-full bg-muted rounded-xl overflow-hidden relative group">
                   <img 
-                    src={currentProfile?.images?.[0]} 
+                    src={resolveImagePath(currentProfile?.images?.[0])} 
                     alt={`Photo de ${currentProfile?.name}`}
                     className="w-full h-full object-cover"
                   />
